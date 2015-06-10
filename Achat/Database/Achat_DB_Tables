@@ -1,0 +1,117 @@
+
+**SITES**       --Pour les branches
+Name ------------  Null--------Type         
+------------------ -------- ------------ 
+SITEID-----------NOT NULL-----VARCHAR2(2)    (PK)
+DESCRIPTION-------------------VARCHAR2(20)	
+
+
+
+**CATEGORY** 
+Name-----------------Null-------Type         
+------------------ -------- ------------ 
+CATEGORY------------NOT NULL---VARCHAR2(4)   (PK)
+DESCRIPTION--------------------VARCHAR2(20)	
+
+
+**USERS**
+Name-----------------Null--------Type         
+------------------ -------- ------------ 
+USERID--------------NOT NULL---VARCHAR2(4)   (PK)
+DESCRIPTION--------------------VARCHAR2(20)    
+EMAIL--------------------------VARCHAR2(50)  
+PASSWORD-------------------VARCHAR(60)    
+STATUS--------------NOT NULL---VARCHAR2(1)    --Pour dire si ce user est activé ou arreté
+
+
+**Product**
+Name------------------Null------Type         
+------------------ -------- ------------ 
+BARCODE-------------NOT NULL----VARCHAR2(16)   (PK)  --On suppose qu'un seul barcode par produit
+DESCRIPTION---------NOT NULL----VARCHAR2(20) 
+TVA-----------------NOT NULL----NUMBER(10,3) 
+TVA_TYPE------------NOT NULL----VARCHAR2(1)  
+STATUS--------------NOT NULL----VARCHAR2(1) 
+CATEGORY------------------------VARCHAR2(4)     (FK)
+USERID--------------------------VARCHAR2(4)     (FK)
+
+
+**Supplier**
+Name-----------Null-------Type           
+------------ -------- -------------- 
+SUPPLIERID----NOT NULL---VARCHAR2(5)    (PK)
+DESCRIPTION---NOT NULL---VARCHAR2(20)
+TEL----------------------VARCHAR2(20)   
+E_MAIL-------------------VARCHAR2(50)   
+STATUS--------NOT NULL---VARCHAR2(1)       
+ADDRESS------------------VARCHAR2(100)    
+USERID-------------------VARCHAR2(4)    (FK)
+
+ 
+*Supplier_products*                            --On suppose qu'on peut acheter le meme produit de plusieurs supplier
+Name----------------Null------Type         
+----------------- -------- ------------ 
+BARCODE-------------NOT NULL---VARCHAR2(8)  (FK) (PK)
+SUPPLIERID--------NOT NULL---VARCHAR2(5)  (FK) (PK)
+USERID-----------------------VARCHAR2(4)  (FK) (PK)
+
+
+**Purchases**                               -- Pour la Demande des produits
+Name------------------Null-------Type         
+------------------- -------- ------------ 
+DOCID---------------NOT NULL----VARCHAR2(14) (PK)
+SITEID--------------NOT NULL----VARCHAR2(2)  (FK)
+TRSDATE-------------NOT NULL----DATE         
+BARCODE---------------NOT NULL----VARCHAR2(8)  (FK)
+SUPPLIERID----------------------VARCHAR2(5)  (FK)
+QTY-----------------NOT NULL----NUMBER(8)    
+USERID--------------NOT NULL----VARCHAR2(4)  (FK)
+
+**Recept**
+Name---------------Null-------Type         
+---------------- -------- ------------ 
+DOCID------------NOT NULL---VARCHAR2(14) (PK)
+SITEID----------------------VARCHAR2(2)  (FK)
+TRSDATE---------------------DATE         
+RELATED_DOCID---------------VARCHAR2(14)  (FK)
+INVOICE_DISCOUNT------------NUMBER(4,2)   
+
+**Recept_dtl**
+Name---------------Null------Type         
+---------------- -------- ------------ 
+DOCID------------NOT NULL----VARCHAR2(14)  (FK)
+BARCODE------------------------VARCHAR2(8)   (FK)
+QTY--------------------------NUMBER(11,2)  
+PURCHASE_PRICE---------------NUMBER(10,3) 
+ITEM_DISCOUNT----------------NUMBER(4,2)  
+
+**STK_PRD**       -- le stockage par produit
+Name------------------Null-------Type         
+------------ 		-------- ------------ 
+SITEID--------------NOT NULL----VARCHAR2(2)  (FK)
+BARCODE---------------NOT NULL----VARCHAR2(8)  (FK)
+QTY-----------------NOT NULL----INT(5)
+QTY_NOTIFICATION----NOT NULL----INT(5)
+
+**STK_TRS**      -- chaque transaction faite dans la base de donnee est sauvgardée
+Name-------------Null------Type         
+-------------- -------- ------------ 
+SITEID---------NOT NULL-----VARCHAR2(2)  
+DOCID----------NOT NULL-----VARCHAR2(14) 
+TRSDATE--------NOT NULL-----DATE         
+DOCTYPE--------NOT NULL-----VARCHAR2(1)  
+BARCODE----------NOT NULL-----VARCHAR2(8)  
+QTY------------NOT NULL-----INT(5)
+RELATED_DOCID---------------VARCHAR2(14) 
+TVA-------------------------NUMBER(10,3) 
+TVA_TYPE--------------------VARCHAR2(1)  
+SUPPLIERID -----------------VARCHAR2(5)  
+USERID---------NOT NULL-----VARCHAR2(4)  
+PURCHASE_PRICE--------------NUMBER(10,3) 
+
+
+ 
+         
+         
+  
+
