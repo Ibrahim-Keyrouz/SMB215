@@ -5,9 +5,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,12 +22,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 	static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 	Button bscan;
+	//Button btest;
 	Button b1;
+	Button bview;
 	EditText etBarcode;
 
 	@Override
@@ -40,6 +47,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		bscan.setOnClickListener(this);
 		b1 = (Button) findViewById(R.id.button1);
 		b1.setOnClickListener(this);
+		bview = (Button) findViewById(R.id.bView);
+		bview.setOnClickListener(this);
+		
+		//btest = (Button) findViewById(R.id.bTest);
+	//	btest.setOnClickListener(this);
 	}
 
 	public void scanBar(View v) {
@@ -109,16 +121,61 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
+		long b = 0;
+		SQLProducts entry = new SQLProducts(MainActivity.this);
 		if (requestCode == 0) {
 
 			if (resultCode == RESULT_OK) {
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				this.etBarcode.setText(contents);
+				
+				
 				Toast toast = Toast.makeText(this, "Content:" + contents
 						+ " Format:" + format, Toast.LENGTH_LONG);
 				toast.show();
+				
+				
+				
+				/// Here I insert/update the data in SQLite 
+				try {
+					//String vID = id.getText().toString();
+					//String vProd = product.getText().toString();
+					
+					//SQLProducts entry = new SQLProducts(MainActivity.this);
+					entry.open();
+					
+					 b = entry.createEntry( contents,"08",1,4);
+							 
+					entry.close();
+					}catch(Exception e) {
+						Dialog d = new Dialog(this);
+						d.setTitle("We have it");
+						TextView tv = new TextView(this);
+						tv.setText("not New Product");
+						d.setContentView(tv);
+						d.show();
+					}
+					finally {
+						if (b > 0){
+						Dialog d = new Dialog(this);
+						d.setTitle("Heck Yea");
+						TextView tv = new TextView(this);
+						tv.setText("New Product Created");
+						d.setContentView(tv);
+						d.show();
+					}else {
+					//	Dialog d = new Dialog(this);
+						//d.setTitle("Cannot Insert");
+						//TextView tv = new TextView(this);
+					///	tv.setText("It Exists !!!");
+					//	d.setContentView(tv);
+						//d.show();
+						entry.open();
+						entry.updateColumns(etBarcode.getText().toString());
+						entry.close();
+						}
+					}
 
 			}
 
@@ -138,6 +195,54 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 			new LongRunningGetIO().execute(); 
 			break;
+			
+		case R.id.bView :
+			Intent i = new Intent(MainActivity.this,SQLView.class);
+			startActivity(i);
+			break;
+			
+		/*case R.id.bTest :
+			long b = 0;
+			SQLProducts entry = new SQLProducts(MainActivity.this);
+			try {
+				//String vID = id.getText().toString();
+				//String vProd = product.getText().toString();
+				
+				//SQLProducts entry = new SQLProducts(MainActivity.this);
+				entry.open();
+				
+				 b = entry.createEntry( etBarcode.getText().toString(),"08",1,4);
+						 
+				entry.close();
+				}catch(Exception e) {
+					Dialog d = new Dialog(this);
+					d.setTitle("We have it");
+					TextView tv = new TextView(this);
+					tv.setText("not New Product");
+					d.setContentView(tv);
+					d.show();
+				}
+				finally {
+					if (b > 0){
+					Dialog d = new Dialog(this);
+					d.setTitle("Heck Yea");
+					TextView tv = new TextView(this);
+					tv.setText("New Product Created");
+					d.setContentView(tv);
+					d.show();
+				}else {
+				//	Dialog d = new Dialog(this);
+					//d.setTitle("Cannot Insert");
+					//TextView tv = new TextView(this);
+				///	tv.setText("It Exists !!!");
+				//	d.setContentView(tv);
+					//d.show();
+					entry.open();
+					entry.updateColumns(etBarcode.getText().toString());
+					entry.close();
+					}
+				}
+			break;*/
 		}
 
 	}
@@ -151,15 +256,42 @@ public class MainActivity extends Activity implements OnClickListener {
 		@Override
 		protected String doInBackground(Void... params) {
 			// TODO Auto-generated method stub
+			JSONObject jsonUser = new JSONObject();
+			
+			JSONObject jsonUser1 = new JSONObject();
+			JSONArray jsonOrderExtraDetailsList = new JSONArray();
+			try {
+				jsonUser.put("brand", "xx11");
+				jsonUser.put("info", "20");
+				jsonUser.put("year", 1990);
+				jsonUser1.put("brand", "xxw1");
+				jsonUser1.put("info", "20");
+				jsonUser1.put("year", 1990);
+				jsonOrderExtraDetailsList.put(jsonUser);
+				jsonOrderExtraDetailsList.put(jsonUser1);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			
 			HttpClient httpClient = new DefaultHttpClient();
 			try {
-			    HttpPost request = new HttpPost("http://192.168.1.110:8080/CarsWS/webresources/entities.cars");
-			    StringEntity params1 =new StringEntity("details={\"brand\":\"myname\",\"info\":\"20\",\"year\":1990} ");
-			    request.addHeader("content-type", "application/json");
+				
+			    HttpPost request = new HttpPost("http://192.168.1.115:8080/CarsWS/webresources/entities.cars");
+			  //  StringEntity params1 =new StringEntity("details= "+jsonUser.toString(), HTTP.UTF_8);
+			    
+			   StringEntity params1 =new StringEntity(jsonOrderExtraDetailsList.toString());
+			    System.out.println(jsonOrderExtraDetailsList.toString());
+			    request.addHeader("Content-Type", "application/json");
+			    request.setHeader("Accept", "application/json"); 
+			    request.setHeader("Content-Type", "application/json");
 			    request.setEntity(params1);
+			    
+			   
 			    HttpResponse response = httpClient.execute(request);
-
+			    
 			    // handle response here...
 			}catch (Exception ex) {
 			    // handle exception here

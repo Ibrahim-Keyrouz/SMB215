@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SQLView"
+            android:label="@string/title_activity_main">
+            
+        </activity>
     </application>
 
 </manifest>

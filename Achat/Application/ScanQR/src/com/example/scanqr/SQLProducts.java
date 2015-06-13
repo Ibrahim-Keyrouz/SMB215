@@ -25,7 +25,7 @@ public class SQLProducts {
 	
 	
 	//public static final String KEY_PRODUCT = "Description";
-	public static final String DATABASE_NAME = "PRODUCT_ADD";
+	public static final String DATABASE_NAME = "PRODUCT_ADD_TEST";
 	public static final String DATABASE_TABLE = "PRODUCT_ADD";
 	public static final int DATABASE_VERSION = 1;
 
@@ -74,7 +74,7 @@ public class SQLProducts {
 					}
 			
 				}
-
+				
 	public long createEntry(String vBarcode,String vSite,Integer vQty,Integer vQty_not) throws SQLException {
 		// TODO Auto-generated method stub
 		ContentValues cv = new ContentValues();
@@ -87,7 +87,7 @@ public class SQLProducts {
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
 	}
 
-	public List<String> getData() {
+	/*public List<String> getData() {
 		
 		int i = 0 ;
 		// TODO Auto-generated method stub
@@ -108,6 +108,23 @@ public class SQLProducts {
 			//result.set(i, c.getString(iRow));
 			result.add(c.getString(iRow));
 			i++;
+			
+		}
+		
+		return result;
+	}*/
+	
+	
+	public String getData() {
+		// TODO Auto-generated method stub
+		String[] columns = new String[] {KEY_BARCODE,KEY_QTY};
+		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
+		String result = "";
+		int iRow = c.getColumnIndex(KEY_BARCODE);
+		int iName = c.getColumnIndex(KEY_QTY);
+		
+		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
+			result = result +" "+ c.getString(iRow) +"          "+c.getString(iName)+"\n";
 			
 		}
 		
@@ -145,11 +162,11 @@ public class SQLProducts {
 		return null;
 	}
 
-	public long updateColumns(Integer vQty, String vBarcode)  throws SQLException {
+	public long updateColumns( String vBarcode)  throws SQLException {
 		// TODO Auto-generated method stub
 		ContentValues cv = new ContentValues();
 		
-		cv.put(KEY_QTY, getQty(vBarcode)+vQty);
+		cv.put(KEY_QTY, getQty(vBarcode)+1);
 	
 		return ourDatabase.update(DATABASE_TABLE, cv, KEY_BARCODE + "='" + vBarcode+"'", null);
 		

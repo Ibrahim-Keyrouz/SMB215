@@ -33,4 +33,14 @@
         android:layout_below="@+id/bScan"
         android:text="Transfer" />
 
+    <Button
+        android:id="@+id/bView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button1"
+        android:text="View Data" />
+
+  
+
 </RelativeLayout>
