@@ -1,0 +1,4 @@
+This project will be an android application that scans the barcodes of the products when they arrive from the supplier.
+When a barcode doesnt exist in the SQLite DB it will be inserted but when it exists the QTY is incremented by 1. 
+When the Reception from the Supplier is finished a button in the application will do the transfer to the database using a POST method from REST web service and when the transfer is finished 
+the SQLite DB will be emptied.
