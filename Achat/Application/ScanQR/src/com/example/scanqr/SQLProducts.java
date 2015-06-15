@@ -25,7 +25,7 @@ public class SQLProducts {
 	
 	
 	//public static final String KEY_PRODUCT = "Description";
-	public static final String DATABASE_NAME = "PRODUCT_ADD_TEST";
+	public static final String DATABASE_NAME = "PRODUCT_ADD_TEST1";
 	public static final String DATABASE_TABLE = "PRODUCT_ADD";
 	public static final int DATABASE_VERSION = 1;
 
@@ -117,7 +117,7 @@ public class SQLProducts {
 	
 	public String getData() {
 		// TODO Auto-generated method stub
-		String[] columns = new String[] {KEY_BARCODE,KEY_QTY};
+		String[] columns = new String[] {KEY_BARCODE,KEY_SITE,KEY_QTY,KEY_QTY_NOTIFICATION};
 		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
 		String result = "";
 		int iRow = c.getColumnIndex(KEY_BARCODE);
@@ -129,6 +129,23 @@ public class SQLProducts {
 		}
 		
 		return result;
+	}
+	
+	
+	public Cursor getDataCursor() {
+		// TODO Auto-generated method stub
+		String[] columns = new String[] {KEY_BARCODE,KEY_SITE,KEY_QTY,KEY_QTY_NOTIFICATION};
+		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
+		//String result = "";
+		//int iRow = c.getColumnIndex(KEY_BARCODE);
+		//int iName = c.getColumnIndex(KEY_QTY);
+		
+		//for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
+		//	result = result +" "+ c.getString(iRow) +"          "+c.getString(iName)+"\n";
+			
+		//}
+		
+		return c;
 	}
 	
 	public Integer getQty(String info)  throws SQLException {

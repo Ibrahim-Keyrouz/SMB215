@@ -1,5 +1,8 @@
 package com.example.scanqr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -15,6 +18,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +36,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button b1;
 	Button bview;
 	EditText etBarcode;
+	String contents;
+	int counter = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +132,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (requestCode == 0) {
 
 			if (resultCode == RESULT_OK) {
-				String contents = intent.getStringExtra("SCAN_RESULT");
+				contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				this.etBarcode.setText(contents);
 
@@ -136,7 +142,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				// / Here I insert/update the data in SQLite
 				try {
-					
+
 					entry.open();
 
 					b = entry.createEntry(contents, "08", 1, 4);
@@ -158,7 +164,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						d.setContentView(tv);
 						d.show();
 					} else {
-						
+
 						entry.open();
 						entry.updateColumns(etBarcode.getText().toString());
 						entry.close();
@@ -176,6 +182,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.bScan:
+
 			scanBar(v);
 			break;
 
@@ -189,7 +196,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(i);
 			break;
 
-		
 		}
 
 	}
@@ -199,28 +205,60 @@ public class MainActivity extends Activity implements OnClickListener {
 		@Override
 		protected String doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			JSONObject jsonUser = new JSONObject();
+			List<String[]> data = new ArrayList<String[]>();
+			String[] row;
 
+			JSONObject jsonUser = new JSONObject();
+			JSONObject jsonUser4 = new JSONObject();
 			JSONObject jsonUser1 = new JSONObject();
 			JSONObject jsonUser2 = new JSONObject();
 			JSONObject jsonUser3 = new JSONObject();
 			JSONArray jsonOrderExtraDetailsList = new JSONArray();
+
+			SQLProducts o = new SQLProducts(getBaseContext());
+			o.open();
+			Cursor c = o.getDataCursor();
+
+			for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+				row = new String[4];
+				for (int i = 0; i < 4; i++) {
+
+					row[i] = c.getString(i);
+					System.out.println(row[i]);
+
+				}
+
+				data.add(row);
+
+			}
+
+			o.close();
+
 			try {
-				//[{"product":{"barcode":"123546"} ,"qty":5,"qtyNotification":5,"sites":{"siteid":"09"},"stkPrdPK":{"barcode":"123546","siteid":"08"}}]
+				// [{"product":{"barcode":"123546"}
+				// ,"qty":5,"qtyNotification":5,"sites":{"siteid":"09"},"stkPrdPK":{"barcode":"123546","siteid":"08"}}]
 
-				jsonUser3.put("barcode", "123546");
-				jsonUser3.put("siteid", "08");
+				for (String[] rows : data) {
+					System.out.println(rows[0] + "," + rows[1] + "," + rows[2]
+							+ "," + rows[3]);
 
-				jsonUser2.put("siteid", "08");
-				jsonUser.put("barcode", "123546");
-				jsonUser1.put("product", jsonUser);
-				jsonUser1.put("qty", 5);
-				jsonUser1.put("qtyNotification", 5);
-				jsonUser1.put("sites", jsonUser2);
-				jsonUser1.put("stkPrdPK", jsonUser3);
+					jsonUser3.put("barcode", rows[0]);
+					jsonUser3.put("siteid", rows[1]);
 
-				jsonOrderExtraDetailsList.put(jsonUser1);
-				// jsonOrderExtraDetailsList.put(jsonUser1);
+					jsonUser2.put("siteid", rows[1]);
+					jsonUser.put("barcode", rows[0]);
+					jsonUser1.put("product", jsonUser);
+					jsonUser1.put("qty", rows[2]);
+					jsonUser1.put("qtyNotification", rows[3]);
+					jsonUser1.put("sites", jsonUser2);
+					jsonUser1.put("stkPrdPK", jsonUser3);
+
+					jsonOrderExtraDetailsList.put(jsonUser1);
+					jsonUser1 = new JSONObject();
+					jsonUser2 = new JSONObject();
+					jsonUser3 = new JSONObject();
+
+				}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -229,11 +267,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			HttpClient httpClient = new DefaultHttpClient();
 			try {
-				
+
 				HttpPost request = new HttpPost(
 						"http://192.168.0.102:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
-
-				
 
 				StringEntity params1 = new StringEntity(
 						jsonOrderExtraDetailsList.toString());
