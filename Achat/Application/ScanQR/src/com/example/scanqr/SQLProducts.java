@@ -189,11 +189,11 @@ public class SQLProducts {
 		
 	}
 
-	/*public long deleteColumns(String pID)  throws SQLException{
+	public long deleteColumns()  throws SQLException{
 		// TODO Auto-generated method stub
 		
-		return ourDatabase.delete(DATABASE_TABLE, KEY_ID + "='" + pID+"'", null);
+		return ourDatabase.delete(DATABASE_TABLE, null, null);
 		
-	}*/
+	}
 
 }
