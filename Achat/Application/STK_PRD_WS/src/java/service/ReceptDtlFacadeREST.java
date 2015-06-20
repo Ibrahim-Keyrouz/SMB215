@@ -5,10 +5,8 @@
  */
 package service;
 
-import entities.StkPrd;
-import entities.StkPrdPK;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Collection;
+import entities.ReceptDtl;
+import entities.ReceptDtlPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,24 +26,24 @@ import javax.ws.rs.core.PathSegment;
  * @author oracle
  */
 @Stateless
-@Path("entities.stkprd")
-public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
+@Path("entities.receptdtl")
+public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
     @PersistenceContext(unitName = "STK_PRD_WSPU")
     private EntityManager em;
 
-    private StkPrdPK getPrimaryKey(PathSegment pathSegment) {
+    private ReceptDtlPK getPrimaryKey(PathSegment pathSegment) {
         /*
          * pathSemgent represents a URI path segment and any associated matrix parameters.
-         * URI path part is supposed to be in form of 'somePath;siteid=siteidValue;barcode=barcodeValue'.
+         * URI path part is supposed to be in form of 'somePath;docid=docidValue;barcode=barcodeValue'.
          * Here 'somePath' is a result of getPath() method invocation and
          * it is ignored in the following code.
          * Matrix parameters are used as field names to build a primary key instance.
          */
-        entities.StkPrdPK key = new entities.StkPrdPK();
+        entities.ReceptDtlPK key = new entities.ReceptDtlPK();
         javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
-        java.util.List<String> siteid = map.get("siteid");
-        if (siteid != null && !siteid.isEmpty()) {
-            key.setSiteid(siteid.get(0));
+        java.util.List<String> docid = map.get("docid");
+        if (docid != null && !docid.isEmpty()) {
+            key.setDocid(docid.get(0));
         }
         java.util.List<String> barcode = map.get("barcode");
         if (barcode != null && !barcode.isEmpty()) {
@@ -54,51 +52,50 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
         return key;
     }
 
-    public StkPrdFacadeREST() {
-        super(StkPrd.class);
+    public ReceptDtlFacadeREST() {
+        super(ReceptDtl.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(StkPrd entity) {
+    public void create(ReceptDtl entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") PathSegment id, StkPrd entity) {
-        
+    public void edit(@PathParam("id") PathSegment id, ReceptDtl entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") PathSegment id) {
-        entities.StkPrdPK key = getPrimaryKey(id);
+        entities.ReceptDtlPK key = getPrimaryKey(id);
         super.remove(super.find(key));
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public StkPrd find(@PathParam("id") PathSegment id) {
-        entities.StkPrdPK key = getPrimaryKey(id);
+    public ReceptDtl find(@PathParam("id") PathSegment id) {
+        entities.ReceptDtlPK key = getPrimaryKey(id);
         return super.find(key);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<StkPrd> findAll() {
+    public List<ReceptDtl> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<StkPrd> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<ReceptDtl> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
@@ -114,40 +111,4 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
         return em;
     }
     
-    
-    
-   
-    
-    @POST
-    @Path("insrt")
-    @Consumes({ "application/json"})
-    //public void insert_array(List<Cars> entity) {
-     //   super.insert_array( entity);
-    public void insert_array(List<StkPrd> entity) {
-       // Cars a = entity[0];
-       // super.create(a);
-        em.getEntityManagerFactory().getCache().evictAll();
-        Collection<StkPrd> entities = entity;
-        for (StkPrd c : entities) {
-                StkPrd a = null ;
-                
-                a = super.find(c.getStkPrdPK());
-                
-                
-               if (a == null){
-                   create(c);
-                    
-        }
-                else{
-                    System.out.println(10);
-                c.setQty(c.getQty()+a.getQty());
-                     edit(c);
-                    
-                 }
-                
-               
-           
-       }
-        
-    }
 }

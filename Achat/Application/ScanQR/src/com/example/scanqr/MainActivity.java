@@ -269,7 +269,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			try {
 
 				HttpPost request = new HttpPost(
-						"http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
+						"http://192.168.0.100:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
 
 				StringEntity params1 = new StringEntity(
 						jsonOrderExtraDetailsList.toString());
@@ -278,6 +278,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				request.addHeader("Content-Type", "application/json");
 				request.setHeader("Accept", "application/json");
 				request.setHeader("Content-Type", "application/json");
+			
+				request.setHeader("Cache-Control","no-cache");
+				request.setHeader("Cache-Control", "no-store");
 				request.setEntity(params1);
 
 				HttpResponse response = httpClient.execute(request);
@@ -289,7 +292,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 			} finally {
 				httpClient.getConnectionManager().shutdown();
-				
+			
 				/// Delete all Sqlite Rows
 				
 				SQLProducts x = new SQLProducts(getBaseContext());

@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByTvaType", query = "SELECT p FROM Product p WHERE p.tvaType = :tvaType"),
     @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
 public class Product implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Collection<ReceptDtl> receptDtlCollection;
+    @OneToMany(mappedBy = "barcode")
+    private Collection<Purchases> purchasesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -178,6 +182,24 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "entities.Product[ barcode=" + barcode + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ReceptDtl> getReceptDtlCollection() {
+        return receptDtlCollection;
+    }
+
+    public void setReceptDtlCollection(Collection<ReceptDtl> receptDtlCollection) {
+        this.receptDtlCollection = receptDtlCollection;
+    }
+
+    @XmlTransient
+    public Collection<Purchases> getPurchasesCollection() {
+        return purchasesCollection;
+    }
+
+    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
+        this.purchasesCollection = purchasesCollection;
     }
     
 }
