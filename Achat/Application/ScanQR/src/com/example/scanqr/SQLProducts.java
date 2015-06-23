@@ -195,5 +195,13 @@ public class SQLProducts {
 		return ourDatabase.delete(DATABASE_TABLE, null, null);
 		
 	}
+	
+	
+	public long deleteColumn(String vBarcode)  throws SQLException{
+		// TODO Auto-generated method stub
+		
+		return ourDatabase.delete(DATABASE_TABLE, KEY_BARCODE + "='" + vBarcode+"'", null);
+		
+	}
 
 }

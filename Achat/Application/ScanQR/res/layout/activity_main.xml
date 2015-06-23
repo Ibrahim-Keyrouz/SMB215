@@ -12,18 +12,6 @@
         android:layout_alignParentTop="true"
         android:text="Scan" />
 
-    <EditText
-        android:id="@+id/etBarcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bScan"
-        android:layout_alignBottom="@+id/bScan"
-        android:layout_toRightOf="@+id/bScan"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -44,8 +32,45 @@
         android:id="@+id/bNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/bDelete"
         android:layout_below="@+id/bView"
+        android:layout_marginTop="46dp"
         android:text="Erase all Data" />
+
+    <EditText
+        android:id="@+id/etBarcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bDelete"
+        android:layout_below="@+id/bNew"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etBarcode"
+        android:layout_toRightOf="@+id/bScan"
+        android:text="Delete Product" />
+
+    <EditText
+        android:id="@+id/etPurchaseId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bDelete"
+        android:layout_toRightOf="@+id/bScan"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/bSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/bDelete"
+        android:layout_marginBottom="27dp"
+        android:text="Submit" />
 
 </RelativeLayout>

@@ -59,6 +59,15 @@ public class PurchasesFacadeREST extends AbstractFacade<Purchases> {
     public Purchases find(@PathParam("id") String id) {
         return super.find(id);
     }
+    
+     @GET
+    @Path("/boolean_find/{id}")
+    @Produces({"application/xml", "application/json"})
+    public boolean boolean_find(@PathParam("id") String id) {
+        Purchases a = super.find(id);
+        if (a==null) return false ;
+        else return true;
+    }
 
     @GET
     @Override

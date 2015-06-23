@@ -38,9 +38,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button bscan;
 	Button bnew;
 	// Button btest;
+	Button bdelete;
+	Button bsubmit;
 	Button b1;
 	Button bview;
 	EditText etBarcode;
+	EditText etpurchaseid;
 	String contents;
 	int counter = 0;
 
@@ -55,6 +58,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		bscan = (Button) findViewById(R.id.bScan);
 		etBarcode = (EditText) findViewById(R.id.etBarcode);
+		etpurchaseid = (EditText) findViewById(R.id.etPurchaseId);
 		bscan.setOnClickListener(this);
 		b1 = (Button) findViewById(R.id.button1);
 		b1.setOnClickListener(this);
@@ -63,8 +67,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		// btest = (Button) findViewById(R.id.bTest);
 		// btest.setOnClickListener(this);
+		bdelete = (Button) findViewById(R.id.bDelete);
+		bdelete.setOnClickListener(this);
 		bnew = (Button) findViewById(R.id.bNew);
 		bnew.setOnClickListener(this);
+		bsubmit = (Button) findViewById(R.id.bSubmit);
+		bsubmit.setOnClickListener(this);
 	}
 
 	public void scanBar(View v) {
@@ -210,6 +218,19 @@ public class MainActivity extends Activity implements OnClickListener {
 			x.close();
 
 			break;
+			
+		case R.id.bDelete :
+			SQLProducts y = new SQLProducts(getBaseContext());
+			y.open();
+			y.deleteColumn(etBarcode.getText().toString());
+			y.close();
+			break;
+			
+		case R.id.bSubmit :
+			
+			
+			break;
+			
 
 		}
 
@@ -288,7 +309,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			HttpResponse response;
 			try {
 				request = new HttpPost(
-						"http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
+						"http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
 
@@ -365,7 +386,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			httpClient = new DefaultHttpClient();
 			try {
 
-				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
+				request = new HttpPost("http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
 
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
@@ -381,7 +402,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				response = httpClient.execute(request);
 
 				httpClient = new DefaultHttpClient();
-				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
+				request = new HttpPost("http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
 
 				params1 = new StringEntity(
 						jsonOrderExtraDetailsList1.toString());

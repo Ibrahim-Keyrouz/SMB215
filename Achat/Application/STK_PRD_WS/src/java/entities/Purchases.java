@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Purchases.findByTrsdate", query = "SELECT p FROM Purchases p WHERE p.trsdate = :trsdate"),
     @NamedQuery(name = "Purchases.findByQty", query = "SELECT p FROM Purchases p WHERE p.qty = :qty")})
 public class Purchases implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchases")
+    private Collection<PurchasesDtl> purchasesDtlCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -160,6 +163,15 @@ public class Purchases implements Serializable {
     @Override
     public String toString() {
         return "entities.Purchases[ docid=" + docid + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PurchasesDtl> getPurchasesDtlCollection() {
+        return purchasesDtlCollection;
+    }
+
+    public void setPurchasesDtlCollection(Collection<PurchasesDtl> purchasesDtlCollection) {
+        this.purchasesDtlCollection = purchasesDtlCollection;
     }
     
 }
