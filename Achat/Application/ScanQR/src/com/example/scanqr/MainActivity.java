@@ -1,6 +1,10 @@
 package com.example.scanqr;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -32,6 +36,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 	static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 	Button bscan;
+	Button bnew;
 	// Button btest;
 	Button b1;
 	Button bview;
@@ -58,6 +63,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		// btest = (Button) findViewById(R.id.bTest);
 		// btest.setOnClickListener(this);
+		bnew = (Button) findViewById(R.id.bNew);
+		bnew.setOnClickListener(this);
 	}
 
 	public void scanBar(View v) {
@@ -196,6 +203,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(i);
 			break;
 
+		case R.id.bNew:
+			SQLProducts x = new SQLProducts(getBaseContext());
+			x.open();
+			x.deleteColumns();
+			x.close();
+
+			break;
+
 		}
 
 	}
@@ -209,11 +224,20 @@ public class MainActivity extends Activity implements OnClickListener {
 			String[] row;
 
 			JSONObject jsonUser = new JSONObject();
-			JSONObject jsonUser4 = new JSONObject();
 			JSONObject jsonUser1 = new JSONObject();
 			JSONObject jsonUser2 = new JSONObject();
 			JSONObject jsonUser3 = new JSONObject();
+			JSONObject jsonUser4 = new JSONObject();
+			JSONObject jsonUser5 = new JSONObject();
+			JSONObject jsonUser6 = new JSONObject();
+			JSONObject jsonUser7 = new JSONObject();
+
 			JSONArray jsonOrderExtraDetailsList = new JSONArray();
+			JSONArray jsonOrderExtraDetailsList1 = new JSONArray();
+
+			DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+			Date date = new Date();
+			String vDocid = "123456" + dateFormat.format(date);
 
 			SQLProducts o = new SQLProducts(getBaseContext());
 			o.open();
@@ -234,9 +258,62 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			o.close();
 
+			// To create a Recept Header
+
 			try {
-				// [{"product":{"barcode":"123546"}
-				// ,"qty":5,"qtyNotification":5,"sites":{"siteid":"09"},"stkPrdPK":{"barcode":"123546","siteid":"08"}}]
+				jsonUser1.put("siteid", "08");
+				jsonUser2.put("docid", "123456");
+				jsonUser3.put("docid", vDocid);
+				jsonUser3.put("invoiceDiscount", 0);
+				jsonUser3.put("relatedDocid", jsonUser2);
+				jsonUser3.put("siteid", jsonUser1);
+				// jsonUser5.put("trsdate",trsdateFormat.format(date1));
+				dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				date = new Date();
+				jsonUser3.put("trsdate", dateFormat.format(date)
+						+ "T00:00:00+03:00");
+
+				jsonOrderExtraDetailsList.put(jsonUser3);
+
+			}
+
+			catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost request;
+			StringEntity params1;
+			HttpResponse response;
+			try {
+				request = new HttpPost(
+						"http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
+				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
+				System.out.println(jsonOrderExtraDetailsList.toString());
+
+				request.addHeader("Content-Type", "application/json");
+				request.setHeader("Accept", "application/json");
+				request.setHeader("Content-Type", "application/json");
+
+				request.setHeader("Cache-Control", "no-cache");
+				request.setHeader("Cache-Control", "no-store");
+				request.setEntity(params1);
+
+				response = httpClient.execute(request);
+
+			} catch (Exception ex) {
+				// handle exception here
+			}
+
+			jsonUser1 = new JSONObject();
+			jsonUser2 = new JSONObject();
+			jsonUser3 = new JSONObject();
+
+			jsonOrderExtraDetailsList = new JSONArray();
+
+			try {
+				// to update the qty in stk_prd
 
 				for (String[] rows : data) {
 					System.out.println(rows[0] + "," + rows[1] + "," + rows[2]
@@ -258,6 +335,26 @@ public class MainActivity extends Activity implements OnClickListener {
 					jsonUser2 = new JSONObject();
 					jsonUser3 = new JSONObject();
 
+					// to insert in recept_dtl
+
+					jsonUser4.put("barcode", rows[0]);
+					jsonUser5.put("docid", vDocid);
+					jsonUser6.put("barcode", rows[0]);
+					jsonUser6.put("docid", vDocid);
+
+					jsonUser7.put("itemDiscount", 0);
+					jsonUser7.put("product", jsonUser4);
+					jsonUser7.put("purchasePrice", 0);
+					jsonUser7.put("qty", rows[2]);
+					jsonUser7.put("recept", jsonUser5);
+					jsonUser7.put("receptDtlPK", jsonUser6);
+
+					jsonOrderExtraDetailsList1.put(jsonUser7);
+					jsonUser4 = new JSONObject();
+					jsonUser5 = new JSONObject();
+					jsonUser6 = new JSONObject();
+					jsonUser7 = new JSONObject();
+
 				}
 
 			} catch (JSONException e) {
@@ -265,25 +362,40 @@ public class MainActivity extends Activity implements OnClickListener {
 				e.printStackTrace();
 			}
 
-			HttpClient httpClient = new DefaultHttpClient();
+			httpClient = new DefaultHttpClient();
 			try {
 
-				HttpPost request = new HttpPost(
-						"http://192.168.0.100:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
+				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
 
-				StringEntity params1 = new StringEntity(
-						jsonOrderExtraDetailsList.toString());
+				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
 
 				request.addHeader("Content-Type", "application/json");
 				request.setHeader("Accept", "application/json");
 				request.setHeader("Content-Type", "application/json");
-			
-				request.setHeader("Cache-Control","no-cache");
+
+				request.setHeader("Cache-Control", "no-cache");
 				request.setHeader("Cache-Control", "no-store");
 				request.setEntity(params1);
 
-				HttpResponse response = httpClient.execute(request);
+				response = httpClient.execute(request);
+
+				httpClient = new DefaultHttpClient();
+				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
+
+				params1 = new StringEntity(
+						jsonOrderExtraDetailsList1.toString());
+				System.out.println(jsonOrderExtraDetailsList1.toString());
+
+				request.addHeader("Content-Type", "application/json");
+				request.setHeader("Accept", "application/json");
+				request.setHeader("Content-Type", "application/json");
+
+				request.setHeader("Cache-Control", "no-cache");
+				request.setHeader("Cache-Control", "no-store");
+				request.setEntity(params1);
+
+				response = httpClient.execute(request);
 
 				// handle response here...
 			} catch (Exception ex) {
@@ -292,16 +404,14 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 			} finally {
 				httpClient.getConnectionManager().shutdown();
-			
-				/// Delete all Sqlite Rows
-				
+
+				// / Delete all Sqlite Rows
+
 				SQLProducts x = new SQLProducts(getBaseContext());
 				x.open();
 				x.deleteColumns();
 				x.close();
-				
-				
-				
+
 			}
 			return null;
 		}

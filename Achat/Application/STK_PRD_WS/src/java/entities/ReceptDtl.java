@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "RECEPT_DTL")
 @XmlRootElement
 @NamedQueries({

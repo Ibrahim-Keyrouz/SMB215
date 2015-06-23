@@ -7,6 +7,7 @@ package service;
 
 import entities.ReceptDtl;
 import entities.ReceptDtlPK;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -111,4 +112,21 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
         return em;
     }
     
+    
+      @POST
+    @Path("insrt_receptdtl")
+    @Consumes({ "application/json"})
+    //public void insert_array(List<Cars> entity) {
+     //   super.insert_array( entity);
+    public void insert_array(List<ReceptDtl> entity) {
+       // Cars a = entity[0];
+       // super.create(a);
+        Collection<ReceptDtl> entities = entity;
+        
+             for (ReceptDtl c : entities)   {
+                
+               
+                   create(c);    
+             }
+       }
 }
