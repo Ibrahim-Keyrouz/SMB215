@@ -7,7 +7,6 @@ package service;
 
 import entities.StkPrd;
 import entities.StkPrdPK;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -69,7 +68,6 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
     public void edit(@PathParam("id") PathSegment id, StkPrd entity) {
-        
         super.edit(entity);
     }
 
@@ -115,10 +113,7 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
     }
     
     
-    
-   
-    
-    @POST
+      @POST
     @Path("insrt")
     @Consumes({ "application/json"})
     //public void insert_array(List<Cars> entity) {

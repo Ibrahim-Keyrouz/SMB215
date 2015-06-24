@@ -8,6 +8,8 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "SUPPLIER")
 @XmlRootElement
 @NamedQueries({
@@ -65,6 +68,8 @@ public class Supplier implements Serializable {
     @Size(max = 100)
     @Column(name = "ADDRESS")
     private String address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
+    private Collection<SupplierProducts> supplierProductsCollection;
     @JoinColumn(name = "USERID", referencedColumnName = "USERID")
     @ManyToOne
     private UsersAchat userid;
@@ -130,6 +135,15 @@ public class Supplier implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @XmlTransient
+    public Collection<SupplierProducts> getSupplierProductsCollection() {
+        return supplierProductsCollection;
+    }
+
+    public void setSupplierProductsCollection(Collection<SupplierProducts> supplierProductsCollection) {
+        this.supplierProductsCollection = supplierProductsCollection;
     }
 
     public UsersAchat getUserid() {

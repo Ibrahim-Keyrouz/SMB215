@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "CATEGORY")
 @XmlRootElement
 @NamedQueries({

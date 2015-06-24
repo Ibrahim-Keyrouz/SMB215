@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "PRODUCT")
 @XmlRootElement
 @NamedQueries({
@@ -39,10 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByTvaType", query = "SELECT p FROM Product p WHERE p.tvaType = :tvaType"),
     @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
 public class Product implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private Collection<ReceptDtl> receptDtlCollection;
-    @OneToMany(mappedBy = "barcode")
-    private Collection<Purchases> purchasesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -72,6 +70,10 @@ public class Product implements Serializable {
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private Collection<StkPrd> stkPrdCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Collection<SupplierProducts> supplierProductsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private Collection<ReceptDtl> receptDtlCollection;
     @JoinColumn(name = "USERID", referencedColumnName = "USERID")
     @ManyToOne
     private UsersAchat userid;
@@ -143,6 +145,24 @@ public class Product implements Serializable {
         this.stkPrdCollection = stkPrdCollection;
     }
 
+    @XmlTransient
+    public Collection<SupplierProducts> getSupplierProductsCollection() {
+        return supplierProductsCollection;
+    }
+
+    public void setSupplierProductsCollection(Collection<SupplierProducts> supplierProductsCollection) {
+        this.supplierProductsCollection = supplierProductsCollection;
+    }
+
+    @XmlTransient
+    public Collection<ReceptDtl> getReceptDtlCollection() {
+        return receptDtlCollection;
+    }
+
+    public void setReceptDtlCollection(Collection<ReceptDtl> receptDtlCollection) {
+        this.receptDtlCollection = receptDtlCollection;
+    }
+
     public UsersAchat getUserid() {
         return userid;
     }
@@ -182,24 +202,6 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "entities.Product[ barcode=" + barcode + " ]";
-    }
-
-    @XmlTransient
-    public Collection<ReceptDtl> getReceptDtlCollection() {
-        return receptDtlCollection;
-    }
-
-    public void setReceptDtlCollection(Collection<ReceptDtl> receptDtlCollection) {
-        this.receptDtlCollection = receptDtlCollection;
-    }
-
-    @XmlTransient
-    public Collection<Purchases> getPurchasesCollection() {
-        return purchasesCollection;
-    }
-
-    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
-        this.purchasesCollection = purchasesCollection;
     }
     
 }

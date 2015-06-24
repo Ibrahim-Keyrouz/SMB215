@@ -38,6 +38,7 @@ public class ApplicationConfig extends Application {
         resources.add(service.SitesFacadeREST.class);
         resources.add(service.StkPrdFacadeREST.class);
         resources.add(service.SupplierFacadeREST.class);
+        resources.add(service.SupplierProductsFacadeREST.class);
         resources.add(service.UsersAchatFacadeREST.class);
     }
     

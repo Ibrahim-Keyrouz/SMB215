@@ -25,7 +25,7 @@ public class ReceptDtlPK implements Serializable {
     private String docid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 16)
     @Column(name = "BARCODE")
     private String barcode;
 

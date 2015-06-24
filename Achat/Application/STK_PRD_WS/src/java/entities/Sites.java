@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "SITES")
 @XmlRootElement
 @NamedQueries({
@@ -33,10 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sites.findBySiteid", query = "SELECT s FROM Sites s WHERE s.siteid = :siteid"),
     @NamedQuery(name = "Sites.findByDescription", query = "SELECT s FROM Sites s WHERE s.description = :description")})
 public class Sites implements Serializable {
-    @OneToMany(mappedBy = "siteid")
-    private Collection<Purchases> purchasesCollection;
-    @OneToMany(mappedBy = "siteid")
-    private Collection<Recept> receptCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -49,6 +47,10 @@ public class Sites implements Serializable {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sites")
     private Collection<StkPrd> stkPrdCollection;
+    @OneToMany(mappedBy = "siteid")
+    private Collection<Purchases> purchasesCollection;
+    @OneToMany(mappedBy = "siteid")
+    private Collection<Recept> receptCollection;
 
     public Sites() {
     }
@@ -82,6 +84,24 @@ public class Sites implements Serializable {
         this.stkPrdCollection = stkPrdCollection;
     }
 
+    @XmlTransient
+    public Collection<Purchases> getPurchasesCollection() {
+        return purchasesCollection;
+    }
+
+    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
+        this.purchasesCollection = purchasesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Recept> getReceptCollection() {
+        return receptCollection;
+    }
+
+    public void setReceptCollection(Collection<Recept> receptCollection) {
+        this.receptCollection = receptCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -105,24 +125,6 @@ public class Sites implements Serializable {
     @Override
     public String toString() {
         return "entities.Sites[ siteid=" + siteid + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Purchases> getPurchasesCollection() {
-        return purchasesCollection;
-    }
-
-    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
-        this.purchasesCollection = purchasesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Recept> getReceptCollection() {
-        return receptCollection;
-    }
-
-    public void setReceptCollection(Collection<Recept> receptCollection) {
-        this.receptCollection = receptCollection;
     }
     
 }

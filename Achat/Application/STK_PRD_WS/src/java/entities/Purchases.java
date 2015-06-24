@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,16 +32,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "PURCHASES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Purchases.findAll", query = "SELECT p FROM Purchases p"),
     @NamedQuery(name = "Purchases.findByDocid", query = "SELECT p FROM Purchases p WHERE p.docid = :docid"),
-    @NamedQuery(name = "Purchases.findByTrsdate", query = "SELECT p FROM Purchases p WHERE p.trsdate = :trsdate"),
-    @NamedQuery(name = "Purchases.findByQty", query = "SELECT p FROM Purchases p WHERE p.qty = :qty")})
+    @NamedQuery(name = "Purchases.findByTrsdate", query = "SELECT p FROM Purchases p WHERE p.trsdate = :trsdate")})
 public class Purchases implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchases")
-    private Collection<PurchasesDtl> purchasesDtlCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -51,8 +50,8 @@ public class Purchases implements Serializable {
     @Column(name = "TRSDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trsdate;
-    @Column(name = "QTY")
-    private Integer qty;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchases")
+    private Collection<PurchasesDtl> purchasesDtlCollection;
     @JoinColumn(name = "USERID", referencedColumnName = "USERID")
     @ManyToOne
     private UsersAchat userid;
@@ -62,9 +61,6 @@ public class Purchases implements Serializable {
     @JoinColumn(name = "SITEID", referencedColumnName = "SITEID")
     @ManyToOne
     private Sites siteid;
-    @JoinColumn(name = "BARCODE", referencedColumnName = "BARCODE")
-    @ManyToOne
-    private Product barcode;
     @OneToMany(mappedBy = "relatedDocid")
     private Collection<Recept> receptCollection;
 
@@ -91,12 +87,13 @@ public class Purchases implements Serializable {
         this.trsdate = trsdate;
     }
 
-    public Integer getQty() {
-        return qty;
+    @XmlTransient
+    public Collection<PurchasesDtl> getPurchasesDtlCollection() {
+        return purchasesDtlCollection;
     }
 
-    public void setQty(Integer qty) {
-        this.qty = qty;
+    public void setPurchasesDtlCollection(Collection<PurchasesDtl> purchasesDtlCollection) {
+        this.purchasesDtlCollection = purchasesDtlCollection;
     }
 
     public UsersAchat getUserid() {
@@ -121,14 +118,6 @@ public class Purchases implements Serializable {
 
     public void setSiteid(Sites siteid) {
         this.siteid = siteid;
-    }
-
-    public Product getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(Product barcode) {
-        this.barcode = barcode;
     }
 
     @XmlTransient
@@ -163,15 +152,6 @@ public class Purchases implements Serializable {
     @Override
     public String toString() {
         return "entities.Purchases[ docid=" + docid + " ]";
-    }
-
-    @XmlTransient
-    public Collection<PurchasesDtl> getPurchasesDtlCollection() {
-        return purchasesDtlCollection;
-    }
-
-    public void setPurchasesDtlCollection(Collection<PurchasesDtl> purchasesDtlCollection) {
-        this.purchasesDtlCollection = purchasesDtlCollection;
     }
     
 }

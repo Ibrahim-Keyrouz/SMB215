@@ -105,5 +105,4 @@ public class ReceptFacadeREST extends AbstractFacade<Recept> {
              }
        }
     
-    
 }

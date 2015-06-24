@@ -8,6 +8,8 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@Cacheable(false)
 @Table(name = "USERS_ACHAT")
 @XmlRootElement
 @NamedQueries({
@@ -35,10 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsersAchat.findByPassword", query = "SELECT u FROM UsersAchat u WHERE u.password = :password"),
     @NamedQuery(name = "UsersAchat.findByStatus", query = "SELECT u FROM UsersAchat u WHERE u.status = :status")})
 public class UsersAchat implements Serializable {
-    @OneToMany(mappedBy = "userid")
-    private Collection<Supplier> supplierCollection;
-    @OneToMany(mappedBy = "userid")
-    private Collection<Purchases> purchasesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,6 +60,12 @@ public class UsersAchat implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "STATUS")
     private String status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersAchat")
+    private Collection<SupplierProducts> supplierProductsCollection;
+    @OneToMany(mappedBy = "userid")
+    private Collection<Supplier> supplierCollection;
+    @OneToMany(mappedBy = "userid")
+    private Collection<Purchases> purchasesCollection;
     @OneToMany(mappedBy = "userid")
     private Collection<Product> productCollection;
 
@@ -117,6 +122,33 @@ public class UsersAchat implements Serializable {
     }
 
     @XmlTransient
+    public Collection<SupplierProducts> getSupplierProductsCollection() {
+        return supplierProductsCollection;
+    }
+
+    public void setSupplierProductsCollection(Collection<SupplierProducts> supplierProductsCollection) {
+        this.supplierProductsCollection = supplierProductsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Supplier> getSupplierCollection() {
+        return supplierCollection;
+    }
+
+    public void setSupplierCollection(Collection<Supplier> supplierCollection) {
+        this.supplierCollection = supplierCollection;
+    }
+
+    @XmlTransient
+    public Collection<Purchases> getPurchasesCollection() {
+        return purchasesCollection;
+    }
+
+    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
+        this.purchasesCollection = purchasesCollection;
+    }
+
+    @XmlTransient
     public Collection<Product> getProductCollection() {
         return productCollection;
     }
@@ -148,24 +180,6 @@ public class UsersAchat implements Serializable {
     @Override
     public String toString() {
         return "entities.UsersAchat[ userid=" + userid + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Supplier> getSupplierCollection() {
-        return supplierCollection;
-    }
-
-    public void setSupplierCollection(Collection<Supplier> supplierCollection) {
-        this.supplierCollection = supplierCollection;
-    }
-
-    @XmlTransient
-    public Collection<Purchases> getPurchasesCollection() {
-        return purchasesCollection;
-    }
-
-    public void setPurchasesCollection(Collection<Purchases> purchasesCollection) {
-        this.purchasesCollection = purchasesCollection;
     }
     
 }

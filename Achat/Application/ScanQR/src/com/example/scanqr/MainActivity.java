@@ -7,11 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -227,8 +230,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.bSubmit :
-			
-			
+			/*if (etpurchaseid == null ) {
+			HttpGet get = new HttpGet(url.toString());
+			HttpResponse r = client.execute(get);
+			int status = r.getStatusLine().getStatusCode();
+			if (status == 200) {
+				HttpEntity entity = r.getEntity();
+				String data = EntityUtils.toString(entity);
+				JSONArray timeline = new JSONArray(data);
+			}*/
 			break;
 			
 
@@ -308,8 +318,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			StringEntity params1;
 			HttpResponse response;
 			try {
+				
+				//http://localhost:8080/WEB-INF/webresources/entities.stkprd/insrt
 				request = new HttpPost(
-						"http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
+						"http://192.168.1.115:8080/WEB-INF/webresources/entities.recept/insrt_recept");
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
 
@@ -386,7 +398,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			httpClient = new DefaultHttpClient();
 			try {
 
-				request = new HttpPost("http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
+				request = new HttpPost("http://192.168.1.115:8080/WEB-INF/webresources/entities.stkprd/insrt");
 
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
@@ -402,7 +414,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				response = httpClient.execute(request);
 
 				httpClient = new DefaultHttpClient();
-				request = new HttpPost("http://192.168.0.104:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
+				request = new HttpPost("http://192.168.1.115:8080/WEB-INF/webresources/entities.receptdtl/insrt_receptdtl");
 
 				params1 = new StringEntity(
 						jsonOrderExtraDetailsList1.toString());
