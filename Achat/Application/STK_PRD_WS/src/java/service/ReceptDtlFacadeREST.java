@@ -88,7 +88,7 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
 
     @GET
     @Override
-    @Produces({"application/xml", "application/json"})
+    @Produces({ "application/json"})
     public List<ReceptDtl> findAll() {
         return super.findAll();
     }

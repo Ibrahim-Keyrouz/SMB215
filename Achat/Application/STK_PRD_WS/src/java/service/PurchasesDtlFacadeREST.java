@@ -51,6 +51,10 @@ public class PurchasesDtlFacadeREST extends AbstractFacade<PurchasesDtl> {
         }
         return key;
     }
+    
+    
+    
+     
 
     public PurchasesDtlFacadeREST() {
         super(PurchasesDtl.class);
@@ -79,15 +83,16 @@ public class PurchasesDtlFacadeREST extends AbstractFacade<PurchasesDtl> {
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({"application/json"})
     public PurchasesDtl find(@PathParam("id") PathSegment id) {
+        
         entities.PurchasesDtlPK key = getPrimaryKey(id);
         return super.find(key);
     }
 
     @GET
     @Override
-    @Produces({"application/xml", "application/json"})
+    @Produces( "application/json")
     public List<PurchasesDtl> findAll() {
         return super.findAll();
     }

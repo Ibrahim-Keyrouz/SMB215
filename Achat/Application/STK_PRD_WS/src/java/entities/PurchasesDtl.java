@@ -46,7 +46,8 @@ public class PurchasesDtl implements Serializable {
     public PurchasesDtl(PurchasesDtlPK purchasesDtlPK) {
         this.purchasesDtlPK = purchasesDtlPK;
     }
-
+    
+   
     public PurchasesDtl(String docid, String barcode) {
         this.purchasesDtlPK = new PurchasesDtlPK(docid, barcode);
     }

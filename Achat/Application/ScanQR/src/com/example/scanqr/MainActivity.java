@@ -1,14 +1,17 @@
 package com.example.scanqr;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -18,6 +21,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
+
+
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,6 +57,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	EditText etpurchaseid;
 	String contents;
 	int counter = 0;
+	JSONArray json;
+	List<String[]> rowList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -230,15 +240,16 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.bSubmit :
-			/*if (etpurchaseid == null ) {
-			HttpGet get = new HttpGet(url.toString());
-			HttpResponse r = client.execute(get);
-			int status = r.getStatusLine().getStatusCode();
-			if (status == 200) {
-				HttpEntity entity = r.getEntity();
-				String data = EntityUtils.toString(entity);
-				JSONArray timeline = new JSONArray(data);
-			}*/
+			
+			
+			if (!etpurchaseid.getText().toString().equals("") ) {
+				
+					new LongRunningGetIO_Submit().execute();
+					/*JSONObject last = json.getJSONObject(0);
+					System.out.println(last.get("itemDiscount"));*/
+			
+				
+			}
 			break;
 			
 
@@ -319,9 +330,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			HttpResponse response;
 			try {
 				
-				//http://localhost:8080/WEB-INF/webresources/entities.stkprd/insrt
+				//http://localhost:8080/STK_PRD_WS/webresources/entities.stkprd/insrt
 				request = new HttpPost(
-						"http://192.168.1.115:8080/WEB-INF/webresources/entities.recept/insrt_recept");
+						"http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
 
@@ -398,7 +409,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			httpClient = new DefaultHttpClient();
 			try {
 
-				request = new HttpPost("http://192.168.1.115:8080/WEB-INF/webresources/entities.stkprd/insrt");
+				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
 
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
@@ -414,7 +425,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				response = httpClient.execute(request);
 
 				httpClient = new DefaultHttpClient();
-				request = new HttpPost("http://192.168.1.115:8080/WEB-INF/webresources/entities.receptdtl/insrt_receptdtl");
+				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
 
 				params1 = new StringEntity(
 						jsonOrderExtraDetailsList1.toString());
@@ -450,5 +461,98 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	
+	
+	
+	class LongRunningGetIO_Submit extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			try {
+				 json = new JSONArray();
+				 rowList = new ArrayList<String[]>();
+				json = receptDtl_Id();
+				
+			//	System.out.println(json.toString());
+				for (int i = 0 ; i<json.length(); i++) {
+					
+				JSONObject row = json.getJSONObject(i);
+				
+				System.out.println(row.get("purchasesDtlPK"));
+				
+				JSONObject jsonPK = new JSONObject();
+				jsonPK = row.getJSONObject("purchasesDtlPK");
+				
+				if (jsonPK.get("docid").equals("123456")){
+					System.out.println(jsonPK.get("barcode"));
+					System.out.println(row.get("qty"));
+					rowList.add(new String[] {jsonPK.get("barcode").toString(), row.get("qty").toString() });
+				}
+				
+				}
+				
+				for (String[] row : rowList) {
+			        System.out.println("Row = " + Arrays.toString(row));
+			    } // prints:
+				/*for (int i = 0 ; i<json.length(); i++) {
+					
+					
+					last = json.getJSONObject(i);
+					
+				
+					
+					
+					
+					
+					//myCars.add(new Car(last.getString("brand"),last.getInt("year"),last.getString("info")));
+					 
+				}*/
+				
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+			
+		}
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	public JSONArray receptDtl_Id() throws ClientProtocolException,IOException,JSONException{
+		HttpClient client = new DefaultHttpClient();
+		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
+		StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.purchasesdtl/");
+		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
+		HttpGet get = new HttpGet(url.toString());
+	
+		HttpResponse r = client.execute(get);
+		
+		int status = r.getStatusLine().getStatusCode();
+		if (status == 200) {
+			HttpEntity entity = r.getEntity();
+			String data = EntityUtils.toString(entity);
+			JSONArray timeline = new JSONArray(data); // return all the result into a JSON Array
+			//JSONObject last = timeline.getJSONObject(0); // return the first record of the JSON Array 
+			return timeline;
+		}
+		Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT);
+		return null;
+	}
+	
+	
+	
 
 }

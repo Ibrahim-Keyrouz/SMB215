@@ -36,6 +36,11 @@ public class PurchasesDtlPK implements Serializable {
         this.docid = docid;
         this.barcode = barcode;
     }
+    
+      public PurchasesDtlPK(String docid) {
+        this.docid = docid;
+       // this.barcode = barcode;
+    }
 
     public String getDocid() {
         return docid;
