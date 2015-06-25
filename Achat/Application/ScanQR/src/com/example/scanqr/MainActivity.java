@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	int counter = 0;
 	JSONArray json;
 	List<String[]> rowList;
+	String wsUrl = "http://192.168.0.100:8080/STK_PRD_WS/webresources/";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		bnew.setOnClickListener(this);
 		bsubmit = (Button) findViewById(R.id.bSubmit);
 		bsubmit.setOnClickListener(this);
+		
+		bscan.setEnabled(false);
+		b1.setEnabled(false);
+		
+		
 	}
 
 	public void scanBar(View v) {
@@ -163,16 +169,31 @@ public class MainActivity extends Activity implements OnClickListener {
 				contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				this.etBarcode.setText(contents);
+				
+				
 
 				Toast toast = Toast.makeText(this, "Content:" + contents
 						+ " Format:" + format, Toast.LENGTH_LONG);
 				toast.show();
 
 				// / Here I insert/update the data in SQLite
+				entry.open();
+				
+				for (String[] row : rowList) {
+			        System.out.println("Row = " + Arrays.toString(row));
+			        if (row[0].equals(contents)){
+			        	//int vQty = entry.getQty(contents);
+			        	int vQty = 0;
+			        	if (Integer.parseInt(row[1]) > vQty){
+			        		
+			        	
+			        	
+			        
 				try {
 
-					entry.open();
-
+					
+					
+				       
 					b = entry.createEntry(contents, "08", 1, 4);
 
 					entry.close();
@@ -197,7 +218,12 @@ public class MainActivity extends Activity implements OnClickListener {
 						entry.updateColumns(etBarcode.getText().toString());
 						entry.close();
 					}
-				}
+					
+				}break;
+					
+			    
+			        }}}
+				//entry.close();
 
 			}
 
@@ -247,6 +273,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					new LongRunningGetIO_Submit().execute();
 					/*JSONObject last = json.getJSONObject(0);
 					System.out.println(last.get("itemDiscount"));*/
+					bscan.setEnabled(true);
+					b1.setEnabled(true);
 			
 				
 			}
@@ -332,7 +360,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				//http://localhost:8080/STK_PRD_WS/webresources/entities.stkprd/insrt
 				request = new HttpPost(
-						"http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.recept/insrt_recept");
+						wsUrl+"entities.recept/insrt_recept");
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
 
@@ -409,7 +437,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			httpClient = new DefaultHttpClient();
 			try {
 
-				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.stkprd/insrt");
+				request = new HttpPost(wsUrl+"entities.stkprd/insrt");
 
 				params1 = new StringEntity(jsonOrderExtraDetailsList.toString());
 				System.out.println(jsonOrderExtraDetailsList.toString());
@@ -425,7 +453,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				response = httpClient.execute(request);
 
 				httpClient = new DefaultHttpClient();
-				request = new HttpPost("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/insrt_receptdtl");
+				request = new HttpPost(wsUrl+"entities.receptdtl/insrt_receptdtl");
 
 				params1 = new StringEntity(
 						jsonOrderExtraDetailsList1.toString());
@@ -494,20 +522,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				for (String[] row : rowList) {
 			        System.out.println("Row = " + Arrays.toString(row));
-			    } // prints:
-				/*for (int i = 0 ; i<json.length(); i++) {
-					
-					
-					last = json.getJSONObject(i);
-					
-				
-					
-					
-					
-					
-					//myCars.add(new Car(last.getString("brand"),last.getInt("year"),last.getString("info")));
-					 
-				}*/
+			    } 
+			
 				
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
@@ -534,7 +550,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public JSONArray receptDtl_Id() throws ClientProtocolException,IOException,JSONException{
 		HttpClient client = new DefaultHttpClient();
 		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
-		StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.purchasesdtl/");
+		StringBuilder url = new StringBuilder(wsUrl+"entities.purchasesdtl/");
 		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
 		HttpGet get = new HttpGet(url.toString());
 	
@@ -548,7 +564,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			//JSONObject last = timeline.getJSONObject(0); // return the first record of the JSON Array 
 			return timeline;
 		}
-		Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT);
+		Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
 		return null;
 	}
 	

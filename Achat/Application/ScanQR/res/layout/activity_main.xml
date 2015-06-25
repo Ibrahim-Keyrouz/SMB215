@@ -4,73 +4,84 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <Button
-        android:id="@+id/bScan"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:text="Enter the Purchase ID :"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/bSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bView"
+        android:layout_alignRight="@+id/bView"
+        android:layout_below="@+id/etPurchaseId"
+        android:text="Submit" />
+
+    <EditText
+        android:id="@+id/etPurchaseId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="17dp"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/bDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Delete Product" />
+
+    <EditText
+        android:id="@+id/etBarcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bDelete"
+        android:layout_alignParentRight="true"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/bNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/bScan"
+        android:text="Erase all Data" />
+
+    <Button
+        android:id="@+id/bScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/etBarcode"
         android:text="Scan" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bScan"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/etPurchaseId"
         android:text="Transfer" />
 
     <Button
         android:id="@+id/bView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/button1"
+        android:layout_toLeftOf="@+id/button1"
         android:text="View Data" />
-
-    <Button
-        android:id="@+id/bNew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bDelete"
-        android:layout_below="@+id/bView"
-        android:layout_marginTop="46dp"
-        android:text="Erase all Data" />
-
-    <EditText
-        android:id="@+id/etBarcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bDelete"
-        android:layout_below="@+id/bNew"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/bDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etBarcode"
-        android:layout_toRightOf="@+id/bScan"
-        android:text="Delete Product" />
-
-    <EditText
-        android:id="@+id/etPurchaseId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bDelete"
-        android:layout_toRightOf="@+id/bScan"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/bSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/bDelete"
-        android:layout_marginBottom="27dp"
-        android:text="Submit" />
 
 </RelativeLayout>
