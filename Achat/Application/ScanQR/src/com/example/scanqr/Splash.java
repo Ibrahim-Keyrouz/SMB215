@@ -19,7 +19,7 @@ public class Splash extends Activity{
 		//SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		//boolean music = getPrefs.getBoolean("checkbox", true);
 		//if (music == true) {
-		ourSound = MediaPlayer.create(Splash.this,R.raw.file);
+		ourSound = MediaPlayer.create(Splash.this,R.raw.beep);
 		ourSound.start();
 	//	}
 		Thread timer = new Thread() {

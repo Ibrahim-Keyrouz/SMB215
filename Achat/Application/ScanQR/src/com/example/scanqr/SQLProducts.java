@@ -148,19 +148,23 @@ public class SQLProducts {
 		return c;
 	}
 	
-	public Integer getQty(String info)  throws SQLException {
+	public int getQty(String info)  throws SQLException {
 		// TODO Auto-generated method stub
+		try {
 		String[] columns = new String[] {KEY_QTY};
 		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, KEY_BARCODE + "='" + info+"'",null, null, null, null);
-		if (c != null ) {
-			c.moveToFirst();
+		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
 			
 			int iName = c.getColumnIndex(KEY_QTY);
 			
 			return c.getInt(iName);
 		}
 		
-		return null;
+		return 0;
+		
+		}catch(SQLException e) {
+			return 0;
+		}
 	}
 	
 

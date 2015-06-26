@@ -27,16 +27,22 @@ import org.json.JSONObject;
 
 
 
+
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -60,6 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	JSONArray json;
 	List<String[]> rowList;
 	String wsUrl = "http://192.168.0.100:8080/STK_PRD_WS/webresources/";
+	String site;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +97,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		bscan.setEnabled(false);
 		b1.setEnabled(false);
+		
+		SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		site = getPrefs.getString("Siteid", "09");
 		
 		
 	}
@@ -182,8 +192,10 @@ public class MainActivity extends Activity implements OnClickListener {
 				for (String[] row : rowList) {
 			        System.out.println("Row = " + Arrays.toString(row));
 			        if (row[0].equals(contents)){
-			        	//int vQty = entry.getQty(contents);
-			        	int vQty = 0;
+			        	int vQty = entry.getQty(contents);
+			        	entry.close();
+			        	//int vQty = 0;
+			        	
 			        	if (Integer.parseInt(row[1]) > vQty){
 			        		
 			        	
@@ -192,9 +204,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				try {
 
 					
-					
+					entry.open();
 				       
-					b = entry.createEntry(contents, "08", 1, 4);
+					b = entry.createEntry(contents, site, 1, 4);
 
 					entry.close();
 				} catch (Exception e) {
@@ -243,6 +255,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.button1:
 
 			new LongRunningGetIO().execute();
+			bsubmit.setEnabled(true);
 			break;
 
 		case R.id.bView:
@@ -255,6 +268,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			x.open();
 			x.deleteColumns();
 			x.close();
+			bsubmit.setEnabled(true);
 
 			break;
 			
@@ -275,6 +289,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					System.out.println(last.get("itemDiscount"));*/
 					bscan.setEnabled(true);
 					b1.setEnabled(true);
+					bsubmit.setEnabled(false);
 			
 				
 			}
@@ -307,7 +322,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
 			Date date = new Date();
-			String vDocid = "123456" + dateFormat.format(date);
+			String vDocid = etpurchaseid.getText().toString() + dateFormat.format(date);
 
 			SQLProducts o = new SQLProducts(getBaseContext());
 			o.open();
@@ -331,8 +346,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			// To create a Recept Header
 
 			try {
-				jsonUser1.put("siteid", "08");
-				jsonUser2.put("docid", "123456");
+				jsonUser1.put("siteid", site);
+				jsonUser2.put("docid", etpurchaseid.getText().toString());
 				jsonUser3.put("docid", vDocid);
 				jsonUser3.put("invoiceDiscount", 0);
 				jsonUser3.put("relatedDocid", jsonUser2);
@@ -512,7 +527,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				JSONObject jsonPK = new JSONObject();
 				jsonPK = row.getJSONObject("purchasesDtlPK");
 				
-				if (jsonPK.get("docid").equals("123456")){
+				if (jsonPK.get("docid").equals(etpurchaseid.getText().toString())){
 					System.out.println(jsonPK.get("barcode"));
 					System.out.println(row.get("qty"));
 					rowList.add(new String[] {jsonPK.get("barcode").toString(), row.get("qty").toString() });
@@ -567,6 +582,61 @@ public class MainActivity extends Activity implements OnClickListener {
 		Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
 		return null;
 	}
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+		// TODO Auto-generated method stub
+		 super.onCreateOptionsMenu(menu);
+		 
+		 MenuInflater blowUp = getMenuInflater();
+		 blowUp.inflate(R.menu.cool_menu, menu);
+		 return true ;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		 super.onOptionsItemSelected(item);
+		 switch(item.getItemId()) {
+		 case R.id.aboutUs :
+			 Class ourClass;
+			try {
+				ourClass = Class.forName("com.example.scanqr.AboutUs");
+				Intent ourIntent = new Intent(MainActivity.this,ourClass);
+				// Intent about = new Intent("com.example.bob.AboutUs");
+				 startActivity(ourIntent);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+			 break;
+			 
+		 case R.id.preferences :
+			 Class ourClass1;
+				try {
+			 ourClass1 = Class.forName("com.example.scanqr.Prefs");
+				Intent ourIntent = new Intent(MainActivity.this,ourClass1);
+				// Intent about = new Intent("com.example.bob.AboutUs");
+				 startActivity(ourIntent);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 break;
+			 
+		 case R.id.exit :
+			 finish();
+			 break;
+		 }
+		 
+		 return true;
+	}
+	
+	
+	
 	
 	
 	

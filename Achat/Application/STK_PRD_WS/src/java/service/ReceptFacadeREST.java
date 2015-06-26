@@ -99,8 +99,7 @@ public class ReceptFacadeREST extends AbstractFacade<Recept> {
         Collection<Recept> entities = entity;
         
              for (Recept c : entities)   {
-                
-               
+
                    create(c);    
              }
        }
