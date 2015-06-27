@@ -256,6 +256,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			new LongRunningGetIO().execute();
 			bsubmit.setEnabled(true);
+			etBarcode.setText("");
+			etpurchaseid.setText("");
+			bscan.setEnabled(false);
+			btransfer.setEnabled(false);
 			break;
 
 		case R.id.bView:
