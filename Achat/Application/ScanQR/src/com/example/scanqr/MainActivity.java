@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	// Button btest;
 	Button bdelete;
 	Button bsubmit;
-	Button b1;
+	Button btransfer;
 	Button bview;
 	EditText etBarcode;
 	EditText etpurchaseid;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	int counter = 0;
 	JSONArray json;
 	List<String[]> rowList;
-	String wsUrl = "http://192.168.0.100:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.0.101:8080/STK_PRD_WS/webresources/";
 	String site;
 
 	@Override
@@ -81,8 +81,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		etBarcode = (EditText) findViewById(R.id.etBarcode);
 		etpurchaseid = (EditText) findViewById(R.id.etPurchaseId);
 		bscan.setOnClickListener(this);
-		b1 = (Button) findViewById(R.id.button1);
-		b1.setOnClickListener(this);
+		btransfer = (Button) findViewById(R.id.bTransfer);
+		btransfer.setOnClickListener(this);
 		bview = (Button) findViewById(R.id.bView);
 		bview.setOnClickListener(this);
 
@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		bsubmit.setOnClickListener(this);
 		
 		bscan.setEnabled(false);
-		b1.setEnabled(false);
+		btransfer.setEnabled(false);
 		
 		SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		site = getPrefs.getString("Siteid", "09");
@@ -252,7 +252,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			scanBar(v);
 			break;
 
-		case R.id.button1:
+		case R.id.bTransfer:
 
 			new LongRunningGetIO().execute();
 			bsubmit.setEnabled(true);
@@ -284,14 +284,20 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			if (!etpurchaseid.getText().toString().equals("") ) {
 				
+				
+				
 					new LongRunningGetIO_Submit().execute();
 					/*JSONObject last = json.getJSONObject(0);
 					System.out.println(last.get("itemDiscount"));*/
 					bscan.setEnabled(true);
-					b1.setEnabled(true);
+					btransfer.setEnabled(true);
 					bsubmit.setEnabled(false);
 			
 				
+			}
+			else {
+				Toast.makeText(getBaseContext(), "Please Enter a Purchase ID",
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 			
@@ -522,22 +528,19 @@ public class MainActivity extends Activity implements OnClickListener {
 					
 				JSONObject row = json.getJSONObject(i);
 				
-				System.out.println(row.get("purchasesDtlPK"));
+				
 				
 				JSONObject jsonPK = new JSONObject();
 				jsonPK = row.getJSONObject("purchasesDtlPK");
 				
 				if (jsonPK.get("docid").equals(etpurchaseid.getText().toString())){
-					System.out.println(jsonPK.get("barcode"));
-					System.out.println(row.get("qty"));
+				
 					rowList.add(new String[] {jsonPK.get("barcode").toString(), row.get("qty").toString() });
 				}
 				
 				}
 				
-				for (String[] row : rowList) {
-			        System.out.println("Row = " + Arrays.toString(row));
-			    } 
+				
 			
 				
 			} catch (ClientProtocolException e) {

@@ -29,13 +29,14 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="17dp"
-        android:ems="10" />
+        android:ems="10" 
+        android:inputType="number" />
 
     <Button
         android:id="@+id/bDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignLeft="@+id/bTransfer"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Delete Product" />
@@ -46,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bDelete"
         android:layout_alignParentRight="true"
-        android:ems="10" />
+        android:layout_toRightOf="@+id/textView1"
+        android:ems="10"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/bNew"
@@ -54,21 +57,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/bScan"
+        android:layout_toLeftOf="@+id/bView"
         android:text="Erase all Data" />
 
     <Button
         android:id="@+id/bScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
+        android:layout_alignBaseline="@+id/bTransfer"
+        android:layout_alignBottom="@+id/bTransfer"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/etBarcode"
+        android:layout_toLeftOf="@+id/bView"
         android:text="Scan" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/bTransfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -80,8 +83,19 @@
         android:id="@+id/bView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_toLeftOf="@+id/button1"
+        android:layout_below="@+id/bTransfer"
+        android:layout_toLeftOf="@+id/bTransfer"
         android:text="View Data" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etBarcode"
+        android:layout_alignBottom="@+id/etBarcode"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_marginRight="30dp"
+        android:text="Enter Barcode :"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
