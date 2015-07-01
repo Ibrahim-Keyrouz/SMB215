@@ -55,7 +55,7 @@ public class PurchasesFacadeREST extends AbstractFacade<Purchases> {
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    @Produces({ "application/json"})
     public Purchases find(@PathParam("id") String id) {
         return super.find(id);
     }

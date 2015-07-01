@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Purchases.findAll", query = "SELECT p FROM Purchases p"),
     @NamedQuery(name = "Purchases.findByDocid", query = "SELECT p FROM Purchases p WHERE p.docid = :docid"),
-    @NamedQuery(name = "Purchases.findByTrsdate", query = "SELECT p FROM Purchases p WHERE p.trsdate = :trsdate")})
+    @NamedQuery(name = "Purchases.findByTrsdate", query = "SELECT p FROM Purchases p WHERE p.trsdate = :trsdate"),
+    @NamedQuery(name = "Purchases.findByDone", query = "SELECT p FROM Purchases p WHERE p.done = :done")})
 public class Purchases implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,6 +51,9 @@ public class Purchases implements Serializable {
     @Column(name = "TRSDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trsdate;
+    @Size(max = 1)
+    @Column(name = "DONE")
+    private String done;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchases")
     private Collection<PurchasesDtl> purchasesDtlCollection;
     @JoinColumn(name = "USERID", referencedColumnName = "USERID")
@@ -85,6 +89,13 @@ public class Purchases implements Serializable {
 
     public void setTrsdate(Date trsdate) {
         this.trsdate = trsdate;
+    }
+     public String getDone() {
+        return done;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
     }
 
     @XmlTransient

@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 
 
+
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -51,10 +53,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
+	int d = 0;
 	static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 	Button bscan;
 	Button bnew;
-	// Button btest;
+	 Button btest;
 	Button bdelete;
 	Button bsubmit;
 	Button btransfer;
@@ -86,8 +89,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		bview = (Button) findViewById(R.id.bView);
 		bview.setOnClickListener(this);
 
-		// btest = (Button) findViewById(R.id.bTest);
-		// btest.setOnClickListener(this);
+		 btest = (Button) findViewById(R.id.bTest);
+		 btest.setOnClickListener(this);
 		bdelete = (Button) findViewById(R.id.bDelete);
 		bdelete.setOnClickListener(this);
 		bnew = (Button) findViewById(R.id.bNew);
@@ -255,11 +258,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.bTransfer:
 
 			new LongRunningGetIO().execute();
-			bsubmit.setEnabled(true);
-			etBarcode.setText("");
-			etpurchaseid.setText("");
-			bscan.setEnabled(false);
-			btransfer.setEnabled(false);
+			
 			break;
 
 		case R.id.bView:
@@ -291,11 +290,11 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				
 					new LongRunningGetIO_Submit().execute();
+					System.out.println(d);
+					
 					/*JSONObject last = json.getJSONObject(0);
 					System.out.println(last.get("itemDiscount"));*/
-					bscan.setEnabled(true);
-					btransfer.setEnabled(true);
-					bsubmit.setEnabled(false);
+					
 			
 				
 			}
@@ -303,14 +302,41 @@ public class MainActivity extends Activity implements OnClickListener {
 				Toast.makeText(getBaseContext(), "Please Enter a Purchase ID",
 						Toast.LENGTH_SHORT).show();
 			}
+		
 			break;
+		
+		case R.id.bTest :
+			SQLProducts entry = new SQLProducts(MainActivity.this);
+			entry.open();
+		       
+			long b = entry.createEntry(contents, site, 1, 4);
+
+			entry.close();
+			
+			break;
+			
 			
 
 		}
+		
+		
 
 	}
 
 	class LongRunningGetIO extends AsyncTask<Void, Void, String> {
+		
+		
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			bsubmit.setEnabled(true);
+			etBarcode.setText("");
+			etpurchaseid.setText("");
+			bscan.setEnabled(false);
+			btransfer.setEnabled(false);
+		}
 
 		@Override
 		protected String doInBackground(Void... params) {
@@ -520,14 +546,31 @@ public class MainActivity extends Activity implements OnClickListener {
 	class LongRunningGetIO_Submit extends AsyncTask<Void, Void, String> {
 
 		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if (d==1){
+				System.out.println("chou");
+				bscan.setEnabled(true);
+				btransfer.setEnabled(true);
+				bsubmit.setEnabled(false);
+			}
+		}
+
+		@Override
 		protected String doInBackground(Void... params) {
+			d = 0 ;
 			
 			try {
 				 json = new JSONArray();
 				 rowList = new ArrayList<String[]>();
 				json = receptDtl_Id();
 				
-			//	System.out.println(json.toString());
+				
+				if (json != null) {
+					System.out.println("bob");
+					d = 1 ;
+				
 				for (int i = 0 ; i<json.length(); i++) {
 					
 				JSONObject row = json.getJSONObject(i);
@@ -543,8 +586,11 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 				
 				}
+				/*bscan.setEnabled(true);
+				btransfer.setEnabled(true);
+				bsubmit.setEnabled(false);*/
 				
-				
+				}
 			
 				
 			} catch (ClientProtocolException e) {
@@ -560,6 +606,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			return null;
 			
 		}
+		
+		
+		
 		}
 	
 	
@@ -570,23 +619,59 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	
 	public JSONArray receptDtl_Id() throws ClientProtocolException,IOException,JSONException{
+		//Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+		String vDone = null;
 		HttpClient client = new DefaultHttpClient();
-		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
-		StringBuilder url = new StringBuilder(wsUrl+"entities.purchasesdtl/");
-		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
+		StringBuilder url = new StringBuilder(wsUrl+"entities.purchases/"+etpurchaseid.getText().toString());
 		HttpGet get = new HttpGet(url.toString());
-	
 		HttpResponse r = client.execute(get);
 		
 		int status = r.getStatusLine().getStatusCode();
 		if (status == 200) {
 			HttpEntity entity = r.getEntity();
 			String data = EntityUtils.toString(entity);
+			//System.out.println(2);
+			JSONObject last = new JSONObject(data);
+			//JSONArray timeline = new JSONArray(data); // return all the result into a JSON Array
+			//System.out.println(3);
+			//JSONObject last = timeline.getJSONObject(0); // return the first record of the JSON Array
+			System.out.println(4);
+			vDone = last.getString("done");
+			//Toast.makeText(MainActivity.this, "This Purchase ID is "+ vDone, Toast.LENGTH_SHORT).show();
+			
+		}
+				
+
+		if (vDone.equals("N")) {
+			
+			System.out.println(5);
+		
+		 client = new DefaultHttpClient();
+		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
+		 url = new StringBuilder(wsUrl+"entities.purchasesdtl/");
+		//StringBuilder url = new StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
+		 get = new HttpGet(url.toString());
+	
+		 r = client.execute(get);
+		
+		 status = r.getStatusLine().getStatusCode();
+		if (status == 200) {
+			HttpEntity entity = r.getEntity();
+			String data = EntityUtils.toString(entity);
 			JSONArray timeline = new JSONArray(data); // return all the result into a JSON Array
 			//JSONObject last = timeline.getJSONObject(0); // return the first record of the JSON Array 
+			
 			return timeline;
 		}
-		Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+		
+		}
+		
+		else {
+		//	Toast.makeText(MainActivity.this, "This Purchase ID is Done", Toast.LENGTH_SHORT).show();
+		//	System.out.println(1);
+			
+		}
+		//Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
 		return null;
 	}
 	
