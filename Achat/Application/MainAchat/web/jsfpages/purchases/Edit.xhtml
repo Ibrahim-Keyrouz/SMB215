@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchasesEditDlg" widgetVar="PurchasesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPurchasesTitle}">
+            <h:form id="PurchasesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchasesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_docid}" for="docid" />
+                        <p:inputText id="docid" value="#{purchasesController.selected.docid}" title="#{bundle.EditPurchasesTitle_docid}" required="true" requiredMessage="#{bundle.EditPurchasesRequiredMessage_docid}"/>
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_trsdate}" for="trsdate" />
+                        <p:calendar id="trsdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_done}" for="done" />
+                        <p:inputText id="done" value="#{purchasesController.selected.done}" title="#{bundle.EditPurchasesTitle_done}" />
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_userid}" for="userid" />
+                        <p:selectOneMenu id="userid" value="#{purchasesController.selected.userid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
+                                           var="useridItem"
+                                           itemValue="#{useridItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_supplierid}" for="supplierid" />
+                        <p:selectOneMenu id="supplierid" value="#{purchasesController.selected.supplierid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{supplierController.itemsAvailableSelectOne}"
+                                           var="supplieridItem"
+                                           itemValue="#{supplieridItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPurchasesLabel_siteid}" for="siteid" />
+                        <p:selectOneMenu id="siteid" value="#{purchasesController.selected.siteid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                                           var="siteidItem"
+                                           itemValue="#{siteidItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{purchasesController.update}" value="#{bundle.Save}" update="display,:PurchasesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PurchasesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PurchasesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

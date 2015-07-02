@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductViewDlg" widgetVar="ProductViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductTitle}">
+            <h:form id="ProductViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProductLabel_barcode}"/>
+                        <h:outputText value="#{productController.selected.barcode}" title="#{bundle.ViewProductTitle_barcode}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_description}"/>
+                        <h:outputText value="#{productController.selected.description}" title="#{bundle.ViewProductTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_tva}"/>
+                        <h:outputText value="#{productController.selected.tva}" title="#{bundle.ViewProductTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_tvaType}"/>
+                        <h:outputText value="#{productController.selected.tvaType}" title="#{bundle.ViewProductTitle_tvaType}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_status}"/>
+                        <h:outputText value="#{productController.selected.status}" title="#{bundle.ViewProductTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_userid}"/>
+                        <h:outputText value="#{productController.selected.userid}" title="#{bundle.ViewProductTitle_userid}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_category}"/>
+                        <h:outputText value="#{productController.selected.category}" title="#{bundle.ViewProductTitle_category}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProductViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

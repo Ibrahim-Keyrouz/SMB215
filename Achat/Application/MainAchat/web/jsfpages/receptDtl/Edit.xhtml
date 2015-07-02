@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReceptDtlEditDlg" widgetVar="ReceptDtlEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditReceptDtlTitle}">
+            <h:form id="ReceptDtlEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{receptDtlController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditReceptDtlLabel_qty}" for="qty" />
+                        <p:inputText id="qty" value="#{receptDtlController.selected.qty}" title="#{bundle.EditReceptDtlTitle_qty}" />
+                        <p:outputLabel value="#{bundle.EditReceptDtlLabel_purchasePrice}" for="purchasePrice" />
+                        <p:inputText id="purchasePrice" value="#{receptDtlController.selected.purchasePrice}" title="#{bundle.EditReceptDtlTitle_purchasePrice}" />
+                        <p:outputLabel value="#{bundle.EditReceptDtlLabel_itemDiscount}" for="itemDiscount" />
+                        <p:inputText id="itemDiscount" value="#{receptDtlController.selected.itemDiscount}" title="#{bundle.EditReceptDtlTitle_itemDiscount}" />
+                        <p:outputLabel value="#{bundle.EditReceptDtlLabel_recept}" for="recept" />
+                        <p:selectOneMenu id="recept" value="#{receptDtlController.selected.recept}" required="true" requiredMessage="#{bundle.EditReceptDtlRequiredMessage_recept}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{receptController.itemsAvailableSelectOne}"
+                                           var="receptItem"
+                                           itemValue="#{receptItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditReceptDtlLabel_product}" for="product" />
+                        <p:selectOneMenu id="product" value="#{receptDtlController.selected.product}" required="true" requiredMessage="#{bundle.EditReceptDtlRequiredMessage_product}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productController.itemsAvailableSelectOne}"
+                                           var="productItem"
+                                           itemValue="#{productItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{receptDtlController.update}" value="#{bundle.Save}" update="display,:ReceptDtlListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReceptDtlEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReceptDtlEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

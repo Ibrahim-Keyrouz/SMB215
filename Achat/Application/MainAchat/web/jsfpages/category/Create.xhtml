@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CategoryCreateDlg" widgetVar="CategoryCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCategoryTitle}">
+            <h:form id="CategoryCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCategoryLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{categoryController.selected.category}" title="#{bundle.CreateCategoryTitle_category}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_category}"/>
+                        <p:outputLabel value="#{bundle.CreateCategoryLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{categoryController.selected.description}" title="#{bundle.CreateCategoryTitle_description}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{categoryController.create}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:growl" oncomplete="handleSubmit(args,'CategoryCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CategoryCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

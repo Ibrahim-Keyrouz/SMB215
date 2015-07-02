@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersAchatCreateDlg" widgetVar="UsersAchatCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsersAchatTitle}">
+            <h:form id="UsersAchatCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usersAchatController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_userid}" for="userid" />
+                        <p:inputText id="userid" value="#{usersAchatController.selected.userid}" title="#{bundle.CreateUsersAchatTitle_userid}" required="true" requiredMessage="#{bundle.CreateUsersAchatRequiredMessage_userid}"/>
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usersAchatController.selected.email}" title="#{bundle.CreateUsersAchatTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersAchatController.selected.password}" title="#{bundle.CreateUsersAchatTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{usersAchatController.selected.status}" title="#{bundle.CreateUsersAchatTitle_status}" required="true" requiredMessage="#{bundle.CreateUsersAchatRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_description}" for="description" />
+                        <p:selectOneMenu id="description" value="#{usersAchatController.selected.description}" >
+                            <f:selectItems value="#{groupsAchatController.itemsAvailableSelectOne}"
+                                           var="descriptionItem"
+                                           itemValue="#{descriptionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usersAchatController.create}" value="#{bundle.Save}" update="display,:UsersAchatListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsersAchatCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsersAchatCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

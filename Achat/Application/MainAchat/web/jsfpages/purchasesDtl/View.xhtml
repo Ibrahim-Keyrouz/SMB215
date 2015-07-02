@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchasesDtlViewDlg" widgetVar="PurchasesDtlViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPurchasesDtlTitle}">
+            <h:form id="PurchasesDtlViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchasesDtlController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPurchasesDtlLabel_purchasesDtlPK_barcode}"/>
+                        <h:outputText value="#{purchasesDtlController.selected.purchasesDtlPK.barcode}" title="#{bundle.ViewPurchasesDtlTitle_purchasesDtlPK_barcode}"/>
+                        <h:outputText value="#{bundle.ViewPurchasesDtlLabel_qty}"/>
+                        <h:outputText value="#{purchasesDtlController.selected.qty}" title="#{bundle.ViewPurchasesDtlTitle_qty}"/>
+                        <h:outputText value="#{bundle.ViewPurchasesDtlLabel_purchases}"/>
+                        <h:outputText value="#{purchasesDtlController.selected.purchases}" title="#{bundle.ViewPurchasesDtlTitle_purchases}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PurchasesDtlViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

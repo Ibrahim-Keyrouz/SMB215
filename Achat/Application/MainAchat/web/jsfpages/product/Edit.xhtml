@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductEditDlg" widgetVar="ProductEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProductTitle}">
+            <h:form id="ProductEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProductLabel_barcode}" for="barcode" />
+                        <p:inputText id="barcode" value="#{productController.selected.barcode}" title="#{bundle.EditProductTitle_barcode}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_barcode}"/>
+                        <p:outputLabel value="#{bundle.EditProductLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{productController.selected.description}" title="#{bundle.EditProductTitle_description}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_description}"/>
+                        <p:outputLabel value="#{bundle.EditProductLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{productController.selected.tva}" title="#{bundle.EditProductTitle_tva}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_tva}"/>
+                        <p:outputLabel value="#{bundle.EditProductLabel_tvaType}" for="tvaType" />
+                        <p:inputText id="tvaType" value="#{productController.selected.tvaType}" title="#{bundle.EditProductTitle_tvaType}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_tvaType}"/>
+                        <p:outputLabel value="#{bundle.EditProductLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{productController.selected.status}" title="#{bundle.EditProductTitle_status}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.EditProductLabel_userid}" for="userid" />
+                        <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
+                                           var="useridItem"
+                                           itemValue="#{useridItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProductLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{productController.selected.category}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
+                                           var="categoryItem"
+                                           itemValue="#{categoryItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productController.update}" value="#{bundle.Save}" update="display,:ProductListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

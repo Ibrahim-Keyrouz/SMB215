@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductCreateDlg" widgetVar="ProductCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductTitle}">
+            <h:form id="ProductCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProductLabel_barcode}" for="barcode" />
+                        <p:inputText id="barcode" value="#{productController.selected.barcode}" title="#{bundle.CreateProductTitle_barcode}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_barcode}"/>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_description}"/>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{productController.selected.tva}" title="#{bundle.CreateProductTitle_tva}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tva}"/>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_tvaType}" for="tvaType" />
+                        <p:inputText id="tvaType" value="#{productController.selected.tvaType}" title="#{bundle.CreateProductTitle_tvaType}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tvaType}"/>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{productController.selected.status}" title="#{bundle.CreateProductTitle_status}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_userid}" for="userid" />
+                        <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
+                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
+                                           var="useridItem"
+                                           itemValue="#{useridItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProductLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{productController.selected.category}" >
+                            <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
+                                           var="categoryItem"
+                                           itemValue="#{categoryItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productController.create}" value="#{bundle.Save}" update="display,:ProductListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                <h:form id="menuForm">
+                    <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Maintenance}">
+                            <p:menuitem value="Category" outcome="/jsfpages/category/List.xhtml" />
+                            <p:menuitem value="GroupsAchat" outcome="/jsfpages/groupsAchat/List.xhtml" />
+                            <p:menuitem value="Product" outcome="/jsfpages/product/List.xhtml" />
+                            <p:menuitem value="Purchases" outcome="/jsfpages/purchases/List.xhtml" />
+                            <p:menuitem value="PurchasesDtl" outcome="/jsfpages/purchasesDtl/List.xhtml" />
+                            <p:menuitem value="Recept" outcome="/jsfpages/recept/List.xhtml" />
+                            <p:menuitem value="ReceptDtl" outcome="/jsfpages/receptDtl/List.xhtml" />
+                            <p:menuitem value="Sites" outcome="/jsfpages/sites/List.xhtml" />
+                            <p:menuitem value="StkPrd" outcome="/jsfpages/stkPrd/List.xhtml" />
+                            <p:menuitem value="Supplier" outcome="/jsfpages/supplier/List.xhtml" />
+                            <p:menuitem value="SupplierProducts" outcome="/jsfpages/supplierProducts/List.xhtml" />
+                            <p:menuitem value="UsersAchat" outcome="/jsfpages/usersAchat/List.xhtml" />
+                        </p:submenu>
+                    </p:menubar>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="60">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

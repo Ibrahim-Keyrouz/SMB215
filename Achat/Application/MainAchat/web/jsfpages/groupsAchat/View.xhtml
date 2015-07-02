@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GroupsAchatViewDlg" widgetVar="GroupsAchatViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGroupsAchatTitle}">
+            <h:form id="GroupsAchatViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{groupsAchatController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGroupsAchatLabel_groupid}"/>
+                        <h:outputText value="#{groupsAchatController.selected.groupid}" title="#{bundle.ViewGroupsAchatTitle_groupid}"/>
+                        <h:outputText value="#{bundle.ViewGroupsAchatLabel_description}"/>
+                        <h:outputText value="#{groupsAchatController.selected.description}" title="#{bundle.ViewGroupsAchatTitle_description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GroupsAchatViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

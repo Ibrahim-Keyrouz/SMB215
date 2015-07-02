@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SupplierCreateDlg" widgetVar="SupplierCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSupplierTitle}">
+            <h:form id="SupplierCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_supplierid}" for="supplierid" />
+                        <p:inputText id="supplierid" value="#{supplierController.selected.supplierid}" title="#{bundle.CreateSupplierTitle_supplierid}" required="true" requiredMessage="#{bundle.CreateSupplierRequiredMessage_supplierid}"/>
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{supplierController.selected.description}" title="#{bundle.CreateSupplierTitle_description}" required="true" requiredMessage="#{bundle.CreateSupplierRequiredMessage_description}"/>
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{supplierController.selected.tel}" title="#{bundle.CreateSupplierTitle_tel}" />
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{supplierController.selected.email}" title="#{bundle.CreateSupplierTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{supplierController.selected.status}" title="#{bundle.CreateSupplierTitle_status}" required="true" requiredMessage="#{bundle.CreateSupplierRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{supplierController.selected.address}" title="#{bundle.CreateSupplierTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateSupplierLabel_userid}" for="userid" />
+                        <p:selectOneMenu id="userid" value="#{supplierController.selected.userid}" >
+                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
+                                           var="useridItem"
+                                           itemValue="#{useridItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{supplierController.create}" value="#{bundle.Save}" update="display,:SupplierListForm:datalist,:growl" oncomplete="handleSubmit(args,'SupplierCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SupplierCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -119,6 +119,7 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
     //public void insert_array(List<Cars> entity) {
      //   super.insert_array( entity);
     public void insert_array(List<ReceptDtl> entity) {
+        em.getEntityManagerFactory().getCache().evictAll();
        // Cars a = entity[0];
        // super.create(a);
         Collection<ReceptDtl> entities = entity;

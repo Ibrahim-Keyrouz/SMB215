@@ -96,6 +96,7 @@ public class ReceptFacadeREST extends AbstractFacade<Recept> {
     public void insert_array(List<Recept> entity) {
        // Cars a = entity[0];
        // super.create(a);
+        em.getEntityManagerFactory().getCache().evictAll();
         Collection<Recept> entities = entity;
         
              for (Recept c : entities)   {

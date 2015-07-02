@@ -42,7 +42,7 @@ public class PurchasesFacadeREST extends AbstractFacade<Purchases> {
 
     @PUT
     @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({ "application/json"})
     public void edit(@PathParam("id") String id, Purchases entity) {
         super.edit(entity);
     }
@@ -85,5 +85,7 @@ public class PurchasesFacadeREST extends AbstractFacade<Purchases> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+ 
     
 }

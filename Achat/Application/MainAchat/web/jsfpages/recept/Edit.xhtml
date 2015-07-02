@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReceptEditDlg" widgetVar="ReceptEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditReceptTitle}">
+            <h:form id="ReceptEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{receptController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditReceptLabel_docid}" for="docid" />
+                        <p:inputText id="docid" value="#{receptController.selected.docid}" title="#{bundle.EditReceptTitle_docid}" required="true" requiredMessage="#{bundle.EditReceptRequiredMessage_docid}"/>
+                        <p:outputLabel value="#{bundle.EditReceptLabel_trsdate}" for="trsdate" />
+                        <p:calendar id="trsdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{receptController.selected.trsdate}" title="#{bundle.EditReceptTitle_trsdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditReceptLabel_invoiceDiscount}" for="invoiceDiscount" />
+                        <p:inputText id="invoiceDiscount" value="#{receptController.selected.invoiceDiscount}" title="#{bundle.EditReceptTitle_invoiceDiscount}" />
+                        <p:outputLabel value="#{bundle.EditReceptLabel_siteid}" for="siteid" />
+                        <p:selectOneMenu id="siteid" value="#{receptController.selected.siteid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                                           var="siteidItem"
+                                           itemValue="#{siteidItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditReceptLabel_relatedDocid}" for="relatedDocid" />
+                        <p:selectOneMenu id="relatedDocid" value="#{receptController.selected.relatedDocid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{purchasesController.itemsAvailableSelectOne}"
+                                           var="relatedDocidItem"
+                                           itemValue="#{relatedDocidItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{receptController.update}" value="#{bundle.Save}" update="display,:ReceptListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReceptEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReceptEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

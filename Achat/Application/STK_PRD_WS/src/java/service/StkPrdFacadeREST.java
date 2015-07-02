@@ -121,7 +121,7 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
     public void insert_array(List<StkPrd> entity) {
        // Cars a = entity[0];
        // super.create(a);
-        em.getEntityManagerFactory().getCache().evictAll();
+         em.getEntityManagerFactory().getCache().evictAll();
         Collection<StkPrd> entities = entity;
         for (StkPrd c : entities) {
                 StkPrd a = null ;
