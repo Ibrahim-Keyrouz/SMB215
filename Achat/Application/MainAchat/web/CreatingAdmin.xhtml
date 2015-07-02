@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Creating the First Admin </title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+
+
+
+    <style type="text/css" >
+        td { text-align:left; font-family: verdana,arial; color: #064073; font-size: 1.00em; }
+        input { border: 1px solid #CCCCCC; border-radius: 5px; color: #666666; display: inline-block; font-size: 1.00em;  padding: 5px; width: 100%; }
+        input[type="button"], input[type="reset"], input[type="submit"] { height: auto; width: auto; cursor: pointer; box-shadow: 0px 0px 5px #0361A8; float: right; text-align:right; margin-top: 10px; margin-left:7px;}
+        //form.center { margin-left:auto; margin-right:auto; }
+        .error { font-family: verdana,arial; color: #D41313; font-size: 1.00em; }
+        form { margin: 0 auto; width:500px;}
+    </style>
+    <h:body>
+        
+       
+        
+        
+        <h:form>
+            <div style="text-align: center;" >
+                <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
+                    <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
+                        <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Create The First Administrator 0001</span></div></div></div>
+            <div style="background: ; padding: 15px">      
+          
+                <tr> <td> 
+                        <h:outputLabel for="adminPass">
+                            Password : 
+                        </h:outputLabel></td>
+                    <td> <h:inputSecret id="adminPass" value="#{mngsession.password}" 
+                                        required="true" /></td></tr>
+
+
+                <tr> <td>    <h:commandButton value="Create Admin" 
+                                              action="#{mngsession.createAdmin()}"   /> </td></tr>
+                
+            </div>
+        </h:form>
+
+    </h:body>
+
+
+
+</html>
+
