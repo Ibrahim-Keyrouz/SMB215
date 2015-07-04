@@ -13,15 +13,15 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "receptController")
-@RequestScoped
+@ViewScoped
 public class ReceptController implements Serializable {
 
     @EJB
@@ -51,12 +51,14 @@ public class ReceptController implements Serializable {
     }
 
     public Recept prepareCreate() {
+        getFacade().bob123();
         selected = new Recept();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        getFacade().bob123();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ReceptCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -64,10 +66,12 @@ public class ReceptController implements Serializable {
     }
 
     public void update() {
+        getFacade().bob123();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ReceptUpdated"));
     }
 
     public void destroy() {
+        getFacade().bob123();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ReceptDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -76,6 +80,7 @@ public class ReceptController implements Serializable {
     }
 
     public List<Recept> getItems() {
+        getFacade().bob123();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -83,6 +88,7 @@ public class ReceptController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+        getFacade().bob123();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -111,10 +117,12 @@ public class ReceptController implements Serializable {
     }
 
     public List<Recept> getItemsAvailableSelectMany() {
+        getFacade().bob123();
         return getFacade().findAll();
     }
 
     public List<Recept> getItemsAvailableSelectOne() {
+        getFacade().bob123();
         return getFacade().findAll();
     }
 
@@ -128,6 +136,7 @@ public class ReceptController implements Serializable {
             }
             ReceptController controller = (ReceptController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "receptController");
+            controller.getFacade().bob123();
             return controller.getFacade().find(getKey(value));
         }
 

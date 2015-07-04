@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
-@Cacheable(false)
+
 @Table(name = "CATEGORY")
 @XmlRootElement
 @NamedQueries({

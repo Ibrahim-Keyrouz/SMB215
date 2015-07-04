@@ -13,16 +13,16 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "receptDtlController")
-//@SessionScoped
-@RequestScoped
+
+@ViewScoped
 public class ReceptDtlController implements Serializable {
 
     @EJB
@@ -55,12 +55,14 @@ public class ReceptDtlController implements Serializable {
     }
 
     public ReceptDtl prepareCreate() {
+        getFacade().bob123();
         selected = new ReceptDtl();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        getFacade().bob123();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ReceptDtlCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -68,10 +70,12 @@ public class ReceptDtlController implements Serializable {
     }
 
     public void update() {
+        getFacade().bob123();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ReceptDtlUpdated"));
     }
 
     public void destroy() {
+        getFacade().bob123();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ReceptDtlDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -80,6 +84,7 @@ public class ReceptDtlController implements Serializable {
     }
 
     public List<ReceptDtl> getItems() {
+        getFacade().bob123();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -87,6 +92,7 @@ public class ReceptDtlController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+        getFacade().bob123();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -115,10 +121,12 @@ public class ReceptDtlController implements Serializable {
     }
 
     public List<ReceptDtl> getItemsAvailableSelectMany() {
+        getFacade().bob123();
         return getFacade().findAll();
     }
 
     public List<ReceptDtl> getItemsAvailableSelectOne() {
+        getFacade().bob123();
         return getFacade().findAll();
     }
 
@@ -135,6 +143,7 @@ public class ReceptDtlController implements Serializable {
             }
             ReceptDtlController controller = (ReceptDtlController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "receptDtlController");
+            controller.getFacade().bob123();
             return controller.getFacade().find(getKey(value));
         }
 

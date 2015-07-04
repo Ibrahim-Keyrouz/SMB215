@@ -30,4 +30,8 @@ public class ReceptDtlFacade extends AbstractFacade<ReceptDtl> {
          
     }
     
+      public void bob123() {
+        em.getEntityManagerFactory().getCache().evictAll();
+    }
+    
 }

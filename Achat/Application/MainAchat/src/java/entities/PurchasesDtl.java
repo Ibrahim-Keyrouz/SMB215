@@ -39,6 +39,9 @@ public class PurchasesDtl implements Serializable {
     @JoinColumn(name = "DOCID", referencedColumnName = "DOCID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Purchases purchases;
+    @JoinColumn(name = "BARCODE", referencedColumnName = "BARCODE", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Product product;
 
     public PurchasesDtl() {
     }
@@ -73,6 +76,14 @@ public class PurchasesDtl implements Serializable {
 
     public void setPurchases(Purchases purchases) {
         this.purchases = purchases;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
