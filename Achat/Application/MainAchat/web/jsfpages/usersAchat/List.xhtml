@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListUsersAchatTitle}"></h:outputText>
+            <h:outputText value="Users"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="UsersAchatListForm">
-                <p:panel header="#{bundle.ListUsersAchatTitle}">
+                <p:panel header="USERS">
                     <p:dataTable id="datalist" value="#{usersAchatController.items}" var="item"
                                  selectionMode="single" selection="#{usersAchatController.selected}"
                                  paginator="true"
@@ -35,27 +35,31 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsersAchatTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsersAchatTitle_password}"/>
                             </f:facet>
                             <h:outputText value="#{item.password}"/>
                         </p:column>
+                        
                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsersAchatTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Group"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        
+                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsersAchatTitle_status}"/>
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsersAchatTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usersAchatController.prepareCreate}" update=":UsersAchatCreateForm" oncomplete="PF('UsersAchatCreateDialog').show()"/>

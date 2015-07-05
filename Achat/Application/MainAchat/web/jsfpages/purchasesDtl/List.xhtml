@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListPurchasesDtlTitle}"></h:outputText>
+            <h:outputText value="Purchases Details"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="PurchasesDtlListForm">
-                <p:panel header="#{bundle.ListPurchasesDtlTitle}">
+                <p:panel header="PURCHASES DETAILS">
                     <p:dataTable id="datalist" value="#{purchasesDtlController.items}" var="item"
                                  selectionMode="single" selection="#{purchasesDtlController.selected}"
                                  paginator="true"
@@ -26,7 +26,12 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchasesDtlTitle_purchases}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.purchases}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPurchasesDtlTitle_purchasesDtlPK_barcode}"/>
@@ -39,12 +44,7 @@
                             </f:facet>
                             <h:outputText value="#{item.qty}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPurchasesDtlTitle_purchases}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.purchases}"/>
-                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{purchasesDtlController.prepareCreate}" update=":PurchasesDtlCreateForm" oncomplete="PF('PurchasesDtlCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PurchasesDtlViewForm" oncomplete="PF('PurchasesDtlViewDialog').show()" disabled="#{empty purchasesDtlController.selected}"/>

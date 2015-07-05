@@ -12,12 +12,6 @@
             <h:form id="ReceptDtlCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{receptDtlController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateReceptDtlLabel_qty}" for="qty" />
-                        <p:inputText id="qty" value="#{receptDtlController.selected.qty}" title="#{bundle.CreateReceptDtlTitle_qty}" />
-                        <p:outputLabel value="#{bundle.CreateReceptDtlLabel_purchasePrice}" for="purchasePrice" />
-                        <p:inputText id="purchasePrice" value="#{receptDtlController.selected.purchasePrice}" title="#{bundle.CreateReceptDtlTitle_purchasePrice}" />
-                        <p:outputLabel value="#{bundle.CreateReceptDtlLabel_itemDiscount}" for="itemDiscount" />
-                        <p:inputText id="itemDiscount" value="#{receptDtlController.selected.itemDiscount}" title="#{bundle.CreateReceptDtlTitle_itemDiscount}" />
                         <p:outputLabel value="#{bundle.CreateReceptDtlLabel_recept}" for="recept" />
                         <p:selectOneMenu id="recept" value="#{receptDtlController.selected.recept}" required="true" requiredMessage="#{bundle.EditReceptDtlRequiredMessage_recept}">
                             <f:selectItems value="#{receptController.itemsAvailableSelectOne}"
@@ -30,6 +24,15 @@
                                            var="productItem"
                                            itemValue="#{productItem}"/>
                         </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.CreateReceptDtlLabel_qty}" for="qty" />
+                        <p:inputText id="qty" value="#{receptDtlController.selected.qty}" title="#{bundle.CreateReceptDtlTitle_qty}" />
+                        <p:outputLabel value="Price:" for="purchasePrice" />
+                        <p:inputText id="purchasePrice" value="#{receptDtlController.selected.purchasePrice}" title="#{bundle.CreateReceptDtlTitle_purchasePrice}" />
+                        <p:outputLabel value="Item Discount:" for="itemDiscount" />
+                        <p:inputText id="itemDiscount" value="#{receptDtlController.selected.itemDiscount}" title="#{bundle.CreateReceptDtlTitle_itemDiscount}" />
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{receptDtlController.create}" value="#{bundle.Save}" update="display,:ReceptDtlListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReceptDtlCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ReceptDtlCreateDialog.hide()"/>

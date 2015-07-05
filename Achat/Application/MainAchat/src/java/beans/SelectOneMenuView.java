@@ -5,13 +5,10 @@
  */
 package beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
@@ -29,6 +26,8 @@ public class SelectOneMenuView {
     private String tva;
     private List<SelectItem> tvas;
 
+    private String done;
+    private List<SelectItem> dones;
    
     public SelectOneMenuView(){
         
@@ -50,6 +49,13 @@ public class SelectOneMenuView {
 
         tvas = new ArrayList<>();
         tvas.add(g2);
+        
+        //done
+         SelectItemGroup g3 = new SelectItemGroup("Done ?");
+        g3.setSelectItems(new SelectItem[]{new SelectItem("N", "NO"), new SelectItem("Y", "YES")});
+
+        dones = new ArrayList<>();
+        dones.add(g3);
 
     }
 
@@ -76,6 +82,19 @@ public class SelectOneMenuView {
 
     public List<SelectItem> getTvas() {
         return tvas;
+    }
+    
+    
+    public String getDone() {
+        return done;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
+    }
+
+    public List<SelectItem> getDones() {
+        return dones;
     }
 
 }

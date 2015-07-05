@@ -12,16 +12,19 @@
             <h:form id="ReceptDtlViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{receptDtlController.selected != null}">
-                        <h:outputText value="#{bundle.ViewReceptDtlLabel_qty}"/>
-                        <h:outputText value="#{receptDtlController.selected.qty}" title="#{bundle.ViewReceptDtlTitle_qty}"/>
-                        <h:outputText value="#{bundle.ViewReceptDtlLabel_purchasePrice}"/>
-                        <h:outputText value="#{receptDtlController.selected.purchasePrice}" title="#{bundle.ViewReceptDtlTitle_purchasePrice}"/>
-                        <h:outputText value="#{bundle.ViewReceptDtlLabel_itemDiscount}"/>
-                        <h:outputText value="#{receptDtlController.selected.itemDiscount}" title="#{bundle.ViewReceptDtlTitle_itemDiscount}"/>
                         <h:outputText value="#{bundle.ViewReceptDtlLabel_recept}"/>
                         <h:outputText value="#{receptDtlController.selected.recept}" title="#{bundle.ViewReceptDtlTitle_recept}"/>
                         <h:outputText value="#{bundle.ViewReceptDtlLabel_product}"/>
-                        <h:outputText value="#{receptDtlController.selected.product}" title="#{bundle.ViewReceptDtlTitle_product}"/>
+                        <h:outputText value="#{receptDtlController.selected.product.description}" title="#{bundle.ViewReceptDtlTitle_product}"/>
+                        
+                        <h:outputText value="#{bundle.ViewReceptDtlLabel_qty}"/>
+                        <h:outputText value="#{receptDtlController.selected.qty}" title="#{bundle.ViewReceptDtlTitle_qty}"/>
+                        <h:outputText value="Price:"/>
+                        <h:outputText value="#{receptDtlController.selected.purchasePrice}" title="#{bundle.ViewReceptDtlTitle_purchasePrice}"/>
+                        <h:outputText value="Item Discount:"/>
+                        <h:outputText value="#{receptDtlController.selected.itemDiscount}" title="#{bundle.ViewReceptDtlTitle_itemDiscount}"/>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ReceptDtlViewDialog.hide()"/>
                 </h:panelGroup>

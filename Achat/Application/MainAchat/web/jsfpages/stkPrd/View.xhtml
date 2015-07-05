@@ -12,14 +12,16 @@
             <h:form id="StkPrdViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{stkPrdController.selected != null}">
+                        <h:outputText value="Site:"/>
+                        <h:outputText value="#{stkPrdController.selected.sites.description}" title="#{bundle.ViewStkPrdTitle_sites}"/>
+                        <h:outputText value="#{bundle.ViewStkPrdLabel_product}"/>
+                        <h:outputText value="#{stkPrdController.selected.product.description}" title="#{bundle.ViewStkPrdTitle_product}"/>
                         <h:outputText value="#{bundle.ViewStkPrdLabel_qty}"/>
                         <h:outputText value="#{stkPrdController.selected.qty}" title="#{bundle.ViewStkPrdTitle_qty}"/>
-                        <h:outputText value="#{bundle.ViewStkPrdLabel_qtyNotification}"/>
+                        <h:outputText value="Notification Qty:"/>
                         <h:outputText value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.ViewStkPrdTitle_qtyNotification}"/>
-                        <h:outputText value="#{bundle.ViewStkPrdLabel_sites}"/>
-                        <h:outputText value="#{stkPrdController.selected.sites}" title="#{bundle.ViewStkPrdTitle_sites}"/>
-                        <h:outputText value="#{bundle.ViewStkPrdLabel_product}"/>
-                        <h:outputText value="#{stkPrdController.selected.product}" title="#{bundle.ViewStkPrdTitle_product}"/>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="StkPrdViewDialog.hide()"/>
                 </h:panelGroup>

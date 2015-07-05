@@ -15,9 +15,8 @@
                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_docid}" for="docid" />
                         <p:inputText id="docid" value="#{purchasesController.selected.docid}" title="#{bundle.CreatePurchasesTitle_docid}" required="true" requiredMessage="#{bundle.CreatePurchasesRequiredMessage_docid}"/>
                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_trsdate}" for="trsdate" />
-                        <p:calendar id="trsdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreatePurchasesLabel_done}" for="done" />
-                        <p:inputText id="done" value="#{purchasesController.selected.done}" title="#{bundle.CreatePurchasesTitle_done}" />
+                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
+
                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_userid}" for="userid" />
                         <p:selectOneMenu id="userid" value="#{purchasesController.selected.userid}" >
                             <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
@@ -35,6 +34,11 @@
                             <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
                                            var="siteidItem"
                                            itemValue="#{siteidItem}"/>
+                        </p:selectOneMenu>
+                        
+                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_done}" for="done" />
+                          <p:selectOneMenu id="done" value="#{purchasesController.selected.done}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tvaType}">
+                              <f:selectItems value="#{selectonemenuview.dones}"  />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{purchasesController.create}" value="#{bundle.Save}" update="display,:PurchasesListForm:datalist,:growl" oncomplete="handleSubmit(args,'PurchasesCreateDialog');"/>

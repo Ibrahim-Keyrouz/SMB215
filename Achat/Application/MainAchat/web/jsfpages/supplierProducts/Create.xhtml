@@ -12,12 +12,7 @@
             <h:form id="SupplierProductsCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{supplierProductsController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateSupplierProductsLabel_usersAchat}" for="usersAchat" />
-                        <p:selectOneMenu id="usersAchat" value="#{supplierProductsController.selected.usersAchat}" required="true" requiredMessage="#{bundle.EditSupplierProductsRequiredMessage_usersAchat}">
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="usersAchatItem"
-                                           itemValue="#{usersAchatItem}"/>
-                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.CreateSupplierProductsLabel_supplier}" for="supplier" />
                         <p:selectOneMenu id="supplier" value="#{supplierProductsController.selected.supplier}" required="true" requiredMessage="#{bundle.EditSupplierProductsRequiredMessage_supplier}">
                             <f:selectItems value="#{supplierController.itemsAvailableSelectOne}"
@@ -29,6 +24,13 @@
                             <f:selectItems value="#{productController.itemsAvailableSelectOne}"
                                            var="productItem"
                                            itemValue="#{productItem}"/>
+                        </p:selectOneMenu>
+                        
+                         <p:outputLabel value="Userid:" for="usersAchat" />
+                        <p:selectOneMenu id="usersAchat" value="#{supplierProductsController.selected.usersAchat}" required="true" requiredMessage="#{bundle.EditSupplierProductsRequiredMessage_usersAchat}">
+                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
+                                           var="usersAchatItem"
+                                           itemValue="#{usersAchatItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{supplierProductsController.create}" value="#{bundle.Save}" update="display,:SupplierProductsListForm:datalist,:growl" oncomplete="handleSubmit(args,'SupplierProductsCreateDialog');"/>

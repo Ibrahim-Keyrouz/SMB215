@@ -12,12 +12,8 @@
             <h:form id="StkPrdCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{stkPrdController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateStkPrdLabel_qty}" for="qty" />
-                        <p:inputText id="qty" value="#{stkPrdController.selected.qty}" title="#{bundle.CreateStkPrdTitle_qty}" />
-                        <p:outputLabel value="#{bundle.CreateStkPrdLabel_qtyNotification}" for="qtyNotification" />
-                        <p:inputText id="qtyNotification" value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.CreateStkPrdTitle_qtyNotification}" />
                         <p:outputLabel value="#{bundle.CreateStkPrdLabel_sites}" for="sites" />
-                        <p:selectOneMenu id="sites" value="#{stkPrdController.selected.sites}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
+                        <p:selectOneMenu id="sites" value="Site:" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
                             <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
                                            var="sitesItem"
                                            itemValue="#{sitesItem}"/>
@@ -28,6 +24,12 @@
                                            var="productItem"
                                            itemValue="#{productItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateStkPrdLabel_qty}" for="qty" />
+                        <p:inputText id="qty" value="#{stkPrdController.selected.qty}" title="#{bundle.CreateStkPrdTitle_qty}" />
+                        <p:outputLabel value="Notification Qty:" for="qtyNotification" />
+                        <p:inputText id="qtyNotification" value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.CreateStkPrdTitle_qtyNotification}" />
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stkPrdController.create}" value="#{bundle.Save}" update="display,:StkPrdListForm:datalist,:growl" oncomplete="handleSubmit(args,'StkPrdCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StkPrdCreateDialog.hide()"/>

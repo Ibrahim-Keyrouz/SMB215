@@ -14,18 +14,22 @@
                     <p:panelGrid columns="2" rendered="#{usersAchatController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsersAchatLabel_userid}" for="userid" />
                         <p:inputText id="userid" value="#{usersAchatController.selected.userid}" title="#{bundle.EditUsersAchatTitle_userid}" required="true" requiredMessage="#{bundle.EditUsersAchatRequiredMessage_userid}"/>
+                          <p:outputLabel value="#{bundle.EditUsersAchatLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersAchatController.selected.password}" title="#{bundle.EditUsersAchatTitle_password}" />
                         <p:outputLabel value="#{bundle.EditUsersAchatLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usersAchatController.selected.email}" title="#{bundle.EditUsersAchatTitle_email}" />
-                        <p:outputLabel value="#{bundle.EditUsersAchatLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usersAchatController.selected.password}" title="#{bundle.EditUsersAchatTitle_password}" />
-                        <p:outputLabel value="#{bundle.EditUsersAchatLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{usersAchatController.selected.status}" title="#{bundle.EditUsersAchatTitle_status}" required="true" requiredMessage="#{bundle.EditUsersAchatRequiredMessage_status}"/>
-                        <p:outputLabel value="#{bundle.EditUsersAchatLabel_description}" for="description" />
+                      
+                        
+                        <p:outputLabel value="Group:" for="description" />
                         <p:selectOneMenu id="description" value="#{usersAchatController.selected.description}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{groupsAchatController.itemsAvailableSelectOne}"
                                            var="descriptionItem"
                                            itemValue="#{descriptionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsersAchatLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{usersAchatController.selected.status}"  required="true" requiredMessage="#{bundle.CreateUsersAchatTitle_status}">
+                            <f:selectItems value="#{selectonemenuview.statuses}"  />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usersAchatController.update}" value="#{bundle.Save}" update="display,:UsersAchatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsersAchatEditDialog');"/>

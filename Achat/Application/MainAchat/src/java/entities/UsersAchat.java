@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
@@ -50,7 +51,7 @@ public class UsersAchat implements Serializable {
     @Size(max = 50)
     @Column(name = "EMAIL")
     private String email;
-    @Size(max = 60)
+    @Size(max = 64)
     @Column(name = "PASSWORD")
     private String password;
     @Basic(optional = false)
@@ -102,9 +103,17 @@ public class UsersAchat implements Serializable {
         return password;
     }
 
+  
+    
     public void setPassword(String password) {
-        this.password = password;
+        
+        
+       this.password = this.sha256(password);
+        //this.password = password;
     }
+
+ 
+    
 
     public String getStatus() {
         return status;
@@ -182,5 +191,24 @@ public class UsersAchat implements Serializable {
     public String toString() {
         return "entities.UsersAchat[ userid=" + userid + " ]";
     }
+    
+    
+        private String sha256(String base) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+            
+            for (int i = 0 ; i <hash.length;i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1 ) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        }catch (Exception ex) {
+            throw new RuntimeException(ex);
+            
+            }
+        }
     
 }

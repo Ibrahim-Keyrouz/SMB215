@@ -12,24 +12,26 @@
             <h:form id="StkPrdEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{stkPrdController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditStkPrdLabel_qty}" for="qty" />
-                        <p:inputText id="qty" value="#{stkPrdController.selected.qty}" title="#{bundle.EditStkPrdTitle_qty}" />
-                        <p:outputLabel value="#{bundle.EditStkPrdLabel_qtyNotification}" for="qtyNotification" />
-                        <p:inputText id="qtyNotification" value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.EditStkPrdTitle_qtyNotification}" />
-                        <p:outputLabel value="#{bundle.EditStkPrdLabel_sites}" for="sites" />
+                        <p:outputLabel value="Site:" for="sites" />
                         <p:selectOneMenu id="sites" value="#{stkPrdController.selected.sites}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
                                            var="sitesItem"
                                            itemValue="#{sitesItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditStkPrdLabel_product}" for="product" />
+                         <p:outputLabel value="#{bundle.EditStkPrdLabel_product}" for="product" />
                         <p:selectOneMenu id="product" value="#{stkPrdController.selected.product}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_product}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{productController.itemsAvailableSelectOne}"
                                            var="productItem"
                                            itemValue="#{productItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStkPrdLabel_qty}" for="qty" />
+                        <p:inputText id="qty" value="#{stkPrdController.selected.qty}" title="#{bundle.EditStkPrdTitle_qty}" />
+                        <p:outputLabel value="Notification Qty:" for="qtyNotification" />
+                        <p:inputText id="qtyNotification" value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.EditStkPrdTitle_qtyNotification}" />
+                        
+                       
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stkPrdController.update}" value="#{bundle.Save}" update="display,:StkPrdListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StkPrdEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StkPrdEditDialog.hide()"/>

@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListSupplierProductsTitle}"></h:outputText>
+            <h:outputText value="Suppliers Products"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="SupplierProductsListForm">
-                <p:panel header="#{bundle.ListSupplierProductsTitle}">
+                <p:panel header="SUPLLIERS PRODUCTS">
                     <p:dataTable id="datalist" value="#{supplierProductsController.items}" var="item"
                                  selectionMode="single" selection="#{supplierProductsController.selected}"
                                  paginator="true"
@@ -27,12 +27,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSupplierProductsTitle_usersAchat}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usersAchat}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSupplierProductsTitle_supplier}"/>
@@ -44,6 +39,12 @@
                                 <h:outputText value="#{bundle.ListSupplierProductsTitle_product}"/>
                             </f:facet>
                             <h:outputText value="#{item.product}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Userid"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usersAchat}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{supplierProductsController.prepareCreate}" update=":SupplierProductsCreateForm" oncomplete="PF('SupplierProductsCreateDialog').show()"/>

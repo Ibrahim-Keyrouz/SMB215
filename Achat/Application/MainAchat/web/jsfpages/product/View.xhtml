@@ -16,16 +16,20 @@
                         <h:outputText value="#{productController.selected.barcode}" title="#{bundle.ViewProductTitle_barcode}"/>
                         <h:outputText value="#{bundle.ViewProductLabel_description}"/>
                         <h:outputText value="#{productController.selected.description}" title="#{bundle.ViewProductTitle_description}"/>
-                        <h:outputText value="#{bundle.ViewProductLabel_tva}"/>
-                        <h:outputText value="#{productController.selected.tva}" title="#{bundle.ViewProductTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_category}"/>
+
+                        <h:outputText value="#{productController.selected.category.description}" title="#{bundle.ViewProductTitle_category}"/>
                         <h:outputText value="#{bundle.ViewProductLabel_tvaType}"/>
                         <h:outputText value="#{productController.selected.tvaType}" title="#{bundle.ViewProductTitle_tvaType}"/>
+                        <h:outputText value="#{bundle.ViewProductLabel_tva}"/>
+                        <h:outputText value="#{productController.selected.tva}" title="#{bundle.ViewProductTitle_tva}"/>
+
                         <h:outputText value="#{bundle.ViewProductLabel_status}"/>
                         <h:outputText value="#{productController.selected.status}" title="#{bundle.ViewProductTitle_status}"/>
                         <h:outputText value="#{bundle.ViewProductLabel_userid}"/>
                         <h:outputText value="#{productController.selected.userid}" title="#{bundle.ViewProductTitle_userid}"/>
-                        <h:outputText value="#{bundle.ViewProductLabel_category}"/>
-                        <h:outputText value="#{productController.selected.category.description}" title="#{bundle.ViewProductTitle_category}"/>
+
+
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProductViewDialog.hide()"/>
                 </h:panelGroup>

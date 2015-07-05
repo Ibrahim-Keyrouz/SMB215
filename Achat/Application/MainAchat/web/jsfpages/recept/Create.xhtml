@@ -15,9 +15,8 @@
                         <p:outputLabel value="#{bundle.CreateReceptLabel_docid}" for="docid" />
                         <p:inputText id="docid" value="#{receptController.selected.docid}" title="#{bundle.CreateReceptTitle_docid}" required="true" requiredMessage="#{bundle.CreateReceptRequiredMessage_docid}"/>
                         <p:outputLabel value="#{bundle.CreateReceptLabel_trsdate}" for="trsdate" />
-                        <p:calendar id="trsdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{receptController.selected.trsdate}" title="#{bundle.EditReceptTitle_trsdate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateReceptLabel_invoiceDiscount}" for="invoiceDiscount" />
-                        <p:inputText id="invoiceDiscount" value="#{receptController.selected.invoiceDiscount}" title="#{bundle.CreateReceptTitle_invoiceDiscount}" />
+                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" value="#{receptController.selected.trsdate}" title="#{bundle.EditReceptTitle_trsdate}"  showOn="button"/>
+                       
                         <p:outputLabel value="#{bundle.CreateReceptLabel_siteid}" for="siteid" />
                         <p:selectOneMenu id="siteid" value="#{receptController.selected.siteid}" >
                             <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
@@ -30,6 +29,8 @@
                                            var="relatedDocidItem"
                                            itemValue="#{relatedDocidItem}"/>
                         </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateReceptLabel_invoiceDiscount}" for="invoiceDiscount" />
+                        <p:inputText id="invoiceDiscount" value="#{receptController.selected.invoiceDiscount}" title="#{bundle.CreateReceptTitle_invoiceDiscount}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{receptController.create}" value="#{bundle.Save}" update="display,:ReceptListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReceptCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ReceptCreateDialog.hide()"/>

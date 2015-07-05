@@ -38,21 +38,10 @@
                                 <h:outputText value="#{bundle.ListPurchasesTitle_trsdate}"/>
                             </f:facet>
                             <h:outputText value="#{item.trsdate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPurchasesTitle_done}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.done}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPurchasesTitle_userid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userid}"/>
-                        </p:column>
+                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Supplier"/>
@@ -64,6 +53,20 @@
                                 <h:outputText value="Site"/>
                             </f:facet>
                             <h:outputText value="#{item.siteid.description}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchasesTitle_userid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userid}"/>
+                        </p:column>
+                        
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchasesTitle_done}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.done}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{purchasesController.prepareCreate}" update=":PurchasesCreateForm" oncomplete="PF('PurchasesCreateDialog').show()"/>

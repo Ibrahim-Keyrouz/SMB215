@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 public class SupplierProductsPK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 16)
     @Column(name = "BARCODE")
     private String barcode;
     @Basic(optional = false)

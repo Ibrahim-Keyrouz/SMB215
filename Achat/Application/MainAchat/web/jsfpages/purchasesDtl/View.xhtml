@@ -12,12 +12,13 @@
             <h:form id="PurchasesDtlViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{purchasesDtlController.selected != null}">
+                         <h:outputText value="#{bundle.ViewPurchasesDtlLabel_purchases}"/>
+                        <h:outputText value="#{purchasesDtlController.selected.purchases}" title="#{bundle.ViewPurchasesDtlTitle_purchases}"/>
                         <h:outputText value="#{bundle.ViewPurchasesDtlLabel_purchasesDtlPK_barcode}"/>
                         <h:outputText value="#{purchasesDtlController.selected.purchasesDtlPK.barcode}" title="#{bundle.ViewPurchasesDtlTitle_purchasesDtlPK_barcode}"/>
                         <h:outputText value="#{bundle.ViewPurchasesDtlLabel_qty}"/>
                         <h:outputText value="#{purchasesDtlController.selected.qty}" title="#{bundle.ViewPurchasesDtlTitle_qty}"/>
-                        <h:outputText value="#{bundle.ViewPurchasesDtlLabel_purchases}"/>
-                        <h:outputText value="#{purchasesDtlController.selected.purchases}" title="#{bundle.ViewPurchasesDtlTitle_purchases}"/>
+                       
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PurchasesDtlViewDialog.hide()"/>
                 </h:panelGroup>

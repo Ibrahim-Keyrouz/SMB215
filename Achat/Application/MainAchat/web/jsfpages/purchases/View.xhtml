@@ -16,16 +16,18 @@
                         <h:outputText value="#{purchasesController.selected.docid}" title="#{bundle.ViewPurchasesTitle_docid}"/>
                         <h:outputText value="#{bundle.ViewPurchasesLabel_trsdate}"/>
                         <h:outputText value="#{purchasesController.selected.trsdate}" title="#{bundle.ViewPurchasesTitle_trsdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewPurchasesLabel_done}"/>
-                        <h:outputText value="#{purchasesController.selected.done}" title="#{bundle.ViewPurchasesTitle_done}"/>
+                       
+                        <h:outputText value="Supplier:"/>
+                        <h:outputText value="#{purchasesController.selected.supplierid.description}" title="#{bundle.ViewPurchasesTitle_supplierid}"/>
+                        <h:outputText value="Site:"/>
+                        <h:outputText value="#{purchasesController.selected.siteid.description}" title="#{bundle.ViewPurchasesTitle_siteid}"/>
+                        
                         <h:outputText value="#{bundle.ViewPurchasesLabel_userid}"/>
                         <h:outputText value="#{purchasesController.selected.userid}" title="#{bundle.ViewPurchasesTitle_userid}"/>
-                        <h:outputText value="#{bundle.ViewPurchasesLabel_supplierid}"/>
-                        <h:outputText value="#{purchasesController.selected.supplierid}" title="#{bundle.ViewPurchasesTitle_supplierid}"/>
-                        <h:outputText value="#{bundle.ViewPurchasesLabel_siteid}"/>
-                        <h:outputText value="#{purchasesController.selected.siteid}" title="#{bundle.ViewPurchasesTitle_siteid}"/>
+                         <h:outputText value="#{bundle.ViewPurchasesLabel_done}"/>
+                        <h:outputText value="#{purchasesController.selected.done}" title="#{bundle.ViewPurchasesTitle_done}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PurchasesViewDialog.hide()"/>
                 </h:panelGroup>

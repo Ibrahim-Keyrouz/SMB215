@@ -16,14 +16,15 @@
                         <h:outputText value="#{receptController.selected.docid}" title="#{bundle.ViewReceptTitle_docid}"/>
                         <h:outputText value="#{bundle.ViewReceptLabel_trsdate}"/>
                         <h:outputText value="#{receptController.selected.trsdate}" title="#{bundle.ViewReceptTitle_trsdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewReceptLabel_invoiceDiscount}"/>
-                        <h:outputText value="#{receptController.selected.invoiceDiscount}" title="#{bundle.ViewReceptTitle_invoiceDiscount}"/>
-                        <h:outputText value="#{bundle.ViewReceptLabel_siteid}"/>
-                        <h:outputText value="#{receptController.selected.siteid}" title="#{bundle.ViewReceptTitle_siteid}"/>
+                       
+                        <h:outputText value="Site:"/>
+                        <h:outputText value="#{receptController.selected.siteid.description}" title="#{bundle.ViewReceptTitle_siteid}"/>
                         <h:outputText value="#{bundle.ViewReceptLabel_relatedDocid}"/>
                         <h:outputText value="#{receptController.selected.relatedDocid}" title="#{bundle.ViewReceptTitle_relatedDocid}"/>
+                         <h:outputText value="#{bundle.ViewReceptLabel_invoiceDiscount}"/>
+                        <h:outputText value="#{receptController.selected.invoiceDiscount}" title="#{bundle.ViewReceptTitle_invoiceDiscount}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ReceptViewDialog.hide()"/>
                 </h:panelGroup>

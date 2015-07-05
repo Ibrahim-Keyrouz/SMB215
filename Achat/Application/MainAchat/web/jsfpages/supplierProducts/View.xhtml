@@ -12,12 +12,13 @@
             <h:form id="SupplierProductsViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{supplierProductsController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSupplierProductsLabel_usersAchat}"/>
-                        <h:outputText value="#{supplierProductsController.selected.usersAchat}" title="#{bundle.ViewSupplierProductsTitle_usersAchat}"/>
+
                         <h:outputText value="#{bundle.ViewSupplierProductsLabel_supplier}"/>
                         <h:outputText value="#{supplierProductsController.selected.supplier}" title="#{bundle.ViewSupplierProductsTitle_supplier}"/>
                         <h:outputText value="#{bundle.ViewSupplierProductsLabel_product}"/>
                         <h:outputText value="#{supplierProductsController.selected.product}" title="#{bundle.ViewSupplierProductsTitle_product}"/>
+                        <h:outputText value="Userid:"/>
+                        <h:outputText value="#{supplierProductsController.selected.usersAchat}" title="#{bundle.ViewSupplierProductsTitle_usersAchat}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="SupplierProductsViewDialog.hide()"/>
                 </h:panelGroup>

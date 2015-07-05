@@ -10,13 +10,13 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListReceptDtlTitle}"></h:outputText>
+            <h:outputText value="Recept Details"></h:outputText>
         </ui:define>
              
             
         <ui:define name="body">
             <h:form id="ReceptDtlListForm">
-                <p:panel header="#{bundle.ListReceptDtlTitle}">
+                <p:panel header="RECEPT DETAILS">
                     <p:dataTable id="datalist" value="#{receptDtlController.items}" var="item"
                                  selectionMode="single" selection="#{receptDtlController.selected}"
                                  paginator="true"
@@ -27,6 +27,22 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReceptDtlTitle_recept}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.recept}"/>
+                        </p:column>
+                        
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReceptDtlTitle_product}"/>
+                            </f:facet>
+                             <h:outputText value="#{item.product.description}"/>
+                        </p:column>
+                        
+                        
 
                         <p:column>
                             <f:facet name="header">
@@ -36,28 +52,18 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptDtlTitle_purchasePrice}"/>
+                                <h:outputText value="Price"/>
                             </f:facet>
                             <h:outputText value="#{item.purchasePrice}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptDtlTitle_itemDiscount}"/>
+                                <h:outputText value="Item Discount"/>
                             </f:facet>
                             <h:outputText value="#{item.itemDiscount}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptDtlTitle_recept}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.recept}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptDtlTitle_product}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.product}"/>
-                        </p:column>
+                        
+                       
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{receptDtlController.prepareCreate}" update=":ReceptDtlCreateForm" oncomplete="PF('ReceptDtlCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ReceptDtlViewForm" oncomplete="PF('ReceptDtlViewDialog').show()" disabled="#{empty receptDtlController.selected}"/>

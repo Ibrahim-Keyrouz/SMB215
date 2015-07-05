@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListSupplierTitle}"></h:outputText>
+            <h:outputText value="Suppliers"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="SupplierListForm">
-                <p:panel header="#{bundle.ListSupplierTitle}">
+                <p:panel header="SUPPLIERS">
                     <p:dataTable id="datalist" value="#{supplierController.items}" var="item"
                                  selectionMode="single" selection="#{supplierController.selected}"
                                  paginator="true"
@@ -41,6 +41,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSupplierTitle_address}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSupplierTitle_tel}"/>
                             </f:facet>
                             <h:outputText value="#{item.tel}"/>
@@ -57,12 +63,7 @@
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSupplierTitle_address}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.address}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSupplierTitle_userid}"/>

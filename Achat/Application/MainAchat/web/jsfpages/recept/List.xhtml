@@ -12,12 +12,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListReceptTitle}"></h:outputText>
+            <h:outputText value="Recept"></h:outputText>
         </ui:define>
              
         <ui:define name="body">
             <h:form id="ReceptListForm">
-                <p:panel header="#{bundle.ListReceptTitle}">
+                <p:panel header="Recept">
                     <p:dataTable id="datalist" value="#{receptController.items}" var="item"
                                  selectionMode="single" selection="#{receptController.selected}"
                                  paginator="true"
@@ -40,27 +40,31 @@
                                 <h:outputText value="#{bundle.ListReceptTitle_trsdate}"/>
                             </f:facet>
                             <h:outputText value="#{item.trsdate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Site"/>
+                            </f:facet>
+                            <h:outputText value="#{item.siteid.description}"/>
+                        </p:column>
+                        
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReceptTitle_relatedDocid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.relatedDocid}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReceptTitle_invoiceDiscount}"/>
                             </f:facet>
                             <h:outputText value="#{item.invoiceDiscount}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptTitle_siteid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.siteid}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReceptTitle_relatedDocid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.relatedDocid}"/>
-                        </p:column>
+                        
+                       
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{receptController.prepareCreate}" update=":ReceptCreateForm" oncomplete="PF('ReceptCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ReceptViewForm" oncomplete="PF('ReceptViewDialog').show()" disabled="#{empty receptController.selected}"/>

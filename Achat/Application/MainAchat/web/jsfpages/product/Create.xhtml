@@ -26,21 +26,12 @@
                         </p:selectOneMenu>
 
 
-
-
-
                         <p:outputLabel value="#{bundle.CreateProductLabel_status}" for="status" />
-
-
-
-
                         <p:selectOneMenu id="status" value="#{productController.selected.status}"  required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_status}">
-
                             <f:selectItems value="#{selectonemenuview.statuses}"  />
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateProductLabel_userid}" for="userid" />
-
                         <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
                             <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
                                            var="useridItem"
