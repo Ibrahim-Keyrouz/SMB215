@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListPurchasesTitle}"></h:outputText>
+            <h:outputText value="Purchases"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="PurchasesListForm">
-                <p:panel header="#{bundle.ListPurchasesTitle}">
+                <p:panel header="PURCHASES">
                     <p:dataTable id="datalist" value="#{purchasesController.items}" var="item"
                                  selectionMode="single" selection="#{purchasesController.selected}"
                                  paginator="true"
@@ -55,15 +55,15 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPurchasesTitle_supplierid}"/>
+                                <h:outputText value="Supplier"/>
                             </f:facet>
-                            <h:outputText value="#{item.supplierid}"/>
+                            <h:outputText value="#{item.supplierid.description}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPurchasesTitle_siteid}"/>
+                                <h:outputText value="Site"/>
                             </f:facet>
-                            <h:outputText value="#{item.siteid}"/>
+                            <h:outputText value="#{item.siteid.description}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{purchasesController.prepareCreate}" update=":PurchasesCreateForm" oncomplete="PF('PurchasesCreateDialog').show()"/>

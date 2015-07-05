@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListProductTitle}"></h:outputText>
+            <h:outputText value="Product"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="ProductListForm">
-                <p:panel header="#{bundle.ListProductTitle}">
+                <p:panel header="PRODUCT">
                     <p:dataTable id="datalist" value="#{productController.items}" var="item"
                                  selectionMode="single" selection="#{productController.selected}"
                                  paginator="true"
@@ -39,37 +39,48 @@
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </p:column>
-                        <p:column>
+                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_tva}"/>
+                                <h:outputText value="#{bundle.ListProductTitle_category}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tva}"/>
+                            
+                            <h:outputText value="#{item.category.description}"/>
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductTitle_tvaType}"/>
                             </f:facet>
                             <h:outputText value="#{item.tvaType}"/>
                         </p:column>
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductTitle_tva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tva}"/>
+                        </p:column>
+                        
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductTitle_status}"/>
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
+                            
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductTitle_userid}"/>
                             </f:facet>
+                            
                             <h:outputText value="#{item.userid}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductTitle_category}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.category}"/>
-                        </p:column>
+                       
                         <f:facet name="footer">
+                           
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{productController.prepareCreate}" update=":ProductCreateForm" oncomplete="PF('ProductCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProductViewForm" oncomplete="PF('ProductViewDialog').show()" disabled="#{empty productController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProductEditForm" oncomplete="PF('ProductEditDialog').show()" disabled="#{empty productController.selected}"/>

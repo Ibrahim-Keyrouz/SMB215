@@ -25,7 +25,7 @@
                         <h:outputText value="#{bundle.ViewProductLabel_userid}"/>
                         <h:outputText value="#{productController.selected.userid}" title="#{bundle.ViewProductTitle_userid}"/>
                         <h:outputText value="#{bundle.ViewProductLabel_category}"/>
-                        <h:outputText value="#{productController.selected.category}" title="#{bundle.ViewProductTitle_category}"/>
+                        <h:outputText value="#{productController.selected.category.description}" title="#{bundle.ViewProductTitle_category}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProductViewDialog.hide()"/>
                 </h:panelGroup>

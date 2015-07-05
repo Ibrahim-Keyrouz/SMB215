@@ -18,17 +18,38 @@
                         <p:inputText id="description" value="#{productController.selected.description}" title="#{bundle.CreateProductTitle_description}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_description}"/>
                         <p:outputLabel value="#{bundle.CreateProductLabel_tva}" for="tva" />
                         <p:inputText id="tva" value="#{productController.selected.tva}" title="#{bundle.CreateProductTitle_tva}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tva}"/>
+
                         <p:outputLabel value="#{bundle.CreateProductLabel_tvaType}" for="tvaType" />
-                        <p:inputText id="tvaType" value="#{productController.selected.tvaType}" title="#{bundle.CreateProductTitle_tvaType}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tvaType}"/>
+                        <p:selectOneMenu id="tvaType" value="#{productController.selected.tvaType}"  required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tvaType}">
+
+                            <f:selectItems value="#{selectonemenuview.tvas}"  />
+                        </p:selectOneMenu>
+
+
+
+
+
                         <p:outputLabel value="#{bundle.CreateProductLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{productController.selected.status}" title="#{bundle.CreateProductTitle_status}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_status}"/>
+
+
+
+
+                        <p:selectOneMenu id="status" value="#{productController.selected.status}"  required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_status}">
+
+                            <f:selectItems value="#{selectonemenuview.statuses}"  />
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateProductLabel_userid}" for="userid" />
+
                         <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
                             <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
                                            var="useridItem"
                                            itemValue="#{useridItem}"/>
                         </p:selectOneMenu>
+
+
                         <p:outputLabel value="#{bundle.CreateProductLabel_category}" for="category" />
+
                         <p:selectOneMenu id="category" value="#{productController.selected.category}" >
                             <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
                                            var="categoryItem"
