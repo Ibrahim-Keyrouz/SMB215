@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateCategoryLabel_category}" for="category" />
-                        <p:inputText id="category" value="#{categoryController.selected.category}" title="#{bundle.CreateCategoryTitle_category}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_category}"/>
+                        <p:inputText id="category" onblur="value=value.toUpperCase()"  value="#{categoryController.selected.category}"  title="#{bundle.CreateCategoryTitle_category}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_category}"/>
                         <p:outputLabel value="#{bundle.CreateCategoryLabel_description}" for="description" />
                         <p:inputText id="description" value="#{categoryController.selected.description}" title="#{bundle.CreateCategoryTitle_description}" />
                     </p:panelGrid>
