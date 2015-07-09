@@ -11,6 +11,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -115,5 +120,25 @@ public class PurchasesDtlFacadeREST extends AbstractFacade<PurchasesDtl> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
+    @GET
+    @Path("/details/{id}")
+    @Produces({"application/json"})
+    public List<PurchasesDtl> find_purchase_details(@PathParam("id") PathSegment id) {
+         em.getEntityManagerFactory().getCache().evictAll();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<PurchasesDtl> cq = cb.createQuery(PurchasesDtl.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<PurchasesDtl> pd = m.entity(PurchasesDtl.class);
+        Root<PurchasesDtl> rpd = cq.from(PurchasesDtl.class);        
+        cq.where(cb.equal(rpd.get("purchases").get("docid"),id));
+        return em.createQuery(cq).getResultList();        
+             
+        
+    }
+    
+    
     
 }

@@ -13,6 +13,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -147,5 +152,27 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
                  }
              }
        }
+    
+    
+    
+    @GET
+    @Path("/details/{id}")
+    @Produces({"application/json"})
+    public List<ReceptDtl> find_recept_details(@PathParam("id") PathSegment id) {
+         em.getEntityManagerFactory().getCache().evictAll();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<ReceptDtl> cq = cb.createQuery(ReceptDtl.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<ReceptDtl> pd = m.entity(ReceptDtl.class);
+        Root<ReceptDtl> rpd = cq.from(ReceptDtl.class);        
+       // cq.where(cb.equal(rpd.get("recept").get("docid"),id));
+      
+        
+        cq.where(cb.(rpd.get("recept").get("docid"),id);
+        return em.createQuery(cq).getResultList();        
+             
+        
+    }
     
 }

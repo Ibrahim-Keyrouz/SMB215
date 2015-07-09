@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -22,7 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author oracle
  */
 @Entity
-@Cacheable(false)
 @Table(name = "PURCHASES_DTL")
 @XmlRootElement
 @NamedQueries({
@@ -36,9 +34,14 @@ public class PurchasesDtl implements Serializable {
     protected PurchasesDtlPK purchasesDtlPK;
     @Column(name = "QTY")
     private Integer qty;
+    @JoinColumn(name = "BARCODE", referencedColumnName = "BARCODE", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Product product;
     @JoinColumn(name = "DOCID", referencedColumnName = "DOCID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Purchases purchases;
+    
+   
 
     public PurchasesDtl() {
     }
@@ -46,8 +49,7 @@ public class PurchasesDtl implements Serializable {
     public PurchasesDtl(PurchasesDtlPK purchasesDtlPK) {
         this.purchasesDtlPK = purchasesDtlPK;
     }
-    
-   
+
     public PurchasesDtl(String docid, String barcode) {
         this.purchasesDtlPK = new PurchasesDtlPK(docid, barcode);
     }
@@ -66,6 +68,14 @@ public class PurchasesDtl implements Serializable {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Purchases getPurchases() {
