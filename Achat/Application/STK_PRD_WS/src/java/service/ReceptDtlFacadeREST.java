@@ -7,6 +7,7 @@ package service;
 
 import entities.ReceptDtl;
 import entities.ReceptDtlPK;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -125,9 +126,25 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
         Collection<ReceptDtl> entities = entity;
         
              for (ReceptDtl c : entities)   {
-                
+                ReceptDtl a = null;
                
-                   create(c);    
+                             
+                    a = super.find(c.getReceptDtlPK());
+                
+                
+               if (a == null){
+                   create(c);
+                    
+        }
+                else{
+                    
+                  // Here we are editing the ReceptDtl for a reason that the Supplier may come multiple times for the same PurchaseID
+                   //But we need to take caution of the saved Products in the receptDTL for the same PurchaseID not to be scanned another time.
+                    
+                c.setQty(c.getQty().add(a.getQty()));
+                     edit(c);
+                    
+                 }
              }
        }
     
