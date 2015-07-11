@@ -30,4 +30,8 @@ public class PurchasesDtlFacade extends AbstractFacade<PurchasesDtl> {
          
     }
     
+     public void bob123() {
+        em.getEntityManagerFactory().getCache().evictAll();
+    }
+    
 }

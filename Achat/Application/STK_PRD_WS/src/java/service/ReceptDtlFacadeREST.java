@@ -168,8 +168,8 @@ public class ReceptDtlFacadeREST extends AbstractFacade<ReceptDtl> {
         Root<ReceptDtl> rpd = cq.from(ReceptDtl.class);        
        // cq.where(cb.equal(rpd.get("recept").get("docid"),id));
       
+        cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
         
-        cq.where(cb.(rpd.get("recept").get("docid"),id);
         return em.createQuery(cq).getResultList();        
              
         

@@ -13,13 +13,23 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{purchasesDtlController.selected != null}">
                         <p:outputLabel value="#{bundle.CreatePurchasesDtlLabel_purchases}" for="purchases" />
+                        
                         <p:selectOneMenu id="purchases" value="#{purchasesDtlController.selected.purchases}" required="true" requiredMessage="#{bundle.EditPurchasesDtlRequiredMessage_purchases}">
                             <f:selectItems value="#{purchasesController.itemsAvailableSelectOne}"
                                            var="purchasesItem"
                                            itemValue="#{purchasesItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePurchasesDtlLabel_purchasesDtlPK_barcode}" for="purchasesDtlPK_barcode" />
-                        <p:inputText id="purchasesDtlPK_barcode" value="#{purchasesDtlController.selected.purchasesDtlPK.barcode}" title="#{bundle.CreatePurchasesDtlTitle_purchasesDtlPK_barcode}" required="true" requiredMessage="#{bundle.CreatePurchasesDtlRequiredMessage_purchasesDtlPK_barcode}"/>
+                      
+                        
+                         <p:outputLabel value="#{bundle.EditPurchasesDtlLabel_purchasesDtlPK_barcode}" for="product" />
+                        <p:selectOneMenu id="product" value="#{purchasesDtlController.selected.product}" required="true" requiredMessage="#{bundle.EditPurchasesDtlRequiredMessage_purchasesDtlPK_barcode}">
+                            
+                            <f:selectItems value="#{productController.itemsAvailableSelectOne}"
+                                           var="productItem"
+                                           itemValue="#{productItem}"/>
+                        </p:selectOneMenu>
+           
+                        
                         <p:outputLabel value="#{bundle.CreatePurchasesDtlLabel_qty}" for="qty" />
                         <p:inputText id="qty" value="#{purchasesDtlController.selected.qty}" title="#{bundle.CreatePurchasesDtlTitle_qty}" />
                         

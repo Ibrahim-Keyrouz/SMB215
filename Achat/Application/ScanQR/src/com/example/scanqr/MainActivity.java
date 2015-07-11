@@ -617,7 +617,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			client = new DefaultHttpClient();
 			// StringBuilder url = new
 			// StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
-			url = new StringBuilder(wsUrl + "entities.purchasesdtl/");
+			url = new StringBuilder(wsUrl + "entities.purchasesdtl/details/"+etpurchaseid.getText().toString());
 			// StringBuilder url = new
 			// StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
 			get = new HttpGet(url.toString());
