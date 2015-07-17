@@ -59,8 +59,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	String contents;
 	int counter = 0;
 	JSONArray json;
+	JSONArray json1;
+
 	List<String[]> rowList;
-	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
+	List<String[]> rowList1;
+	String wsUrl = "http://192.168.0.102:8080/STK_PRD_WS/webresources/";
 	String site;
 
 	@Override
@@ -176,13 +179,24 @@ public class MainActivity extends Activity implements OnClickListener {
 				entry.open();
 
 				for (String[] row : rowList) {
-					System.out.println("Row = " + Arrays.toString(row));
+					 int vQty1 = 0 ;
 					if (row[0].equals(contents)) {
 						int vQty = entry.getQty(contents);
+						
+						for (String[] row1 : rowList1) {
+							  
+							if (row1[0].equals(contents)) {
+								vQty1 = Integer.parseInt(row1[1]);
+								break;
+							}
+							
+						}
+						
+						
 						entry.close();
 						// int vQty = 0;
 
-						if (Integer.parseInt(row[1]) > vQty) {
+						if (Integer.parseInt(row[1]) - vQty1 > vQty) {
 
 							try {
 
@@ -191,6 +205,11 @@ public class MainActivity extends Activity implements OnClickListener {
 								b = entry.createEntry(contents, site, 1, 4);
 
 								entry.close();
+							
+							
+							
+							
+							
 							} catch (Exception e) {
 								Dialog d = new Dialog(this);
 								d.setTitle("We have it");
@@ -532,11 +551,32 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			try {
 				json = new JSONArray();
+				json1 = new JSONArray();
+
 				rowList = new ArrayList<String[]>();
+				rowList1 = new ArrayList<String[]>();
+
 				json = receptDtl_Id();
 
 				if (json != null) {
-					System.out.println("bob");
+
+					// Here we call the Rest method find_recept_details
+					json1 = receptDtl_Qties();
+
+					if (json1 != null) {
+						for (int i = 0; i < json1.length(); i++) {
+
+							JSONObject row = json1.getJSONObject(i);
+
+							JSONObject jsonPK = new JSONObject();
+							jsonPK = row.getJSONObject("receptDtlPK");
+
+							rowList1.add(new String[] { jsonPK.get("barcode").toString(), row.get("qty").toString() });
+
+						}
+
+					}
+
 					d = 1;
 
 					for (int i = 0; i < json.length(); i++) {
@@ -573,81 +613,105 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		}
 
-	}
+		public JSONArray receptDtl_Qties() throws ClientProtocolException, IOException, JSONException {
+			// TODO Auto-generated method stub
 
-	public JSONArray receptDtl_Id() throws ClientProtocolException, IOException, JSONException {
-		// Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
-		String vDone = null;
-		flag = 0;
-		HttpClient client = new DefaultHttpClient();
-		StringBuilder url = new StringBuilder(wsUrl + "entities.purchases/" + etpurchaseid.getText().toString());
-		HttpGet get = new HttpGet(url.toString());
-		HttpResponse r = client.execute(get);
-		if (r == null) {
-			flag = 1;
-			return null;
-		}
+			HttpClient client = new DefaultHttpClient();
+			StringBuilder url = new StringBuilder(
+					wsUrl + "entities.receptdtl/details/" + etpurchaseid.getText().toString());
 
-		int status = r.getStatusLine().getStatusCode();
-		if (status == 200) {
-			HttpEntity entity = r.getEntity();
-
-			String data = EntityUtils.toString(entity);
-			// System.out.println(2);
-			JSONObject last = new JSONObject(data);
-			// JSONArray timeline = new JSONArray(data); // return all the
-			// result into a JSON Array
-			// System.out.println(3);
-			// JSONObject last = timeline.getJSONObject(0); // return the first
-			// record of the JSON Array
-			System.out.println(4);
-			vDone = last.getString("done");
-			// Toast.makeText(MainActivity.this, "This Purchase ID is "+ vDone,
-			// Toast.LENGTH_SHORT).show();
-
-		} else {
-			flag = 1;
-			return null;
-		}
-
-		if (vDone.equals("N")) {
-
-			System.out.println(5);
-
-			client = new DefaultHttpClient();
-			// StringBuilder url = new
-			// StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
-			url = new StringBuilder(wsUrl + "entities.purchasesdtl/details/"+etpurchaseid.getText().toString());
-			// StringBuilder url = new
-			// StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
-			get = new HttpGet(url.toString());
-
-			r = client.execute(get);
-
-			status = r.getStatusLine().getStatusCode();
+			HttpGet get = new HttpGet(url.toString());
+			HttpResponse r = client.execute(get);
+			int status = r.getStatusLine().getStatusCode();
 			if (status == 200) {
 				HttpEntity entity = r.getEntity();
 				String data = EntityUtils.toString(entity);
-				JSONArray timeline = new JSONArray(data); // return all the
-															// result into a
-															// JSON Array
-				// JSONObject last = timeline.getJSONObject(0); // return the
-				// first record of the JSON Array
-
+				JSONArray timeline = new JSONArray(data);
 				return timeline;
+
+			}
+			return null;
+
+		}
+
+		public JSONArray receptDtl_Id() throws ClientProtocolException, IOException, JSONException {
+			// Toast.makeText(MainActivity.this, "1",
+			// Toast.LENGTH_SHORT).show();
+			String vDone = null;
+			flag = 0;
+			HttpClient client = new DefaultHttpClient();
+			StringBuilder url = new StringBuilder(wsUrl + "entities.purchases/" + etpurchaseid.getText().toString());
+			HttpGet get = new HttpGet(url.toString());
+			HttpResponse r = client.execute(get);
+			if (r == null) {
+				flag = 1;
+				return null;
 			}
 
-		}
+			int status = r.getStatusLine().getStatusCode();
+			if (status == 200) {
+				HttpEntity entity = r.getEntity();
 
-		else {
-			// Toast.makeText(MainActivity.this, "This Purchase ID is Done",
+				String data = EntityUtils.toString(entity);
+				// System.out.println(2);
+				JSONObject last = new JSONObject(data);
+				// JSONArray timeline = new JSONArray(data); // return all the
+				// result into a JSON Array
+				// System.out.println(3);
+				// JSONObject last = timeline.getJSONObject(0); // return the
+				// first
+				// record of the JSON Array
+				System.out.println(4);
+				vDone = last.getString("done");
+				// Toast.makeText(MainActivity.this, "This Purchase ID is "+
+				// vDone,
+				// Toast.LENGTH_SHORT).show();
+
+			} else {
+				flag = 1;
+				return null;
+			}
+
+			if (vDone.equals("N")) {
+
+				System.out.println(5);
+
+				client = new DefaultHttpClient();
+				// StringBuilder url = new
+				// StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
+				url = new StringBuilder(wsUrl + "entities.purchasesdtl/details/" + etpurchaseid.getText().toString());
+				// StringBuilder url = new
+				// StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
+				get = new HttpGet(url.toString());
+
+				r = client.execute(get);
+
+				status = r.getStatusLine().getStatusCode();
+				if (status == 200) {
+					HttpEntity entity = r.getEntity();
+					String data = EntityUtils.toString(entity);
+					JSONArray timeline = new JSONArray(data); // return all the
+																// result into a
+																// JSON Array
+					// JSONObject last = timeline.getJSONObject(0); // return
+					// the
+					// first record of the JSON Array
+
+					return timeline;
+				}
+
+			}
+
+			else {
+				// Toast.makeText(MainActivity.this, "This Purchase ID is Done",
+				// Toast.LENGTH_SHORT).show();
+				// System.out.println(1);
+
+			}
+			// Toast.makeText(MainActivity.this, "error",
 			// Toast.LENGTH_SHORT).show();
-			// System.out.println(1);
-
+			return null;
 		}
-		// Toast.makeText(MainActivity.this, "error",
-		// Toast.LENGTH_SHORT).show();
-		return null;
 	}
 
 	@Override
