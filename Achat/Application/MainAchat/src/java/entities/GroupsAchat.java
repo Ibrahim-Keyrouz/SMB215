@@ -11,10 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@SequenceGenerator(name="GROUPIDSEQUENCE", sequenceName="GROUPIDSEQUENCE", initialValue=1, allocationSize=1)
 @Cacheable(false)
 @Table(name = "GROUPS_ACHAT")
 @XmlRootElement
@@ -36,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class GroupsAchat implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "GROUPID")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="GROUPIDSEQUENCE")
     private Short groupid;
     @Id
     @Basic(optional = false)
