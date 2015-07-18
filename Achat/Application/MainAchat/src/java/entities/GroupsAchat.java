@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @SequenceGenerator(name="GROUPIDSEQUENCE", sequenceName="GROUPIDSEQUENCE", initialValue=1, allocationSize=1)
+
 @Cacheable(false)
 @Table(name = "GROUPS_ACHAT")
 @XmlRootElement

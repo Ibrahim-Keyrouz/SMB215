@@ -16,7 +16,7 @@
                         <h:outputText value="#{receptController.selected.docid}" title="#{bundle.ViewReceptTitle_docid}"/>
                         <h:outputText value="#{bundle.ViewReceptLabel_trsdate}"/>
                         <h:outputText value="#{receptController.selected.trsdate}" title="#{bundle.ViewReceptTitle_trsdate}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="EEST"/>
                         </h:outputText>
                        
                         <h:outputText value="Site:"/>

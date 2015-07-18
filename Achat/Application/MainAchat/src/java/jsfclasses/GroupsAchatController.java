@@ -51,12 +51,14 @@ public class GroupsAchatController implements Serializable {
     }
 
     public GroupsAchat prepareCreate() {
+        getFacade().refresh_em();
         selected = new GroupsAchat();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+          getFacade().refresh_em();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GroupsAchatCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -64,10 +66,12 @@ public class GroupsAchatController implements Serializable {
     }
 
     public void update() {
+          getFacade().refresh_em();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GroupsAchatUpdated"));
     }
 
     public void destroy() {
+          getFacade().refresh_em();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("GroupsAchatDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -76,6 +80,7 @@ public class GroupsAchatController implements Serializable {
     }
 
     public List<GroupsAchat> getItems() {
+          getFacade().refresh_em();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -83,6 +88,7 @@ public class GroupsAchatController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+          getFacade().refresh_em();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -128,6 +134,7 @@ public class GroupsAchatController implements Serializable {
             }
             GroupsAchatController controller = (GroupsAchatController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupsAchatController");
+            controller.getFacade().refresh_em();
             return controller.getFacade().find(getKey(value));
         }
 

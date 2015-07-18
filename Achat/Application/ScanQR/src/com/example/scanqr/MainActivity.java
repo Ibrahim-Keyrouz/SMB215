@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://192.168.0.102:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.0.100:8080/STK_PRD_WS/webresources/";
 	String site;
 
 	@Override
@@ -382,7 +382,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				// jsonUser5.put("trsdate",trsdateFormat.format(date1));
 				dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				date = new Date();
-				jsonUser3.put("trsdate", dateFormat.format(date) + "T00:00:00+03:00");
+				jsonUser3.put("trsdate", dateFormat.format(date));
 
 				jsonOrderExtraDetailsList.put(jsonUser3);
 

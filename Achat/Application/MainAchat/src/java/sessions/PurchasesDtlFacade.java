@@ -30,7 +30,7 @@ public class PurchasesDtlFacade extends AbstractFacade<PurchasesDtl> {
          
     }
     
-     public void bob123() {
+     public void refresh_em() {
         em.getEntityManagerFactory().getCache().evictAll();
     }
     

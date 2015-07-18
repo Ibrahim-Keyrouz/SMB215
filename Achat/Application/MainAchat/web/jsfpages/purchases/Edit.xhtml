@@ -12,10 +12,9 @@
             <h:form id="PurchasesEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{purchasesController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPurchasesLabel_docid}" for="docid" />
-                        <p:inputText id="docid" value="#{purchasesController.selected.docid}" title="#{bundle.EditPurchasesTitle_docid}" required="true" requiredMessage="#{bundle.EditPurchasesRequiredMessage_docid}"/>
+                        
                         <p:outputLabel value="#{bundle.EditPurchasesLabel_trsdate}" for="trsdate" />
-                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
+                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" timeZone="EEST" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
                       
                        
                        

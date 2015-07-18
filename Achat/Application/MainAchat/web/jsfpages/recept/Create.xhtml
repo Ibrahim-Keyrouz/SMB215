@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateReceptLabel_docid}" for="docid" />
                         <p:inputText id="docid" value="#{receptController.selected.docid}" title="#{bundle.CreateReceptTitle_docid}" required="true" requiredMessage="#{bundle.CreateReceptRequiredMessage_docid}"/>
                         <p:outputLabel value="#{bundle.CreateReceptLabel_trsdate}" for="trsdate" />
-                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" value="#{receptController.selected.trsdate}" title="#{bundle.EditReceptTitle_trsdate}"  showOn="button"/>
+                        <p:calendar id="trsdate" pattern="dd/MM/yyyy" timeZone="EEST" value="#{receptController.selected.trsdate}" title="#{bundle.EditReceptTitle_trsdate}"  showOn="button"/>
                        
                         <p:outputLabel value="#{bundle.CreateReceptLabel_siteid}" for="siteid" />
                         <p:selectOneMenu id="siteid" value="#{receptController.selected.siteid}" >

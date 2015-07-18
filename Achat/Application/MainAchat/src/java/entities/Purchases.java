@@ -13,12 +13,15 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author oracle
  */
 @Entity
+@SequenceGenerator(name="PURCHASESEQ", sequenceName="PURCHASESEQ", initialValue=1, allocationSize=1)
+
 @Cacheable(false)
 @Table(name = "PURCHASES")
 @XmlRootElement
@@ -43,11 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Purchases implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 14)
     @Column(name = "DOCID")
-    private String docid;
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="PURCHASESEQ")
+    private Integer docid;
     @Column(name = "TRSDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trsdate;
@@ -71,15 +74,15 @@ public class Purchases implements Serializable {
     public Purchases() {
     }
 
-    public Purchases(String docid) {
+    public Purchases(Integer docid) {
         this.docid = docid;
     }
 
-    public String getDocid() {
+    public Integer getDocid() {
         return docid;
     }
 
-    public void setDocid(String docid) {
+    public void setDocid(Integer docid) {
         this.docid = docid;
     }
 

@@ -33,15 +33,15 @@ public class SupplierProducts implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SupplierProductsPK supplierProductsPK;
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private UsersAchat usersAchat;
-    @JoinColumn(name = "SUPPLIERID", referencedColumnName = "SUPPLIERID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Supplier supplier;
     @JoinColumn(name = "BARCODE", referencedColumnName = "BARCODE", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Product product;
+    @JoinColumn(name = "SUPPLIERID", referencedColumnName = "SUPPLIERID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Supplier supplier;
+    @JoinColumn(name = "USERID", referencedColumnName = "USERID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private UsersAchat usersAchat;
 
     public SupplierProducts() {
     }
@@ -50,7 +50,7 @@ public class SupplierProducts implements Serializable {
         this.supplierProductsPK = supplierProductsPK;
     }
 
-    public SupplierProducts(String barcode, String supplierid, String userid) {
+    public SupplierProducts(String barcode, int supplierid, String userid) {
         this.supplierProductsPK = new SupplierProductsPK(barcode, supplierid, userid);
     }
 
@@ -62,12 +62,12 @@ public class SupplierProducts implements Serializable {
         this.supplierProductsPK = supplierProductsPK;
     }
 
-    public UsersAchat getUsersAchat() {
-        return usersAchat;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setUsersAchat(UsersAchat usersAchat) {
-        this.usersAchat = usersAchat;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Supplier getSupplier() {
@@ -78,12 +78,12 @@ public class SupplierProducts implements Serializable {
         this.supplier = supplier;
     }
 
-    public Product getProduct() {
-        return product;
+    public UsersAchat getUsersAchat() {
+        return usersAchat;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setUsersAchat(UsersAchat usersAchat) {
+        this.usersAchat = usersAchat;
     }
 
     @Override

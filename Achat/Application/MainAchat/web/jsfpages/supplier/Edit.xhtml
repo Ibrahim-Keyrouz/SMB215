@@ -12,8 +12,7 @@
             <h:form id="SupplierEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSupplierLabel_supplierid}" for="supplierid" />
-                        <p:inputText id="supplierid" value="#{supplierController.selected.supplierid}" title="#{bundle.EditSupplierTitle_supplierid}" required="true" requiredMessage="#{bundle.EditSupplierRequiredMessage_supplierid}"/>
+                        
                         <p:outputLabel value="#{bundle.EditSupplierLabel_description}" for="description" />
                         <p:inputText id="description" value="#{supplierController.selected.description}" title="#{bundle.EditSupplierTitle_description}" required="true" requiredMessage="#{bundle.EditSupplierRequiredMessage_description}"/>
                         <p:outputLabel value="#{bundle.EditSupplierLabel_address}" for="address" />

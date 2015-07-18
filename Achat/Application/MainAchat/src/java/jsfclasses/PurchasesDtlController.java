@@ -41,8 +41,7 @@ public class PurchasesDtlController implements Serializable {
     }
 
     protected void setEmbeddableKeys() {
-        //selected.getPurchasesDtlPK().setDocid(selected.getPurchases().getDocid());
-         selected.getPurchasesDtlPK().setDocid(selected.getPurchases().getDocid());
+        selected.getPurchasesDtlPK().setDocid(selected.getPurchases().getDocid());
         selected.getPurchasesDtlPK().setBarcode(selected.getProduct().getBarcode());
     }
 
@@ -55,14 +54,12 @@ public class PurchasesDtlController implements Serializable {
     }
 
     public PurchasesDtl prepareCreate() {
-        getFacade().bob123();
         selected = new PurchasesDtl();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        getFacade().bob123();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PurchasesDtlCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -70,12 +67,10 @@ public class PurchasesDtlController implements Serializable {
     }
 
     public void update() {
-        getFacade().bob123();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PurchasesDtlUpdated"));
     }
 
     public void destroy() {
-        getFacade().bob123();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PurchasesDtlDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -84,7 +79,6 @@ public class PurchasesDtlController implements Serializable {
     }
 
     public List<PurchasesDtl> getItems() {
-        getFacade().bob123();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -92,7 +86,6 @@ public class PurchasesDtlController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
-        getFacade().bob123();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -121,12 +114,10 @@ public class PurchasesDtlController implements Serializable {
     }
 
     public List<PurchasesDtl> getItemsAvailableSelectMany() {
-        getFacade().bob123();
         return getFacade().findAll();
     }
 
     public List<PurchasesDtl> getItemsAvailableSelectOne() {
-        getFacade().bob123();
         return getFacade().findAll();
     }
 
@@ -143,7 +134,6 @@ public class PurchasesDtlController implements Serializable {
             }
             PurchasesDtlController controller = (PurchasesDtlController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "purchasesDtlController");
-            controller.getFacade().bob123();
             return controller.getFacade().find(getKey(value));
         }
 
@@ -151,7 +141,7 @@ public class PurchasesDtlController implements Serializable {
             entities.PurchasesDtlPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
             key = new entities.PurchasesDtlPK();
-            key.setDocid(values[0]);
+            key.setDocid(Integer.parseInt(values[0]));
             key.setBarcode(values[1]);
             return key;
         }

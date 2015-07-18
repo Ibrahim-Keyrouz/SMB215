@@ -6,18 +6,22 @@
 package entities;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author oracle
  */
+
 @Entity
+@SequenceGenerator(name="SUPPLIERSEQ", sequenceName="SUPPLIERSEQ", initialValue=1, allocationSize=1)
 @Cacheable(false)
 @Table(name = "SUPPLIER")
 @XmlRootElement
@@ -43,13 +49,12 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
+    
     @Column(name = "SUPPLIERID")
-    private String supplierid;
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="SUPPLIERSEQ")
+    private Integer supplierid;
+
+    
     @Size(min = 1, max = 20)
     @Column(name = "DESCRIPTION")
     private String description;
@@ -79,21 +84,21 @@ public class Supplier implements Serializable {
     public Supplier() {
     }
 
-    public Supplier(String supplierid) {
+    public Supplier(Integer supplierid) {
         this.supplierid = supplierid;
     }
 
-    public Supplier(String supplierid, String description, String status) {
+    public Supplier(Integer supplierid, String description, String status) {
         this.supplierid = supplierid;
         this.description = description;
         this.status = status;
     }
 
-    public String getSupplierid() {
+    public Integer getSupplierid() {
         return supplierid;
     }
 
-    public void setSupplierid(String supplierid) {
+    public void setSupplierid(Integer supplierid) {
         this.supplierid = supplierid;
     }
 

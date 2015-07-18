@@ -12,8 +12,8 @@
             <h:form id="SupplierCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateSupplierLabel_supplierid}" for="supplierid" />
-                        <p:inputText id="supplierid" value="#{supplierController.selected.supplierid}" title="#{bundle.CreateSupplierTitle_supplierid}" required="true" requiredMessage="#{bundle.CreateSupplierRequiredMessage_supplierid}"/>
+                       
+                      
                         <p:outputLabel value="#{bundle.CreateSupplierLabel_description}" for="description" />
                         <p:inputText id="description" value="#{supplierController.selected.description}" title="#{bundle.CreateSupplierTitle_description}" required="true" requiredMessage="#{bundle.CreateSupplierRequiredMessage_description}"/>
                         <p:outputLabel value="#{bundle.CreateSupplierLabel_address}" for="address" />

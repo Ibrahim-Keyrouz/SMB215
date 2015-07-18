@@ -119,7 +119,7 @@ public class SupplierController implements Serializable {
     }
 
     @FacesConverter(forClass = Supplier.class)
-    public static class SupplierControllerConverter implements Converter {
+    public static class SupplierControllerConverter implements Converter  {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -131,13 +131,13 @@ public class SupplierController implements Serializable {
             return controller.getFacade().find(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.lang.Integer getKey(String value) {
+            java.lang.Integer key;
+            key = Integer.valueOf(value);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();

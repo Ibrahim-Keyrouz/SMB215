@@ -30,7 +30,7 @@ public class ReceptFacade extends AbstractFacade<Recept> {
          
     }
     
-     public void bob123() {
+     public void refresh_em() {
         em.getEntityManagerFactory().getCache().evictAll();
     }
     

@@ -42,8 +42,8 @@ public class SupplierProductsController implements Serializable {
 
     protected void setEmbeddableKeys() {
         selected.getSupplierProductsPK().setBarcode(selected.getProduct().getBarcode());
-        selected.getSupplierProductsPK().setUserid(selected.getUsersAchat().getUserid());
         selected.getSupplierProductsPK().setSupplierid(selected.getSupplier().getSupplierid());
+        selected.getSupplierProductsPK().setUserid(selected.getUsersAchat().getUserid());
     }
 
     protected void initializeEmbeddableKey() {
@@ -143,7 +143,7 @@ public class SupplierProductsController implements Serializable {
             String values[] = value.split(SEPARATOR_ESCAPED);
             key = new entities.SupplierProductsPK();
             key.setBarcode(values[0]);
-            key.setSupplierid(values[1]);
+            key.setSupplierid(Integer.parseInt(values[1]));
             key.setUserid(values[2]);
             return key;
         }

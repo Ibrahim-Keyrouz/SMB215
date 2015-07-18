@@ -12,8 +12,7 @@
             <h:form id="GroupsAchatCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{groupsAchatController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateGroupsAchatLabel_groupid}" for="groupid" />
-                        <p:inputText id="groupid" value="#{groupsAchatController.selected.groupid}" title="#{bundle.CreateGroupsAchatTitle_groupid}" />
+                    
                         <p:outputLabel value="#{bundle.CreateGroupsAchatLabel_description}" for="description" />
                         <p:inputText id="description" value="#{groupsAchatController.selected.description}" title="#{bundle.CreateGroupsAchatTitle_description}" required="true" requiredMessage="#{bundle.CreateGroupsAchatRequiredMessage_description}"/>
                     </p:panelGrid>

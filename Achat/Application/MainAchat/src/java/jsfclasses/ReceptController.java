@@ -51,14 +51,14 @@ public class ReceptController implements Serializable {
     }
 
     public Recept prepareCreate() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         selected = new Recept();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ReceptCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -66,12 +66,12 @@ public class ReceptController implements Serializable {
     }
 
     public void update() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ReceptUpdated"));
     }
 
     public void destroy() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ReceptDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -80,7 +80,7 @@ public class ReceptController implements Serializable {
     }
 
     public List<Recept> getItems() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -88,7 +88,7 @@ public class ReceptController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
-        getFacade().bob123();
+        getFacade().refresh_em();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -117,12 +117,12 @@ public class ReceptController implements Serializable {
     }
 
     public List<Recept> getItemsAvailableSelectMany() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         return getFacade().findAll();
     }
 
     public List<Recept> getItemsAvailableSelectOne() {
-        getFacade().bob123();
+        getFacade().refresh_em();
         return getFacade().findAll();
     }
 
@@ -136,7 +136,7 @@ public class ReceptController implements Serializable {
             }
             ReceptController controller = (ReceptController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "receptController");
-            controller.getFacade().bob123();
+            controller.getFacade().refresh_em();
             return controller.getFacade().find(getKey(value));
         }
 

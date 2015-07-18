@@ -22,7 +22,7 @@ public class PurchasesDtlPK implements Serializable {
     @NotNull
     @Size(min = 1, max = 14)
     @Column(name = "DOCID")
-    private String docid;
+    private int docid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 16)
@@ -32,16 +32,16 @@ public class PurchasesDtlPK implements Serializable {
     public PurchasesDtlPK() {
     }
 
-    public PurchasesDtlPK(String docid, String barcode) {
+    public PurchasesDtlPK(int docid, String barcode) {
         this.docid = docid;
         this.barcode = barcode;
     }
 
-    public String getDocid() {
+    public int getDocid() {
         return docid;
     }
 
-    public void setDocid(String docid) {
+    public void setDocid(int docid) {
         this.docid = docid;
     }
 
@@ -56,11 +56,11 @@ public class PurchasesDtlPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (docid != null ? docid.hashCode() : 0);
+        hash += (int) docid;
         hash += (barcode != null ? barcode.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -68,7 +68,7 @@ public class PurchasesDtlPK implements Serializable {
             return false;
         }
         PurchasesDtlPK other = (PurchasesDtlPK) object;
-        if ((this.docid == null && other.docid != null) || (this.docid != null && !this.docid.equals(other.docid))) {
+        if (this.docid != other.docid) {
             return false;
         }
         if ((this.barcode == null && other.barcode != null) || (this.barcode != null && !this.barcode.equals(other.barcode))) {

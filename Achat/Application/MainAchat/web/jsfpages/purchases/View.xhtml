@@ -16,7 +16,7 @@
                         <h:outputText value="#{purchasesController.selected.docid}" title="#{bundle.ViewPurchasesTitle_docid}"/>
                         <h:outputText value="#{bundle.ViewPurchasesLabel_trsdate}"/>
                         <h:outputText value="#{purchasesController.selected.trsdate}" title="#{bundle.ViewPurchasesTitle_trsdate}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="EEST"/>
                         </h:outputText>
                        
                         <h:outputText value="Supplier:"/>

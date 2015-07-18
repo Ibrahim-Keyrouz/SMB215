@@ -29,5 +29,7 @@ public class GroupsAchatFacade extends AbstractFacade<GroupsAchat> {
         super(GroupsAchat.class);
          
     }
-    
+    public void refresh_em() {
+        em.getEntityManagerFactory().getCache().evictAll();
+    }
 }

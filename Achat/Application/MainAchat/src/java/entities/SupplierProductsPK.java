@@ -25,9 +25,8 @@ public class SupplierProductsPK implements Serializable {
     private String barcode;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 5)
     @Column(name = "SUPPLIERID")
-    private String supplierid;
+    private int supplierid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 4)
@@ -37,7 +36,7 @@ public class SupplierProductsPK implements Serializable {
     public SupplierProductsPK() {
     }
 
-    public SupplierProductsPK(String barcode, String supplierid, String userid) {
+    public SupplierProductsPK(String barcode, int supplierid, String userid) {
         this.barcode = barcode;
         this.supplierid = supplierid;
         this.userid = userid;
@@ -51,11 +50,11 @@ public class SupplierProductsPK implements Serializable {
         this.barcode = barcode;
     }
 
-    public String getSupplierid() {
+    public int getSupplierid() {
         return supplierid;
     }
 
-    public void setSupplierid(String supplierid) {
+    public void setSupplierid(int supplierid) {
         this.supplierid = supplierid;
     }
 
@@ -71,7 +70,7 @@ public class SupplierProductsPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (barcode != null ? barcode.hashCode() : 0);
-        hash += (supplierid != null ? supplierid.hashCode() : 0);
+        hash += (int) supplierid;
         hash += (userid != null ? userid.hashCode() : 0);
         return hash;
     }
@@ -86,7 +85,7 @@ public class SupplierProductsPK implements Serializable {
         if ((this.barcode == null && other.barcode != null) || (this.barcode != null && !this.barcode.equals(other.barcode))) {
             return false;
         }
-        if ((this.supplierid == null && other.supplierid != null) || (this.supplierid != null && !this.supplierid.equals(other.supplierid))) {
+        if (this.supplierid != other.supplierid) {
             return false;
         }
         if ((this.userid == null && other.userid != null) || (this.userid != null && !this.userid.equals(other.userid))) {
