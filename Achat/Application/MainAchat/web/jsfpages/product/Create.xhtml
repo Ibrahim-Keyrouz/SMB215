@@ -33,10 +33,13 @@
 
                         <p:outputLabel value="#{bundle.CreateProductLabel_userid}" for="userid" />
                         <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="useridItem"
-                                           itemValue="#{useridItem}"/>
+                            <f:selectItems value="#{selectonemenuview.userids}"  />
+                          
+                            
+                            
                         </p:selectOneMenu>
+                        
+                      
 
 
                         <p:outputLabel value="#{bundle.CreateProductLabel_category}" for="category" />

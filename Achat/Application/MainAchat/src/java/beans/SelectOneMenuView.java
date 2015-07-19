@@ -5,12 +5,16 @@
  */
 package beans;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,6 +23,7 @@ import javax.faces.model.SelectItemGroup;
 @ManagedBean(name = "selectonemenuview")
 
 public class SelectOneMenuView {
+     HttpServletRequest request;
 
     private String status;
     private List<SelectItem> statuses;
@@ -28,6 +33,9 @@ public class SelectOneMenuView {
 
     private String done;
     private List<SelectItem> dones;
+    
+    private String userid;
+    private List<SelectItem> userids;
    
     public SelectOneMenuView(){
         
@@ -56,6 +64,15 @@ public class SelectOneMenuView {
 
         dones = new ArrayList<>();
         dones.add(g3);
+        
+        
+        //user session
+         SelectItemGroup g4 = new SelectItemGroup("User Session");
+         FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+        g4.setSelectItems(new SelectItem[]{new SelectItem(request.getRemoteUser(), request.getRemoteUser())});
+        userids = new ArrayList<>();
+        userids.add(g4);
 
     }
 
@@ -92,9 +109,26 @@ public class SelectOneMenuView {
     public void setDone(String done) {
         this.done = done;
     }
+    
+    
 
     public List<SelectItem> getDones() {
         return dones;
+    }
+    
+    
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+    
+    
+
+    public List<SelectItem> getUserids() {
+        return userids;
     }
 
 }

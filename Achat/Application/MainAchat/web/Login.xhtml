@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sign in </title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -29,6 +31,16 @@
             <div style="background: ; padding: 15px">      
             
                 <tbody>
+                    <tr>
+                        <td slign="right">Site: &nbsp;</td>
+                       <td> <p:selectOneMenu id="siteid"  >
+                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                                           var="siteidItem"
+                                           itemValue="#{siteidItem}"/>
+                        </p:selectOneMenu>
+                       </td>
+                    </tr>
+                    
                     <tr>
                         <td slign="right">Username: &nbsp;</td>
                         <td><input type="text" name="j_username" value="" /></td>
