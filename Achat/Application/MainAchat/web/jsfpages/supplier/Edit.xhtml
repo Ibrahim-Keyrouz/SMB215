@@ -28,10 +28,10 @@
                         
                         <p:outputLabel value="#{bundle.EditSupplierLabel_userid}" for="userid" />
                         <p:selectOneMenu id="userid" value="#{supplierController.selected.userid}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="useridItem"
-                                           itemValue="#{useridItem}"/>
+                           
+                            <f:selectItems value="#{usersAchatController.itemAvailableSelectOneSession}"
+                                          var="useridItem"
+                                           itemValue="#{useridItem}" />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{supplierController.update}" value="#{bundle.Save}" update="display,:SupplierListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SupplierEditDialog');"/>

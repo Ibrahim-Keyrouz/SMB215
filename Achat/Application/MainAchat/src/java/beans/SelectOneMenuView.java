@@ -34,8 +34,7 @@ public class SelectOneMenuView {
     private String done;
     private List<SelectItem> dones;
     
-    private String userid;
-    private List<SelectItem> userids;
+ 
    
     public SelectOneMenuView(){
         
@@ -66,13 +65,7 @@ public class SelectOneMenuView {
         dones.add(g3);
         
         
-        //user session
-         SelectItemGroup g4 = new SelectItemGroup("User Session");
-         FacesContext context = FacesContext.getCurrentInstance();
-        request = (HttpServletRequest) context.getExternalContext().getRequest();
-        g4.setSelectItems(new SelectItem[]{new SelectItem(request.getRemoteUser(), request.getRemoteUser())});
-        userids = new ArrayList<>();
-        userids.add(g4);
+      
 
     }
 
@@ -117,18 +110,6 @@ public class SelectOneMenuView {
     }
     
     
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-    
-    
-
-    public List<SelectItem> getUserids() {
-        return userids;
-    }
+   
 
 }

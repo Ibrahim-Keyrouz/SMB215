@@ -28,9 +28,9 @@
                         
                          <p:outputLabel value="Userid:" for="usersAchat" />
                         <p:selectOneMenu id="usersAchat" value="#{supplierProductsController.selected.usersAchat}" required="true" requiredMessage="#{bundle.EditSupplierProductsRequiredMessage_usersAchat}">
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="usersAchatItem"
-                                           itemValue="#{usersAchatItem}"/>
+                           <f:selectItems value="#{usersAchatController.itemAvailableSelectOneSession}"
+                                          var="useridItem"
+                                           itemValue="#{useridItem}" />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{supplierProductsController.create}" value="#{bundle.Save}" update="display,:SupplierProductsListForm:datalist,:growl" oncomplete="handleSubmit(args,'SupplierProductsCreateDialog');"/>

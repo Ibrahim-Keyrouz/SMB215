@@ -113,9 +113,15 @@ public class UsersAchatController implements Serializable {
     public List<UsersAchat> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
+    
+    
 
     public List<UsersAchat> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+      public List<UsersAchat> getItemAvailableSelectOneSession() {
+        return getFacade().find_user_session();
     }
 
     @FacesConverter(forClass = UsersAchat.class)

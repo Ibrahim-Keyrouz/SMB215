@@ -16,13 +16,8 @@
                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_trsdate}" for="trsdate" />
                         <p:calendar id="trsdate" pattern="dd/MM/yyyy" timeZone="EEST" value="#{purchasesController.selected.trsdate}" title="#{bundle.EditPurchasesTitle_trsdate}"  showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreatePurchasesLabel_userid}" for="userid" />
-                        <p:selectOneMenu id="userid" value="#{purchasesController.selected.userid}" >
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="useridItem"
-                                           itemValue="#{useridItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePurchasesLabel_supplierid}" for="supplierid" />
+                        
+                         <p:outputLabel value="#{bundle.CreatePurchasesLabel_supplierid}" for="supplierid" />
                         <p:selectOneMenu id="supplierid" value="#{purchasesController.selected.supplierid}" >
                             <f:selectItems value="#{supplierController.itemsAvailableSelectOne}"
                                            var="supplieridItem"
@@ -35,6 +30,19 @@
                                            itemValue="#{siteidItem}"/>
                         </p:selectOneMenu>
                         
+                        <p:outputLabel value="#{bundle.CreatePurchasesLabel_userid}" for="userid" />
+                        
+                        
+                        
+                        <p:selectOneMenu id="userid" value="#{purchasesController.selected.userid}" >
+                            
+                            <f:selectItems value="#{usersAchatController.itemAvailableSelectOneSession}"
+                                          var="useridItem"
+                                           itemValue="#{useridItem}" />
+                            
+                           
+                        </p:selectOneMenu>
+                       
                          <p:outputLabel value="#{bundle.CreatePurchasesLabel_done}" for="done" />
                           <p:selectOneMenu id="done" value="#{purchasesController.selected.done}" required="true" requiredMessage="#{bundle.CreateProductRequiredMessage_tvaType}">
                               <f:selectItems value="#{selectonemenuview.dones}"  />

@@ -43,10 +43,10 @@
 
                         <p:outputLabel value="#{bundle.EditProductLabel_userid}" for="userid" />
                         <p:selectOneMenu id="userid" value="#{productController.selected.userid}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{usersAchatController.itemsAvailableSelectOne}"
-                                           var="useridItem"
-                                           itemValue="#{useridItem}"/>
+                           
+                             <f:selectItems value="#{usersAchatController.itemAvailableSelectOneSession}"
+                                          var="useridItem"
+                                           itemValue="#{useridItem}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditProductLabel_category}" for="category" />
                         <p:selectOneMenu id="category" value="#{productController.selected.category}" >

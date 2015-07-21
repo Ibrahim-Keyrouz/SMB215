@@ -5,8 +5,16 @@
  */
 package sessions;
 
+import entities.UsersAchat;
 import java.util.List;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -69,6 +77,28 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    
+    public List<UsersAchat> find_user_session(){
+         HttpServletRequest request;
+         
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        
+        CriteriaQuery<UsersAchat> cq = cb.createQuery(UsersAchat.class);
+        Metamodel m = getEntityManager().getMetamodel();
+        EntityType<UsersAchat> pd = m.entity(UsersAchat.class);
+        Root<UsersAchat> rpd = cq.from(UsersAchat.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+       cq.where(cb.equal(rpd.get("userid"),request.getUserPrincipal()));
+       
+       System.out.println(1);
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+        String bob = getEntityManager().createQuery(cq).getSingleResult().toString();
+        return getEntityManager().createQuery(cq).getResultList();
     }
     
 }
