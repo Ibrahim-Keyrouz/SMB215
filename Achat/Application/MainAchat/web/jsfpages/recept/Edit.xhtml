@@ -19,10 +19,12 @@
                         
                         <p:outputLabel value="Site:" for="siteid" />
                         <p:selectOneMenu id="siteid" value="#{receptController.selected.siteid}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                            
+                             <f:selectItems value="#{mngsession.itemAvailableSelectOneSession}"
                                            var="siteidItem"
-                                           itemValue="#{siteidItem}"/>
+                                           itemValue="#{siteidItem}">
+                               
+                            </f:selectItems>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditReceptLabel_relatedDocid}" for="relatedDocid" />
                         <p:selectOneMenu id="relatedDocid" value="#{receptController.selected.relatedDocid}" >

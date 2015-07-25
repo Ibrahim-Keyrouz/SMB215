@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Sign in </title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -21,43 +22,66 @@
     </style>
     <h:body>
 
+
+
+
+
         <form action="j_security_check" method="POST">
-             <table border="0">
-             <div style="text-align: center;" >
-                <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
-                    <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
-                       
-                        <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Enter your Username and Password</span></div></div></div>
-            <div style="background: ; padding: 15px">      
-            
-                <tbody>
-                    <tr>
-                        <td slign="right">Site: &nbsp;</td>
-                       <td> <p:selectOneMenu id="siteid"  >
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
-                                           var="siteidItem"
-                                           itemValue="#{siteidItem}"/>
-                        </p:selectOneMenu>
-                       </td>
-                    </tr>
-                    
-                    <tr>
-                        <td slign="right">Username: &nbsp;</td>
-                        <td><input type="text" name="j_username" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td slign="right">Password: &nbsp;</td>
-                        <td><input type="password" name="j_password" value="" /></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Login" /></td>
-                    </tr>
-                </tbody>
-                  </div>
+            <table border="0">
+                <div style="text-align: center;" >
+                    <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
+                        <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
+
+                            <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Enter your Username and Password</span></div></div></div>
+                <div style="background: ; padding: 15px">      
+
+                    <tbody>
+                        <tr>
+                            <td slign="right">Site: &nbsp;</td>
+                            <td> 
+
+
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td slign="right">Username: &nbsp;</td>
+                            <td><input type="text" name="j_username" value="" />
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td slign="right">Password: &nbsp;</td>
+                            <td><input type="password" name="j_password" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Login" /></td>
+                        </tr>
+                    </tbody>
+                </div>
             </table>
- 
+
         </form>
+
+        <h:form>
+                   
+
+
+
+            <p:selectOneMenu id="initsiteid" value="#{mngsession.choosesiteid}" required="true" >
+                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                               var="initsiteidItem"
+                               itemValue="#{initsiteidItem}"></f:selectItems>
+                <p:ajax execute="change" render="initsiteid"/>
+            </p:selectOneMenu>
+                   
+
+        </h:form>
 
     </h:body>
 

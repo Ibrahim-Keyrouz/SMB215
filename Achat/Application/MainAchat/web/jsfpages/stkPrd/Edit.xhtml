@@ -14,10 +14,11 @@
                     <p:panelGrid columns="2" rendered="#{stkPrdController.selected != null}">
                         <p:outputLabel value="Site:" for="sites" />
                         <p:selectOneMenu id="sites" value="#{stkPrdController.selected.sites}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
-                                           var="sitesItem"
-                                           itemValue="#{sitesItem}"/>
+                            <f:selectItems value="#{mngsession.itemAvailableSelectOneSession}"
+                                           var="siteidItem"
+                                           itemValue="#{siteidItem}">
+                               
+                            </f:selectItems>
                         </p:selectOneMenu>
                          <p:outputLabel value="#{bundle.EditStkPrdLabel_product}" for="product" />
                         <p:selectOneMenu id="product" value="#{stkPrdController.selected.product}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_product}">

@@ -21,13 +21,14 @@ public class StkPrdFacade extends AbstractFacade<StkPrd> {
 
     @Override
     protected EntityManager getEntityManager() {
-         
         return em;
     }
 
     public StkPrdFacade() {
         super(StkPrd.class);
-         
     }
     
+    public void refresh_em() {
+        em.getEntityManagerFactory().getCache().evictAll();
+    }
 }

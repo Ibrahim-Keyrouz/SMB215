@@ -39,12 +39,12 @@ public class StkPrd implements Serializable {
     private Integer qty;
     @Column(name = "QTY_NOTIFICATION")
     private Integer qtyNotification;
-    @JoinColumn(name = "SITEID", referencedColumnName = "SITEID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Sites sites;
     @JoinColumn(name = "BARCODE", referencedColumnName = "BARCODE", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Product product;
+    @JoinColumn(name = "SITEID", referencedColumnName = "SITEID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Sites sites;
 
     public StkPrd() {
     }
@@ -81,20 +81,20 @@ public class StkPrd implements Serializable {
         this.qtyNotification = qtyNotification;
     }
 
-    public Sites getSites() {
-        return sites;
-    }
-
-    public void setSites(Sites sites) {
-        this.sites = sites;
-    }
-
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Sites getSites() {
+        return sites;
+    }
+
+    public void setSites(Sites sites) {
+        this.sites = sites;
     }
 
     @Override

@@ -5,8 +5,11 @@
  */
 package sessions;
 
+import beans.Session;
+import entities.Sites;
 import entities.UsersAchat;
 import java.util.List;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,6 +25,17 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
+    
+    @ManagedProperty(value="#{mngsession}") 
+    Session session1;
+
+    public Session getSession1() {
+        return session1;
+    }
+
+    public void setSession1(Session session1) {
+        this.session1 = session1;
+    }
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -94,11 +108,33 @@ public abstract class AbstractFacade<T> {
         
        cq.where(cb.equal(rpd.get("userid"),request.getUserPrincipal()));
        
-       System.out.println(1);
+      
       
       //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
-        String bob = getEntityManager().createQuery(cq).getSingleResult().toString();
+      
         return getEntityManager().createQuery(cq).getResultList();
     }
+    
+    public List<Sites> find_site_session(String a){
+        
+        
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        
+        CriteriaQuery<Sites> cq = cb.createQuery(Sites.class);
+        Metamodel m = getEntityManager().getMetamodel();
+        EntityType<Sites> pd = m.entity(Sites.class);
+        Root<Sites> rpd = cq.from(Sites.class); 
+       
+        
+       //  a = this.getSession1().getChoosesiteid().toString();
+       cq.where(cb.equal(rpd.get("siteid"),a));
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
     
 }

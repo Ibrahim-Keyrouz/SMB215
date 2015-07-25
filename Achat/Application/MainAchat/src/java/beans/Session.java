@@ -5,18 +5,22 @@
  */
 package beans;
 
+import entities.Sites;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import sessions.SitesFacade;
 //import static org.apache.poi.hssf.usermodel.HeaderFooter.page;
 
 /**
@@ -26,14 +30,15 @@ import javax.servlet.http.HttpSession;
 @ManagedBean(name = "mngsession")
 @SessionScoped
 public class Session implements Serializable {
-
+    private String choosesiteid ;
     private String userid;
     private String password;
     HttpServletRequest request;
 
     FacesContext fc = FacesContext.getCurrentInstance();
     ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-
+@EJB
+    private sessions.SitesFacade ejbFacade;
     /**
      * Creates a new instance of Session
      */
@@ -44,9 +49,22 @@ public class Session implements Serializable {
         return userid;
     }
 
+    private SitesFacade getFacade() {
+        return ejbFacade;
+    }
     public void setUserid(String userid) {
         this.userid = userid;
     }
+
+    public String getChoosesiteid() {
+        return choosesiteid;
+    }
+
+    public void setChoosesiteid(String choosesiteid) {
+        this.choosesiteid = choosesiteid;
+    }
+    
+  
 
     public String getPassword() {
         return password;
@@ -115,6 +133,23 @@ public class Session implements Serializable {
         return request.getRemoteUser();
         
      }
+     
+     
+     public List<Sites> getItemAvailableSelectOneSession() {
+        return getFacade().find_site_session(returnSitefromString(this.getChoosesiteid()));
+    }
+     
+     
+     public String returnSitefromString(String a) {
+       return  a.substring(23, 25);
+         
+     }
+     
+     
+     
+   
+     
+   
      
  
 

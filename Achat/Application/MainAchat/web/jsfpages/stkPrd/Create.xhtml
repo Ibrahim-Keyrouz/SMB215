@@ -13,8 +13,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{stkPrdController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateStkPrdLabel_sites}" for="sites" />
-                        <p:selectOneMenu id="sites" value="Site:" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                        <p:selectOneMenu id="sites" value="#{stkPrdController.selected.sites}" required="true" requiredMessage="#{bundle.EditStkPrdRequiredMessage_sites}">
+                            <f:selectItems value="#{mngsession.itemAvailableSelectOneSession}"
                                            var="sitesItem"
                                            itemValue="#{sitesItem}"/>
                         </p:selectOneMenu>
@@ -26,8 +26,9 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateStkPrdLabel_qty}" for="qty" />
                         <p:inputText id="qty" value="#{stkPrdController.selected.qty}" title="#{bundle.CreateStkPrdTitle_qty}" />
-                        <p:outputLabel value="Notification Qty:" for="qtyNotification" />
+                        <p:outputLabel value="#{bundle.CreateStkPrdLabel_qtyNotification}" for="qtyNotification" />
                         <p:inputText id="qtyNotification" value="#{stkPrdController.selected.qtyNotification}" title="#{bundle.CreateStkPrdTitle_qtyNotification}" />
+                        
                         
                         
                     </p:panelGrid>

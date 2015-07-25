@@ -19,9 +19,11 @@
                        
                         <p:outputLabel value="#{bundle.CreateReceptLabel_siteid}" for="siteid" />
                         <p:selectOneMenu id="siteid" value="#{receptController.selected.siteid}" >
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                             <f:selectItems value="#{mngsession.itemAvailableSelectOneSession}"
                                            var="siteidItem"
-                                           itemValue="#{siteidItem}"/>
+                                           itemValue="#{siteidItem}">
+                               
+                            </f:selectItems>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateReceptLabel_relatedDocid}" for="relatedDocid" />
                         <p:selectOneMenu id="relatedDocid" value="#{receptController.selected.relatedDocid}" >

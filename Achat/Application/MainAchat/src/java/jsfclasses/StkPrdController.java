@@ -54,12 +54,14 @@ public class StkPrdController implements Serializable {
     }
 
     public StkPrd prepareCreate() {
+        getFacade().refresh_em();
         selected = new StkPrd();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+         getFacade().refresh_em();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StkPrdCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -67,10 +69,12 @@ public class StkPrdController implements Serializable {
     }
 
     public void update() {
+         getFacade().refresh_em();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StkPrdUpdated"));
     }
 
     public void destroy() {
+         getFacade().refresh_em();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("StkPrdDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -79,6 +83,7 @@ public class StkPrdController implements Serializable {
     }
 
     public List<StkPrd> getItems() {
+         getFacade().refresh_em();
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -86,6 +91,7 @@ public class StkPrdController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+         getFacade().refresh_em();
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -114,10 +120,12 @@ public class StkPrdController implements Serializable {
     }
 
     public List<StkPrd> getItemsAvailableSelectMany() {
+         getFacade().refresh_em();
         return getFacade().findAll();
     }
 
     public List<StkPrd> getItemsAvailableSelectOne() {
+         getFacade().refresh_em();
         return getFacade().findAll();
     }
 
@@ -134,6 +142,7 @@ public class StkPrdController implements Serializable {
             }
             StkPrdController controller = (StkPrdController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "stkPrdController");
+            controller.getFacade().refresh_em();
             return controller.getFacade().find(getKey(value));
         }
 

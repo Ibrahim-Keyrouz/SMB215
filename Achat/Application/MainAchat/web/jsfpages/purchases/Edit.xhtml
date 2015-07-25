@@ -23,13 +23,18 @@
                                            var="supplieridItem"
                                            itemValue="#{supplieridItem}"/>
                         </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.EditPurchasesLabel_siteid}" for="siteid" />
                         <p:selectOneMenu id="siteid" value="#{purchasesController.selected.siteid}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
+                            
+                           <f:selectItems value="#{mngsession.itemAvailableSelectOneSession}"
                                            var="siteidItem"
-                                           itemValue="#{siteidItem}"/>
+                                           itemValue="#{siteidItem}">
+                               
+                            </f:selectItems>
                         </p:selectOneMenu>
+                        
+                        
                        
                         
                         
