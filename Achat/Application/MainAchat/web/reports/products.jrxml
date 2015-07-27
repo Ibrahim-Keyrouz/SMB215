@@ -54,9 +54,9 @@ from product p , category c]]>
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
-			<image>
+			<image isUsingCache="false">
 				<reportElement x="0" y="0" width="170" height="126" uuid="134257d9-7faf-4fb6-9d53-2d4a40437fdf"/>
-				<imageExpression><![CDATA["pics-isae-logo.gif"]]></imageExpression>
+				<imageExpression><![CDATA["isaelogo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="170" y="0" width="342" height="62" uuid="e0679323-c074-41ca-aabf-9d9403249588"/>
