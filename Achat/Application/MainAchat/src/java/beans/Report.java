@@ -40,7 +40,9 @@ private Connection conn = null;
      */
    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 {
-    File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/products.jasper"));
+    String reportName = request.getParameter("name");
+    
+    File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/"+reportName+".jasper"));
     ServletOutputStream servletOutputStream = response.getOutputStream();
     byte[] bytes = null;
    // Map<String,Object> parameter = new HashMap<String,Object>();

@@ -88,7 +88,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProductViewForm" oncomplete="PF('ProductViewDialog').show()" disabled="#{empty productController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProductEditForm" oncomplete="PF('ProductEditDialog').show()" disabled="#{empty productController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{productController.destroy}" update=":growl,datalist" disabled="#{empty productController.selected}"/>
-                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport1()}"  onclick="target = '_blank'"  ajax="false"/>
+                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('products')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                     <h3>Export Page Data Only</h3>

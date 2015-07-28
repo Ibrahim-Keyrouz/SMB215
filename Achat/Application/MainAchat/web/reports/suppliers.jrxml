@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="suppliers" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2cfa5b42-968c-46ff-842c-9963a27e45d3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     SUPPLIER."SUPPLIERID" AS SUPPLIER_SUPPLIERID,
+     SUPPLIER."DESCRIPTION" AS SUPPLIER_DESCRIPTION,
+     SUPPLIER."TEL" AS SUPPLIER_TEL,
+     SUPPLIER."EMAIL" AS SUPPLIER_EMAIL,
+     SUPPLIER."STATUS" AS SUPPLIER_STATUS,
+     SUPPLIER."ADDRESS" AS SUPPLIER_ADDRESS,
+     SUPPLIER."USERID" AS SUPPLIER_USERID
+FROM
+     "HR"."SUPPLIER" SUPPLIER]]>
+	</queryString>
+	<field name="SUPPLIER_SUPPLIERID" class="java.math.BigDecimal"/>
+	<field name="SUPPLIER_DESCRIPTION" class="java.lang.String"/>
+	<field name="SUPPLIER_ADDRESS" class="java.lang.String"/>
+	<field name="SUPPLIER_EMAIL" class="java.lang.String"/>
+	<field name="SUPPLIER_TEL" class="java.lang.String"/>
+	<field name="SUPPLIER_STATUS" class="java.lang.String"/>
+	<group name="SUPPLIER_SUPPLIERID">
+		<groupExpression><![CDATA[$F{SUPPLIER_SUPPLIERID}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="597" height="24" forecolor="#010101" backcolor="#F2EBDF" uuid="1e6b1bdc-b056-4c78-bcb5-a785fa91dca9"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" forecolor="#010101" backcolor="#010101" uuid="2b7cd625-e85f-4827-857b-53b6bdc858a1"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement style="SubTitle" x="68" y="0" width="413" height="24" forecolor="#010101" uuid="63d8db91-e8c0-4291-b982-3a73afb6206c"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{SUPPLIER_SUPPLIERID}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="89" y="0" width="382" height="62" uuid="89716804-d61a-488a-a139-4f04a7549de3"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[CNAM Suppliers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="68" width="185" height="42" uuid="7675c24b-0b46-4ba7-87f3-7924012fa476"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[This report shows CNAM Suppliers]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" forecolor="#010101" uuid="0346cb06-6de6-454c-a879-fd46cbc5d577"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="111" height="15" forecolor="#010101" uuid="b9f08501-970f-450a-bf38-9d8af1f1486c"/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="0" width="111" height="15" forecolor="#010101" uuid="5325cc9d-5b32-4a9c-b649-45ce0c3203bc"/>
+				<text><![CDATA[ADDRESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="0" width="111" height="15" forecolor="#010101" uuid="2d3c6741-5b2c-40eb-8c2c-1edc1da023cc"/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="0" width="111" height="15" forecolor="#010101" uuid="ed738c05-6682-461f-b564-68fe10dee384"/>
+				<text><![CDATA[TEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="0" width="111" height="15" forecolor="#010101" uuid="b2639e29-0d8f-4e15-a77d-9dae3d876e25"/>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="5790da29-8209-48e9-ad62-da3bd4194a1b"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="7266e121-4d20-4090-b4a9-8db3a1170772"/>
+					<textFieldExpression><![CDATA[$F{SUPPLIER_DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="95a07171-3eb2-4769-9506-dce85b740812"/>
+					<textFieldExpression><![CDATA[$F{SUPPLIER_ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="610e15fc-4ba6-453f-93a2-b0bfc77216f6"/>
+					<textFieldExpression><![CDATA[$F{SUPPLIER_EMAIL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="be7905c4-dd00-446c-a73c-4366b00821c5"/>
+					<textFieldExpression><![CDATA[$F{SUPPLIER_TEL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="5f59e0cc-84c3-4f26-9f29-72ada6713920"/>
+					<textFieldExpression><![CDATA[$F{SUPPLIER_STATUS}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d4a0031f-1c32-4dba-8784-f19fad1e3469"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="7e35892b-7f6f-4055-b44c-996fb6b794d1"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="7ed6aa73-c1f8-4bd2-a987-33dabd420c19"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="2d508cdd-d0a9-4aee-a92b-6c73c66f6b5a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="d9d7cb20-768a-4182-9592-25da621fb0f8"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

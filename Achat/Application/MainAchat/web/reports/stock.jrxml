@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stock" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7c99afd-98a6-4704-be0c-6895db048b5f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     STK_PRD."BARCODE" AS STK_PRD_BARCODE,
+     STK_PRD."QTY" AS STK_PRD_QTY,
+     STK_PRD."QTY_NOTIFICATION" AS STK_PRD_QTY_NOTIFICATION,
+     SITES."DESCRIPTION" AS SITES_DESCRIPTION,
+     PRODUCT."DESCRIPTION" AS PRODUCT_DESCRIPTION
+FROM
+     "HR"."SITES" SITES INNER JOIN "HR"."STK_PRD" STK_PRD ON SITES."SITEID" = STK_PRD."SITEID"
+     INNER JOIN "HR"."PRODUCT" PRODUCT ON STK_PRD."BARCODE" = PRODUCT."BARCODE"]]>
+	</queryString>
+	<field name="SITES_DESCRIPTION" class="java.lang.String"/>
+	<field name="STK_PRD_BARCODE" class="java.lang.String"/>
+	<field name="PRODUCT_DESCRIPTION" class="java.lang.String"/>
+	<field name="STK_PRD_QTY" class="java.math.BigDecimal"/>
+	<field name="STK_PRD_QTY_NOTIFICATION" class="java.math.BigDecimal"/>
+	<group name="SITES_DESCRIPTION">
+		<groupExpression><![CDATA[$F{SITES_DESCRIPTION}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="597" height="24" forecolor="#010101" backcolor="#F2EBDF" uuid="866593af-d35d-4d05-8b36-f3f4ee9cd485"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" forecolor="#010101" backcolor="#010101" uuid="e1793192-5699-4d8f-a741-c38200838663"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement style="SubTitle" x="68" y="0" width="413" height="24" forecolor="#010101" uuid="da48e3f9-33a1-4738-9630-43058ff93e73"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{SITES_DESCRIPTION}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="STK_PRD_BARCODE">
+		<groupExpression><![CDATA[$F{STK_PRD_BARCODE}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement style="SubTitle" x="0" y="4" width="460" height="20" forecolor="#010101" uuid="3be334b1-ee3b-4ffc-939e-3f956204d243"/>
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{STK_PRD_BARCODE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="132" y="0" width="342" height="62" uuid="c97f5538-0cce-4ac3-aca8-3fd16a060874"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[CNAM Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="62" width="160" height="42" uuid="ef4d0fe4-8aed-4c23-9f35-cff2d9bfeeb1"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[This report shows CNAM Stock.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" forecolor="#010101" uuid="c238b5c7-4993-4a7b-b800-30346477bef7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="185" height="15" forecolor="#010101" uuid="d37abd09-84ca-4796-ab22-a211af64f8dd"/>
+				<text><![CDATA[PRODUCT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="0" width="185" height="15" forecolor="#010101" uuid="d9669949-c429-44b3-89aa-580818f1bcf9"/>
+				<text><![CDATA[QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="0" width="185" height="15" forecolor="#010101" uuid="1efe0f30-36b6-45f0-9f42-d30d6b2af3ab"/>
+				<text><![CDATA[QTY NOTIFICATION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="119262f2-60c8-4a32-af9f-46992c87aab0"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="185" height="15" uuid="168e7508-a72b-436b-b9ac-203d497777f4"/>
+					<textFieldExpression><![CDATA[$F{PRODUCT_DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="b9ee3d34-7f0b-4f09-b888-3fe9ad918811"/>
+					<textFieldExpression><![CDATA[$F{STK_PRD_QTY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="370" y="0" width="185" height="15" uuid="fadbb43b-6093-409a-944b-26cde54e50d2"/>
+					<textFieldExpression><![CDATA[$F{STK_PRD_QTY_NOTIFICATION}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="3cee94cf-0652-4fbb-bfae-2b3464f45164"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="5f601efb-e391-41fe-93bb-1dbc5ea25dbc"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="cec37c8e-8076-4f39-9513-2205fbd4d289"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="7be078e8-54d5-4fdd-b11c-373514b80eca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="61bfbdb3-25c5-4ffe-a882-3668c8a7121b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
