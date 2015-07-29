@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="suppliers_products" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48c9566d-7a20-4068-844d-778b865afebd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     SUPPLIER."DESCRIPTION" AS SUPPLIER_DESCRIPTION,
+     SUPPLIER."TEL" AS SUPPLIER_TEL,
+     SUPPLIER."EMAIL" AS SUPPLIER_EMAIL,
+     PRODUCT."DESCRIPTION" AS PRODUCT_DESCRIPTION,
+     PRODUCT."TVA_TYPE" AS PRODUCT_TVA_TYPE,
+     PRODUCT."TVA" AS PRODUCT_TVA
+FROM
+     "HR"."SUPPLIER" SUPPLIER INNER JOIN "HR"."SUPPLIER_PRODUCTS" SUPPLIER_PRODUCTS ON SUPPLIER."SUPPLIERID" = SUPPLIER_PRODUCTS."SUPPLIERID"
+     INNER JOIN "HR"."PRODUCT" PRODUCT ON SUPPLIER_PRODUCTS."BARCODE" = PRODUCT."BARCODE"]]>
+	</queryString>
+	<field name="SUPPLIER_DESCRIPTION" class="java.lang.String"/>
+	<field name="SUPPLIER_TEL" class="java.lang.String"/>
+	<field name="SUPPLIER_EMAIL" class="java.lang.String"/>
+	<field name="PRODUCT_DESCRIPTION" class="java.lang.String"/>
+	<field name="PRODUCT_TVA_TYPE" class="java.lang.String"/>
+	<field name="PRODUCT_TVA" class="java.math.BigDecimal"/>
+	<group name="SUPPLIER_DESCRIPTION">
+		<groupExpression><![CDATA[$F{SUPPLIER_DESCRIPTION}]]></groupExpression>
+		<groupHeader>
+			<band height="60">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="597" height="24" forecolor="#010101" backcolor="#F2EBDF" uuid="1a79686a-2c87-4a7c-8dad-4ab5d2fa3410"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#010101" uuid="50cc83e9-4844-47e3-b346-b3732cf65796"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement style="SubTitle" x="68" y="0" width="413" height="24" forecolor="#010101" uuid="bd2e8be3-e855-45ce-9aa5-5cee73ed0c6c"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{SUPPLIER_DESCRIPTION}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="334" y="4" width="138" height="15" forecolor="#010101" uuid="965ca954-6e0a-4bd0-afa4-78d9f19c18f5"/>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{SUPPLIER_TEL}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="454" y="5" width="138" height="15" forecolor="#010101" uuid="f72dc874-320e-4ef9-b146-3bdd30afe636"/>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{SUPPLIER_EMAIL}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<staticText>
+					<reportElement style="Column header" x="251" y="31" width="138" height="15" forecolor="#010101" uuid="ff63628f-bcac-436e-b00d-5a51b5aa3001"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[TVA TYPE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="414" y="31" width="138" height="15" forecolor="#010101" uuid="a1d7c648-70be-4af5-ad22-a7ec584abd4f"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[TVA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="PRODUCT_DESCRIPTION">
+		<groupExpression><![CDATA[$F{PRODUCT_DESCRIPTION}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement style="SubTitle" x="59" y="4" width="460" height="20" forecolor="#010101" uuid="0283c3a8-6597-459a-9a4f-04599fb0e4b2"/>
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRODUCT_DESCRIPTION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="276" y="4" width="113" height="15" forecolor="#010101" uuid="f714ef98-f575-4218-83de-bc25ad12ae22"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{PRODUCT_TVA_TYPE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="415" y="4" width="137" height="15" forecolor="#010101" uuid="c2b56718-8eb5-40ea-a8dc-e13d3c300dfd"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{PRODUCT_TVA}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="80" y="0" width="439" height="62" uuid="11c30a71-97af-4e6c-a5c6-04f1f07d06bf"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Suppliers Products]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="62" width="383" height="42" uuid="6e0dd741-b1cc-49b0-ba27-ba04932b3106"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[This Report shows the Products of each Supplier.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="a563e642-bc5e-42e6-afab-9db60fbcc317"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="b7262c33-9157-494f-a5ab-4df2328bfe11"/>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="eeac3a59-6e75-4669-9241-b48907ffd442"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="d912d973-3254-42dd-9130-6cefbce2c235"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="1571dd94-7af8-4ade-a38e-4510a6670020"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="a3295c4f-15ca-4f7d-bb4a-187ed1da2760"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="0baf78c8-58f9-41f8-a6fa-b983265bc5b3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

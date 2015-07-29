@@ -51,6 +51,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SupplierProductsViewForm" oncomplete="PF('SupplierProductsViewDialog').show()" disabled="#{empty supplierProductsController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SupplierProductsEditForm" oncomplete="PF('SupplierProductsEditDialog').show()" disabled="#{empty supplierProductsController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{supplierProductsController.destroy}" update=":growl,datalist" disabled="#{empty supplierProductsController.selected}"/>
+                                <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('suppliers_products')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
