@@ -26,7 +26,7 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        <p:column>
+                        <p:column filterBy="#{item.purchases.docid}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPurchasesDtlTitle_purchases}"/>
                             </f:facet>
