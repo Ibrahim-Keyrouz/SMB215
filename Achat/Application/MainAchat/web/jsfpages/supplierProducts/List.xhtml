@@ -54,6 +54,26 @@
                                 <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('suppliers_products')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
+                     <h3>Export Page Data Only</h3>
+                    <h:commandLink>
+                        <p:graphicImage value="/images/excel.png" title="Generate to Excel" />
+                        <p:dataExporter type="xls" target="datalist" fileName="CNAM Suppliers Products" pageOnly="true"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="/images/pdf.png" title="Generate to PDF" />
+                        <p:dataExporter type="pdf" target="datalist" fileName="CNAM Suppliers Products" pageOnly="true" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="/images/csv.png" title="Generate to CSV" />
+                        <p:dataExporter type="csv" target="datalist" fileName="CNAM Suppliers Products" pageOnly="true" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="/images/xml.png" title="Generate to XML" />
+                        <p:dataExporter type="xml" target="datalist" fileName="CNAM Suppliers Products" pageOnly="true" />
+                    </h:commandLink>
                 </p:panel>
             </h:form>
 
