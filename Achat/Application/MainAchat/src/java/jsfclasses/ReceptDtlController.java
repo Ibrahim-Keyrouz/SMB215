@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "receptDtlController")
 
@@ -28,6 +29,7 @@ public class ReceptDtlController implements Serializable {
     @EJB
     private sessions.ReceptDtlFacade ejbFacade;
     private List<ReceptDtl> items = null;
+    private List<ReceptDtl> item = null;
     private ReceptDtl selected;
 
     public ReceptDtlController() {
@@ -90,6 +92,25 @@ public class ReceptDtlController implements Serializable {
         }
         return items;
     }
+    
+     public List<ReceptDtl> getItem() {
+        if (item == null) {
+             HttpServletRequest request = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+            String id = request.getParameter("theRecept");
+            item = (List<ReceptDtl>) getFacade().find_item_recept(id);
+        }
+        return item;
+    }
+      
+      public String getId() {
+           HttpServletRequest request = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+            String id = request.getParameter("theRecept");
+            return id ;
+      }
 
     private void persist(PersistAction persistAction, String successMessage) {
         getFacade().refresh_em();

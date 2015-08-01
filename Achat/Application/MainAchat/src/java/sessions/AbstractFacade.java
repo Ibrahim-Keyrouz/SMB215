@@ -6,6 +6,8 @@
 package sessions;
 
 import beans.Session;
+import entities.PurchasesDtl;
+import entities.ReceptDtl;
 import entities.Sites;
 import entities.UsersAchat;
 import java.util.List;
@@ -132,6 +134,46 @@ public abstract class AbstractFacade<T> {
       
       
       //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    public List<PurchasesDtl> find_item_purchase(String a){
+        
+        
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        
+        CriteriaQuery<PurchasesDtl> cq = cb.createQuery(PurchasesDtl.class);
+        Metamodel m = getEntityManager().getMetamodel();
+        EntityType<PurchasesDtl> pd = m.entity(PurchasesDtl.class);
+        Root<PurchasesDtl> rpd = cq.from(PurchasesDtl.class); 
+       
+        
+       //  a = this.getSession1().getChoosesiteid().toString();
+       //cq.where(cb.equal(rpd.get("docid"),a));
+       
+       cq.where(cb.equal(rpd.get("purchases").get("docid"),a));
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    
+    
+     public List<ReceptDtl> find_item_recept(String a){
+        
+        
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        
+        CriteriaQuery<ReceptDtl> cq = cb.createQuery(ReceptDtl.class);
+        Metamodel m = getEntityManager().getMetamodel();
+        EntityType<ReceptDtl> pd = m.entity(ReceptDtl.class);
+        Root<ReceptDtl> rpd = cq.from(ReceptDtl.class); 
+       
+         cq.where(cb.like(rpd.get("recept").<String>get("docid"),a));
       
         return getEntityManager().createQuery(cq).getResultList();
     }

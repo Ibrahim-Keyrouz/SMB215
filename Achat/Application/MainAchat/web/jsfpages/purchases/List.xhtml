@@ -68,6 +68,12 @@
                             </f:facet>
                             <h:outputText value="#{item.done}"/>
                         </p:column>
+                        <p:column>  
+                               <f:facet name="header">Take action</f:facet>  
+                               <h:link id="Out" value="View Details" outcome="/jsfpages/purchasesDtl/List_Item.xhtml">  
+                                    <f:param name="theId" value="#{item.docid}" />  
+                               </h:link>  
+                          </p:column>  
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{purchasesController.prepareCreate}" update=":PurchasesCreateForm" oncomplete="PF('PurchasesCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PurchasesViewForm" oncomplete="PF('PurchasesViewDialog').show()" disabled="#{empty purchasesController.selected}"/>

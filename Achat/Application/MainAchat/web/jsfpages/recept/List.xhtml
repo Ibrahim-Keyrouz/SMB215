@@ -63,7 +63,12 @@
                             </f:facet>
                             <h:outputText value="#{item.invoiceDiscount}"/>
                         </p:column>
-                        
+                        <p:column>  
+                               <f:facet name="header">Take action</f:facet>  
+                               <h:link id="Out" value="View Details" outcome="/jsfpages/receptDtl/List_Item.xhtml">  
+                                    <f:param name="theRecept" value="#{item.docid}" />  
+                               </h:link>  
+                          </p:column>  
                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{receptController.prepareCreate}" update=":ReceptCreateForm" oncomplete="PF('ReceptCreateDialog').show()"/>

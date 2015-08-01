@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "purchasesDtlController")
 @ViewScoped
@@ -27,6 +28,7 @@ public class PurchasesDtlController implements Serializable {
     @EJB
     private sessions.PurchasesDtlFacade ejbFacade;
     private List<PurchasesDtl> items = null;
+     private List<PurchasesDtl> item = null;
     private PurchasesDtl selected;
 
     public PurchasesDtlController() {
@@ -85,6 +87,24 @@ public class PurchasesDtlController implements Serializable {
         return items;
     }
 
+     public List<PurchasesDtl> getItem() {
+        if (item == null) {
+             HttpServletRequest request = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+            String id = request.getParameter("theId");
+            item = (List<PurchasesDtl>) getFacade().find_item_purchase(id);
+        }
+        return item;
+    }
+      
+      public String getId() {
+           HttpServletRequest request = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+            String id = request.getParameter("theId");
+            return id ;
+      }
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

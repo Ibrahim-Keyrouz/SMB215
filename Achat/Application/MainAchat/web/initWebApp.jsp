@@ -37,7 +37,7 @@
             }
             // >
             if (mmbrexist > 0) { 
-                 String redirectURL ="/MainAchat/faces/jsfpages/category/List.xhtml";   
+                 String redirectURL ="/MainAchat/faces/jsfpages/sites/List.xhtml";   
                  response.sendRedirect(redirectURL);
             } else {
                String redirectURL = "/MainAchat/faces/CreatingAdmin.xhtml";
