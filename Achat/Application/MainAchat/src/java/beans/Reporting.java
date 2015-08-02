@@ -19,6 +19,7 @@ import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -69,6 +70,30 @@ FacesContext context = FacesContext.getCurrentInstance();
 try{
 ExternalContext exContext = context.getExternalContext();
 exContext.redirect("http://localhost:8080/MainAchat/Report?name="+reportName);
+
+}catch
+(Exception e) {
+e.printStackTrace();
+}finally{
+context.responseComplete();
+}
+
+
+}
+ 
+ 
+ public void showReport_With_Params(String reportName) throws MalformedURLException, IOException {
+
+      HttpServletRequest request = null;
+   
+        
+     
+FacesContext context = FacesContext.getCurrentInstance();
+request = (HttpServletRequest) context.getExternalContext().getRequest();
+            String id = request.getParameter("docid");
+try{
+ExternalContext exContext = context.getExternalContext();
+exContext.redirect("http://localhost:8080/MainAchat/Report_Params?name="+reportName+"&docid="+id);
 
 }catch
 (Exception e) {

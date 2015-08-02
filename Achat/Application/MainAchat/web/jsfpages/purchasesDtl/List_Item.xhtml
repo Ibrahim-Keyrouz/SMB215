@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
 
     <ui:composition template="/template.xhtml">
 
@@ -43,7 +44,14 @@
                             </f:facet>
                             <h:outputText value="#{item.qty}"/>
                         </p:column>
-
+                        <f:facet name="footer">
+                                  
+                            
+                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport_With_Params('purchases_params')}"  onclick="target = '_blank'"  ajax="false">
+                                <f:param name="docid" value="#{purchasesDtlController.id}" />
+                            </p:commandButton>
+                                
+                        </f:facet>
                        
                     </p:dataTable>
                 </p:panel>

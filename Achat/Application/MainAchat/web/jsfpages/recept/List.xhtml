@@ -75,6 +75,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ReceptViewForm" oncomplete="PF('ReceptViewDialog').show()" disabled="#{empty receptController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ReceptEditForm" oncomplete="PF('ReceptEditDialog').show()" disabled="#{empty receptController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{receptController.destroy}" update=":growl,datalist" disabled="#{empty receptController.selected}"/>
+                              <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('recepts')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
