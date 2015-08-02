@@ -26,7 +26,7 @@
 
 
 
-        <form action="j_security_check" method="POST">
+        <form action="j_security_check" method="POST" >
             <table border="0">
                 <div style="text-align: center;" >
                     <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="submit" value="Login" /></td>
+                            <td><input  type="submit" value="Login"/></td>
                         </tr>
                     </tbody>
                 </div>
@@ -73,11 +73,13 @@
 
 
             <p:selectOneMenu id="initsiteid" value="#{mngsession.choosesiteid}" required="true" >
-                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                <f:selectItem itemLabel="#{bundle.SelectOneMessage}" noSelectionOption="true"/>
+               
                 <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
                                var="initsiteidItem"
                                itemValue="#{initsiteidItem}"></f:selectItems>
                 <p:ajax execute="change" render="initsiteid"/>
+               
             </p:selectOneMenu>
 
 
