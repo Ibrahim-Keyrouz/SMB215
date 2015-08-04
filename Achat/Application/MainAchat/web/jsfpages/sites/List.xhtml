@@ -44,7 +44,8 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SitesViewForm" oncomplete="PF('SitesViewDialog').show()" disabled="#{empty sitesController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SitesEditForm" oncomplete="PF('SitesEditDialog').show()" disabled="#{empty sitesController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{sitesController.destroy}" update=":growl,datalist" disabled="#{empty sitesController.selected}"/>
-                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('sites')}"  onclick="target = '_blank'"  ajax="false"/>
+                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('sites','1')}"  onclick="target = '_blank'"  ajax="false"/>
+                            <p:commandButton value="Print Report"  actionListener="#{reporting.showReport('sites','2')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                     <h3>Export Page Data Only</h3>

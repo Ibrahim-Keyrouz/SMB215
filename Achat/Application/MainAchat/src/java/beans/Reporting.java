@@ -64,12 +64,12 @@ public class Reporting {
       
    
         
- public void showReport(String reportName) throws MalformedURLException, IOException {
+ public void showReport(String reportName,String doctype) throws MalformedURLException, IOException {
 
 FacesContext context = FacesContext.getCurrentInstance();
 try{
 ExternalContext exContext = context.getExternalContext();
-exContext.redirect("http://localhost:8080/MainAchat/Report?name="+reportName);
+exContext.redirect("http://localhost:8080/MainAchat/Report?name="+reportName+"&doctype="+doctype);
 
 }catch
 (Exception e) {
@@ -80,6 +80,7 @@ context.responseComplete();
 
 
 }
+ 
  
  
  public void showReport_With_Params(String reportName) throws MalformedURLException, IOException {

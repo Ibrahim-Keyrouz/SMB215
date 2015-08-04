@@ -79,7 +79,8 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PurchasesViewForm" oncomplete="PF('PurchasesViewDialog').show()" disabled="#{empty purchasesController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PurchasesEditForm" oncomplete="PF('PurchasesEditDialog').show()" disabled="#{empty purchasesController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{purchasesController.destroy}" update=":growl,datalist" disabled="#{empty purchasesController.selected}"/>
-                             <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('purchases')}"  onclick="target = '_blank'"  ajax="false"/>
+                             <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('purchases','1')}"  onclick="target = '_blank'"  ajax="false"/>
+                             <p:commandButton value="Print Report"  actionListener="#{reporting.showReport('purchases','2')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

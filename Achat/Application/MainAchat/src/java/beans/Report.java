@@ -13,6 +13,9 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +23,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
@@ -38,9 +44,11 @@ private Connection conn = null;
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException
 {
     String reportName = request.getParameter("name");
+    String docType = request.getParameter("doctype");
+    
     
     File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/"+reportName+".jasper"));
     ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -60,9 +68,10 @@ private Connection conn = null;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    
+    if (docType.contains("1")) {
     try
     {
+       
         String reportPath =JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null);
          File reportHtmlFile = new File(reportPath);
         bytes = JasperRunManager.runReportToHtmlFile(reportFile.getPath(),null,conn).getBytes();
@@ -84,6 +93,25 @@ private Connection conn = null;
     {
         System.out.println(e);
     }
+}
+    else {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(),null,conn);
+                              
+
+List l=jasperPrint.getPages();                         
+if(l.size() != 0){
+//  jasperPrint.setOrientation(JasperReport.);
+  //jasperPrint.setPageHeight(877);
+ //jasperPrint.setPageWidth(963);
+ // JasperPrintManager.printPages(jasperPrint,0,l.size()-1,true);
+}
+        
+    
+       //  JasperPrintManager.printReport(reportFile.getPath(), true);
+      //  String reportPath =JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null);
+      //   JasperPrintManager.printPage(jasperPrint, 0, false);
+         JasperPrintManager.printReport(jasperPrint, false);
+            }
 }
    
    public void initConnection() {
@@ -116,7 +144,11 @@ private Connection conn = null;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    try {
         processRequest(request, response);
+    } catch (JRException ex) {
+        Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**
@@ -130,7 +162,11 @@ private Connection conn = null;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    try {
         processRequest(request, response);
+    } catch (JRException ex) {
+        Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**

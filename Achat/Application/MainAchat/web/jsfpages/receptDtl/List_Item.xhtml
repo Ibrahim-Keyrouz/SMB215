@@ -64,10 +64,13 @@
                        <f:facet name="footer">
                                   
                             
-                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport_With_Params('recept_param')}"  onclick="target = '_blank'"  ajax="false">
+                            <p:commandButton value="Run Report"  actionListener="#{reporting.showReport_With_Params('recept_param','1')}"  onclick="target = '_blank'"  ajax="false">
                                 <f:param name="docid" value="#{receptDtlController.id}" />
                             </p:commandButton>
-                                
+                                   <p:commandButton value="Print Report"  actionListener="#{reporting.showReport_With_Params('recept_param','2')}"  onclick="target = '_blank'"  ajax="false">
+                                <f:param name="docid" value="#{receptDtlController.id}" />
+                            </p:commandButton>
+                         
                         </f:facet>
                        
                     </p:dataTable>
