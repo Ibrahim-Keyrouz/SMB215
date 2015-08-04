@@ -4,6 +4,10 @@
     Author     : bk-laptop
 --%>
 
+
+<%@page import="sessions.UsersAchatFacade"%>
+<%@page import="java.util.List"%>
+<%@page import="entities.UsersAchat"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -19,24 +23,17 @@
     <body>
         <h1>Hello World!</h1>
         
+     
+        
+       <jsp:useBean id="bob" class="beans.Bean_Page" />
+      
+        
         <%
-    //
-   
-      int mmbrexist = 0;
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        Connection connection = null;
-        connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "remoteusers");
-        Statement stmt = null;
-        String query = "select USERID  from users_achat";
-        try {
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                mmbrexist++;
-
-            }
-            // >
-            if (mmbrexist > 0) { 
+ 
+      
+      int mmbrexist = bob.getEsm();
+ 
+            if (mmbrexist > 0 ) { 
                  String redirectURL ="/MainAchat/faces/jsfpages/sites/List.xhtml";   
                  response.sendRedirect(redirectURL);
             } else {
@@ -44,18 +41,8 @@
                 // String redirectURL ="/MainAchat/faces/jsfpages/category/List.xhtml";   
                response.sendRedirect(redirectURL);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-                connection.close();
-            }
-        }
+      
 
-    
-    
-    
 %>
         
     </body>
