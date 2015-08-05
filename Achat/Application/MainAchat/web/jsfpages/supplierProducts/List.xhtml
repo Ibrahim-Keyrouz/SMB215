@@ -53,6 +53,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{supplierProductsController.destroy}" update=":growl,datalist" disabled="#{empty supplierProductsController.selected}"/>
                                 <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('suppliers_products','1')}"  onclick="target = '_blank'"  ajax="false"/>
                                    <p:commandButton value="Print Report"  actionListener="#{reporting.showReport('suppliers_products','2')}"  onclick="target = '_blank'"  ajax="false"/>
+                                   <p:commandButton value="Email Report"  actionListener="#{reporting.showReport('suppliers_products','3')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                      <h3>Export Page Data Only</h3>

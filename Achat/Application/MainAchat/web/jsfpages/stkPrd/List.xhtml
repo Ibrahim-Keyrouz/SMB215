@@ -61,6 +61,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{stkPrdController.destroy}" update=":growl,datalist" disabled="#{empty stkPrdController.selected}"/>
                               <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('stock','1')}"  onclick="target = '_blank'"  ajax="false"/>
                                 <p:commandButton value="Print Report"  actionListener="#{reporting.showReport('stock','2')}"  onclick="target = '_blank'"  ajax="false"/>
+                                <p:commandButton value="Email Report"  actionListener="#{reporting.showReport('stock','3')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                       <h3>Export Page Data Only</h3>

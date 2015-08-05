@@ -81,6 +81,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{purchasesController.destroy}" update=":growl,datalist" disabled="#{empty purchasesController.selected}"/>
                              <p:commandButton value="Run Report"  actionListener="#{reporting.showReport('purchases','1')}"  onclick="target = '_blank'"  ajax="false"/>
                              <p:commandButton value="Print Report"  actionListener="#{reporting.showReport('purchases','2')}"  onclick="target = '_blank'"  ajax="false"/>
+                             <p:commandButton value="Email Report"  actionListener="#{reporting.showReport('purchases','3')}"  onclick="target = '_blank'"  ajax="false"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

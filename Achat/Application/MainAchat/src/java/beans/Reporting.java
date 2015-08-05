@@ -83,7 +83,7 @@ context.responseComplete();
  
  
  
- public void showReport_With_Params(String reportName) throws MalformedURLException, IOException {
+ public void showReport_With_Params(String reportName,String doctype) throws MalformedURLException, IOException {
 
       HttpServletRequest request = null;
    
@@ -94,7 +94,7 @@ request = (HttpServletRequest) context.getExternalContext().getRequest();
             String id = request.getParameter("docid");
 try{
 ExternalContext exContext = context.getExternalContext();
-exContext.redirect("http://localhost:8080/MainAchat/Report_Params?name="+reportName+"&docid="+id);
+exContext.redirect("http://localhost:8080/MainAchat/Report_Params?name="+reportName+"&docid="+id+"&doctype="+doctype);
 
 }catch
 (Exception e) {

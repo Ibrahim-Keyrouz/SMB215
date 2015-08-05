@@ -5,17 +5,32 @@
  */
 package beans;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.security.Security;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +38,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
@@ -34,7 +50,9 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 @WebServlet(name = "Report", urlPatterns = {"/Report"})
 public class Report extends HttpServlet {
-private Connection conn = null;
+
+    private Connection conn = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,17 +62,16 @@ private Connection conn = null;
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException
-{
-    String reportName = request.getParameter("name");
-    String docType = request.getParameter("doctype");
-    
-    
-    File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/"+reportName+".jasper"));
-    ServletOutputStream servletOutputStream = response.getOutputStream();
-    byte[] bytes = null;
-   // Map<String,Object> parameter = new HashMap<String,Object>();
-       String HOST = "jdbc:oracle:thin:@localhost:1521:XE";
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException, AddressException, MessagingException {
+        String reportName = request.getParameter("name");
+        String docType = request.getParameter("doctype");
+
+        File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/" + reportName + ".jasper"));
+
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        byte[] bytes = null;
+        // Map<String,Object> parameter = new HashMap<String,Object>();
+        String HOST = "jdbc:oracle:thin:@localhost:1521:XE";
         String USERNAME = "hr";
         String PASSWORD = "remoteusers";
         try {
@@ -68,53 +85,127 @@ private Connection conn = null;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    if (docType.contains("1")) {
-    try
-    {
-       
-        String reportPath =JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null);
-         File reportHtmlFile = new File(reportPath);
-        bytes = JasperRunManager.runReportToHtmlFile(reportFile.getPath(),null,conn).getBytes();
-        FileInputStream fis = new FileInputStream(reportHtmlFile);
-         bytes =  new byte[(int)reportHtmlFile.length()];
-        fis.read(bytes);
-         response.setHeader("Content-Disposition","inline; filename=bob.html");
-        response.setContentType("text/html");
-        response.setContentLength(bytes.length);
-        servletOutputStream.write(bytes, 0, bytes.length);
-        servletOutputStream.flush();
-        servletOutputStream.close();
-        
-       
-        
-       
-    }
-    catch (JRException e)
-    {
-        System.out.println(e);
-    }
-}
-    else {
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(),null,conn);
-                              
+        if (docType.contains("1")) {
+            try {
 
-List l=jasperPrint.getPages();                         
-if(l.size() != 0){
-//  jasperPrint.setOrientation(JasperReport.);
-  //jasperPrint.setPageHeight(877);
- //jasperPrint.setPageWidth(963);
- // JasperPrintManager.printPages(jasperPrint,0,l.size()-1,true);
-}
-        
-    
-       //  JasperPrintManager.printReport(reportFile.getPath(), true);
-      //  String reportPath =JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null);
-      //   JasperPrintManager.printPage(jasperPrint, 0, false);
-         JasperPrintManager.printReport(jasperPrint, false);
+                String reportPath = JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null);
+                File reportHtmlFile = new File(reportPath);
+                bytes = JasperRunManager.runReportToHtmlFile(reportFile.getPath(), null, conn).getBytes();
+                FileInputStream fis = new FileInputStream(reportHtmlFile);
+                bytes = new byte[(int) reportHtmlFile.length()];
+                fis.read(bytes);
+                response.setHeader("Content-Disposition", "inline; filename=bob.html");
+                response.setContentType("text/html");
+                response.setContentLength(bytes.length);
+                servletOutputStream.write(bytes, 0, bytes.length);
+                servletOutputStream.flush();
+                servletOutputStream.close();
+
+            } catch (JRException e) {
+                System.out.println(e);
             }
-}
-   
-   public void initConnection() {
+        } else if (docType.contains("2")) {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), null, conn);
+
+            List l = jasperPrint.getPages();
+            if (l.size() != 0) {
+
+            }
+
+            JasperPrintManager.printReport(jasperPrint, false);
+        } else {
+            this.send(reportFile, reportName);
+
+        }
+    }
+
+    public void send(File a, String b) throws NoSuchProviderException, AddressException, MessagingException, JRException {
+        javax.mail.Session session = null;
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.host", "smtp.gmail.com");
+
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.socketFactory.port", "465");
+
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback", "false");
+
+        session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("cnamachat@gmail.com", "projetsmb215");
+            }
+        });
+        session.setDebug(true);
+
+        Transport transport = session.getTransport();
+        InternetAddress addressFrom = new InternetAddress("cnamachat@gmail.com");
+        MimeMessage message = new MimeMessage(session);
+        message.setSender(addressFrom);
+
+//
+        // This HTML mail have to 2 part, the BODY and the embedded attachment
+        //
+        MimeMultipart multipart = new MimeMultipart("related");
+
+        // first part  (the html)
+        BodyPart messageBodyPart = new MimeBodyPart();
+        String htmlText = "<H1>Hello</H1>";
+        messageBodyPart.setContent(htmlText, "text/html");
+
+        // add it
+        multipart.addBodyPart(messageBodyPart);
+
+        // second part (the image)
+        messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setHeader("Content-Disposition", "attachment; filename=\""+ "CNAM " + b + "\"");
+        byte[] bytes = null;
+
+        String HOST = "jdbc:oracle:thin:@localhost:1521:XE";
+        String USERNAME = "hr";
+        String PASSWORD = "remoteusers";
+        try {
+            Class.forName("oracle.jdbc.OracleDriver");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(a.getPath(), null, conn);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+        
+       
+        DataSource aAttachment = new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+       
+        messageBodyPart.setDataHandler(new DataHandler(aAttachment));
+
+        multipart.addBodyPart(messageBodyPart);
+
+        message.setContent(multipart);
+        
+
+        message.setSubject("CNAM " + b);
+
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress("bob.keyrouz@gmail.com"));
+        transport.connect();
+        transport.send(message);
+        transport.close();
+        session = null;
+
+    }
+
+    public void initConnection() {
 
         String HOST = "jdbc:oracle:thin:@localhost:1521:XE";
         String USERNAME = "hr";
@@ -144,11 +235,13 @@ if(l.size() != 0){
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (JRException ex) {
-        Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (JRException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -162,11 +255,13 @@ if(l.size() != 0){
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (JRException ex) {
-        Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (JRException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

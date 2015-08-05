@@ -70,6 +70,10 @@
                                    <p:commandButton value="Print Report"  actionListener="#{reporting.showReport_With_Params('recept_param','2')}"  onclick="target = '_blank'"  ajax="false">
                                 <f:param name="docid" value="#{receptDtlController.id}" />
                             </p:commandButton>
+                           
+                            <p:commandButton value="Email Report"  actionListener="#{reporting.showReport_With_Params('recept_param','3')}"  onclick="target = '_blank'"  ajax="false">
+                                <f:param name="docid" value="#{receptDtlController.id}" />
+                            </p:commandButton>
                          
                         </f:facet>
                        
