@@ -14,8 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{usersAchatController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsersAchatLabel_userid}" for="userid" />
                         <p:inputText id="userid" value="#{usersAchatController.selected.userid}" title="#{bundle.EditUsersAchatTitle_userid}" required="true" requiredMessage="#{bundle.EditUsersAchatRequiredMessage_userid}"/>
-                          <p:outputLabel value="#{bundle.EditUsersAchatLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usersAchatController.selected.password}" title="#{bundle.EditUsersAchatTitle_password}" />
+                          
                         <p:outputLabel value="#{bundle.EditUsersAchatLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usersAchatController.selected.email}" title="#{bundle.EditUsersAchatTitle_email}" />
                       

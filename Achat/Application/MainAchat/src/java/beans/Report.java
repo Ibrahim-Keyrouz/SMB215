@@ -5,6 +5,7 @@
  */
 package beans;
 
+import entities.UsersAchat;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -31,6 +34,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +55,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperRunManager;
+import sessions.UsersAchatFacade;
 
 /**
  *
@@ -50,6 +63,9 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 @WebServlet(name = "Report", urlPatterns = {"/Report"})
 public class Report extends HttpServlet {
+    
+    private EntityManager em;
+   
 
     private Connection conn = null;
 
@@ -62,6 +78,9 @@ public class Report extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, JRException, AddressException, MessagingException {
         String reportName = request.getParameter("name");
         String docType = request.getParameter("doctype");
@@ -114,12 +133,15 @@ public class Report extends HttpServlet {
 
             JasperPrintManager.printReport(jasperPrint, false);
         } else {
-            this.send(reportFile, reportName);
+            
+            this.send(reportFile, reportName,request.getUserPrincipal().toString());
 
         }
     }
+    
+     
 
-    public void send(File a, String b) throws NoSuchProviderException, AddressException, MessagingException, JRException {
+    public void send(File a, String b,String c) throws NoSuchProviderException, AddressException, MessagingException, JRException {
         javax.mail.Session session = null;
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         Properties props = new Properties();
@@ -196,8 +218,8 @@ public class Report extends HttpServlet {
         
 
         message.setSubject("CNAM " + b);
-
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress("bob.keyrouz@gmail.com"));
+        
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(find_user_session(c).get(0).getEmail()));
         transport.connect();
         transport.send(message);
         transport.close();
@@ -221,6 +243,30 @@ public class Report extends HttpServlet {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    
+     public List<UsersAchat> find_user_session(String name){
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+           em = emf.createEntityManager();
+         
+         
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<UsersAchat> cq = cb.createQuery(UsersAchat.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<UsersAchat> pd = m.entity(UsersAchat.class);
+        Root<UsersAchat> rpd = cq.from(UsersAchat.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        
+       cq.where(cb.equal(rpd.get("userid"),name));
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return em.createQuery(cq).getResultList();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
