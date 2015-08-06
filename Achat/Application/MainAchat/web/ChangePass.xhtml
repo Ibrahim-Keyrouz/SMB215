@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Sign in </title>
+        <title>Change Password </title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
 
@@ -24,37 +24,29 @@
 
         
         
-        <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false">
+        <h:form>
              <table border="0">
                  <div style="text-align: center;" >
                     <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
                         <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
 
-                            <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Enter your Username, Password and Site</span></div></div></div>
+                            <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Enter your New Password</span></div></div></div>
                 <div style="background: ; padding: 15px">      
 
                     <tbody>
     <h:panelGrid columns="2">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p:inputText id="j_username" name="j_username" />            
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p:password id="j_password" name="j_password"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Site : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           
-            <p:selectOneMenu id="initsiteid" value="#{mngsession.choosesiteid}" required="true" >
-                <f:selectItem itemLabel="#{bundle.SelectOneMessage}" noSelectionOption="true"/>
-               
-                <f:selectItems value="#{sitesController.itemsAvailableSelectOne}"
-                               var="initsiteidItem"
-                               itemValue="#{initsiteidItem}"></f:selectItems>
-                <p:ajax execute="change" render="initsiteid"/>
-               
-            </p:selectOneMenu>
-        <p:commandButton id="submit" value="Login" ajax="false"/>
+        New Password :<p:inputText id="password" value="#{mngsession.password}"  />
+        Confirm Password :<p:inputText id="confpassword" value="#{mngsession.confpassword}"  />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p:commandButton  value="Change" 
+                                                                                            action="#{usersAchatController.changePswd(mngsession.getUser(),mngsession.password,mngsession.confpassword)}" ajax="false"/>
+         
+       
     </h:panelGrid>
+                
                     </tbody>
                       </div>
              </table>
+            
 </h:form>
         
         

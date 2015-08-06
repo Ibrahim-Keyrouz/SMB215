@@ -162,5 +162,9 @@ public class UsersAchatController implements Serializable {
         }
 
     }
+    
+     public String changePswd(String a,String b,String c){
+       return getFacade().changePassword(a,b,c);
+    }
 
 }

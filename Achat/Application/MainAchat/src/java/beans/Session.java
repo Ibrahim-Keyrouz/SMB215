@@ -30,15 +30,18 @@ import sessions.SitesFacade;
 @ManagedBean(name = "mngsession")
 @SessionScoped
 public class Session implements Serializable {
-    private String choosesiteid ;
+
+    private String choosesiteid;
     private String userid;
     private String password;
+    private String confpassword;
     HttpServletRequest request;
 
     FacesContext fc = FacesContext.getCurrentInstance();
     ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) fc.getApplication().getNavigationHandler();
-@EJB
+    @EJB
     private sessions.SitesFacade ejbFacade;
+
     /**
      * Creates a new instance of Session
      */
@@ -52,6 +55,7 @@ public class Session implements Serializable {
     private SitesFacade getFacade() {
         return ejbFacade;
     }
+
     public void setUserid(String userid) {
         this.userid = userid;
     }
@@ -63,8 +67,6 @@ public class Session implements Serializable {
     public void setChoosesiteid(String choosesiteid) {
         this.choosesiteid = choosesiteid;
     }
-    
-  
 
     public String getPassword() {
         return password;
@@ -74,83 +76,87 @@ public class Session implements Serializable {
         this.password = password;
     }
 
- 
- public String logout() {
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-    session.invalidate();
-    return "/Login?faces-redirect=true"; }
+    public String getConfpassword() {
+        return confpassword;
+    }
 
-   
+    public void setConfpassword(String confpassword) {
+        this.confpassword = confpassword;
+    }
+
+    public String logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
+        return "/Login?faces-redirect=true";
+    }
+
     public void createAdmin() throws ClassNotFoundException, SQLException {
         try {
-        this.setUserid("0001");
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        Connection connection = null;
-        connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "remoteusers");
-        Statement stmt = null;
-        Number a ;
-        a = 1 ;
-         String query1 = "insert into groups (DESCRIPTION,groupid) values ('admin',"+a+")";
-         a = 2 ;
-        String query2 = "insert into groups (DESCRIPTION,groupid) values ('user',"+a+")";
-       
-        String query = "insert into users values ('"+this.getUserid() +"','admin','"+sha256(this.getPassword())+"','admin')";
-        stmt = connection.createStatement();
-         
-         stmt.executeUpdate(query1);
-         stmt.executeUpdate(query2);
-         stmt.executeUpdate(query);
-           nav.performNavigation("/faces/Login.xhtml");
-        }catch(SQLException e) {
+            this.setUserid("0001");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection connection = null;
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "remoteusers");
+            Statement stmt = null;
+            Number a;
+            a = 1;
+            String query1 = "insert into groups (DESCRIPTION,groupid) values ('admin'," + a + ")";
+            a = 2;
+            String query2 = "insert into groups (DESCRIPTION,groupid) values ('user'," + a + ")";
+
+            String query = "insert into users values ('" + this.getUserid() + "','admin','" + sha256(this.getPassword()) + "','admin')";
+            stmt = connection.createStatement();
+
+            stmt.executeUpdate(query1);
+            stmt.executeUpdate(query2);
+            stmt.executeUpdate(query);
+            nav.performNavigation("/faces/Login.xhtml");
+        } catch (SQLException e) {
             e.printStackTrace();
-             nav.performNavigation("/faces/error.xhtml");
+            nav.performNavigation("/faces/error.xhtml");
         }
-        
+
     }
-    
-     private String sha256(String base) {
+
+    private String sha256(String base) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes("UTF-8"));
             StringBuffer hexString = new StringBuffer();
-            
-            for (int i = 0 ; i <hash.length;i++) {
+
+            for (int i = 0; i < hash.length; i++) {
                 String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1 ) hexString.append('0');
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
                 hexString.append(hex);
             }
             return hexString.toString();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
-            
-            }
+
         }
-     
-     public String getUser() {
-       // return request.getUserPrincipal().getName();
-         FacesContext context = FacesContext.getCurrentInstance();
+    }
+
+    public String getUser() {
+        // return request.getUserPrincipal().getName();
+        FacesContext context = FacesContext.getCurrentInstance();
         request = (HttpServletRequest) context.getExternalContext().getRequest();
         return request.getRemoteUser();
-        
-     }
-     
-     
-     public List<Sites> getItemAvailableSelectOneSession() {
+
+    }
+
+    public List<Sites> getItemAvailableSelectOneSession() {
         return getFacade().find_site_session(returnSitefromString(this.getChoosesiteid()));
     }
-     
-     
-     public String returnSitefromString(String a) {
-       return  a.substring(23, 25);
-         
-     }
-     
-     
-     
-   
-     
-   
-     
- 
+
+    public String returnSitefromString(String a) {
+        return a.substring(23, 25);
+
+    }
+
+    public String changePass() {
+
+        return "/ChangePass?faces-redirect=true";
+    }
 
 }
