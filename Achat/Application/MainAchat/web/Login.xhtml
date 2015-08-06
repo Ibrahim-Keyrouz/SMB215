@@ -22,13 +22,11 @@
     </style>
     <h:body>
 
-
-
-
-
-        <form action="j_security_check" method="POST" >
-            <table border="0">
-                <div style="text-align: center;" >
+        
+        
+        <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false">
+             <table border="0">
+                 <div style="text-align: center;" >
                     <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
                         <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
 
@@ -36,42 +34,13 @@
                 <div style="background: ; padding: 15px">      
 
                     <tbody>
-                        <tr>
-                            <td slign="right">Site: &nbsp;</td>
-                            <td> 
-
-
-
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td slign="right">Username: &nbsp;</td>
-                            <td><input type="text" name="j_username" value="" />
-
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td slign="right">Password: &nbsp;</td>
-                            <td><input type="password" name="j_password" value="" /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input  type="submit" value="Login"/></td>
-                        </tr>
-                    </tbody>
-                </div>
-            </table>
-
-        </form>
-
-        <h:form>
-
-
-
-
+    <h:panelGrid columns="2">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p:inputText id="j_username" name="j_username" />            
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p:password id="j_password" name="j_password"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Site : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           
             <p:selectOneMenu id="initsiteid" value="#{mngsession.choosesiteid}" required="true" >
                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}" noSelectionOption="true"/>
                
@@ -81,10 +50,17 @@
                 <p:ajax execute="change" render="initsiteid"/>
                
             </p:selectOneMenu>
-
-
-        </h:form>
-
+        <p:commandButton id="submit" value="Login" ajax="false"/>
+    </h:panelGrid>
+                    </tbody>
+                      </div>
+             </table>
+</h:form>
+        
+        
+        
+        
+        
     </h:body>
 
 
