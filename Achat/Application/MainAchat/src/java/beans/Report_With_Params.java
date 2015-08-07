@@ -5,6 +5,8 @@
  */
 package beans;
 
+import entities.Purchases;
+import entities.UsersAchat;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +36,14 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -65,6 +75,7 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 @WebServlet(name = "Report_With_Params", urlPatterns = {"/Report_Params"})
 public class Report_With_Params extends HttpServlet {
+    private EntityManager em;
 private Connection conn = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -140,10 +151,14 @@ private Connection conn = null;
 
             JasperPrintManager.printReport(jasperPrint, false);
         
-    }else {
-            this.send(reportFile, reportName,parameter);
+    }else if (docType.contains("3")) {
+        
+            this.send(reportFile, reportName,parameter,find_user_session(request.getUserPrincipal().toString()).get(0).getEmail());
 
         }
+    else{
+        this.send(reportFile, reportName,parameter,find_supplier(vtheId_param).get(0).getSupplierid().getEmail());
+    }
 }
    
    public void initConnection() {
@@ -167,7 +182,7 @@ private Connection conn = null;
    
    
    
-   public void send(File a, String b,Map<String,Object> c) throws NoSuchProviderException, AddressException, MessagingException, JRException {
+   public void send(File a, String b,Map<String,Object> c,String d) throws NoSuchProviderException, AddressException, MessagingException, JRException {
         javax.mail.Session session = null;
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         Properties props = new Properties();
@@ -245,12 +260,60 @@ private Connection conn = null;
 
         message.setSubject("CNAM " + b);
 
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress("bob.keyrouz@gmail.com"));
+        message.setRecipient(Message.RecipientType.TO,  new InternetAddress(d));
         transport.connect();
         transport.send(message);
         transport.close();
         session = null;
 
+    }
+   
+   
+   public List<UsersAchat> find_user_session(String name){
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+           em = emf.createEntityManager();
+         
+         
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<UsersAchat> cq = cb.createQuery(UsersAchat.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<UsersAchat> pd = m.entity(UsersAchat.class);
+        Root<UsersAchat> rpd = cq.from(UsersAchat.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        
+       cq.where(cb.equal(rpd.get("userid"),name));
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return em.createQuery(cq).getResultList();
+    }
+   
+   
+   public List<Purchases> find_supplier(String purchaseid){
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+           em = emf.createEntityManager();
+         
+         
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Purchases> cq = cb.createQuery(Purchases.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<Purchases> pd = m.entity(Purchases.class);
+        Root<Purchases> rpd = cq.from(Purchases.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        
+       cq.where(cb.equal(rpd.get("docid"),purchaseid));
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+      
+        return em.createQuery(cq).getResultList();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

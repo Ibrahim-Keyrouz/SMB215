@@ -58,6 +58,10 @@
                              <p:commandButton value="Email Report"  actionListener="#{reporting.showReport_With_Params('purchases_params','3')}"  onclick="target = '_blank'"  ajax="false">
                                 <f:param name="docid" value="#{purchasesDtlController.id}" />
                             </p:commandButton>
+                            
+                             <p:commandButton value="Email Report To Supplier"  actionListener="#{reporting.showReport_With_Params('purchases_params','4')}"  onclick="target = '_blank'"  ajax="false">
+                                <f:param name="docid" value="#{purchasesDtlController.id}" />
+                            </p:commandButton>
                                 
                         </f:facet>
                        

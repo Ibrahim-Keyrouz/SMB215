@@ -39,8 +39,7 @@
         Confirm Password :<p:inputText id="confpassword" value="#{mngsession.confpassword}"  />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p:commandButton  value="Change" 
                                                                                             action="#{usersAchatController.changePswd(mngsession.getUser(),mngsession.password,mngsession.confpassword)}" ajax="false"/>
-         
-       
+        <h:commandLink onclick="history.go(-1)" value="Cancel"/>
     </h:panelGrid>
                 
                     </tbody>

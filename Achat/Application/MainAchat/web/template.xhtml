@@ -14,36 +14,39 @@
     </h:head>
 
     <h:body>
-          
+
 
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="ACHAT">
-                 Welcome #{mngsession.getUser()} 
-                
-                    
+                Welcome #{mngsession.getUser()} 
+
+
                 <h:form id="menuForm">
                     <p:menubar>
-                       
-                       
-                           
-                            <p:menuitem value="Sites" outcome="/jsfpages/sites/List.xhtml" />
-                             <p:menuitem value="Category" outcome="/jsfpages/category/List.xhtml" />
-                            <p:menuitem value="Product" outcome="/jsfpages/product/List.xhtml" />
-                            <p:menuitem value="Supplier" outcome="/jsfpages/supplier/List.xhtml" />
-                            <p:menuitem value="SupplierProducts" outcome="/jsfpages/supplierProducts/List.xhtml" />
-                            <p:menuitem value="Purchases" outcome="/jsfpages/purchases/List.xhtml" />
-                            <p:menuitem value="PurchasesDtl" outcome="/jsfpages/purchasesDtl/List.xhtml" />
-                            <p:menuitem value="Recept" outcome="/jsfpages/recept/List.xhtml" />
-                            <p:menuitem value="ReceptDtl" outcome="/jsfpages/receptDtl/List.xhtml" /> 
-                            <p:menuitem value="Stock" outcome="/jsfpages/stkPrd/List.xhtml" />
-                            <p:menuitem value="Users" outcome="/jsfpages/usersAchat/List.xhtml" />
-                            <p:menuitem value="Groups" outcome="/jsfpages/groupsAchat/List.xhtml" />
-                            <p:menuitem value="Sign out"  action="#{mngsession.logout()}"   />
+
+
+
+                        <p:menuitem value="Sites" outcome="/jsfpages/sites/List.xhtml" />
+                        <p:menuitem value="Category" outcome="/jsfpages/category/List.xhtml" />
+                        <p:menuitem value="Product" outcome="/jsfpages/product/List.xhtml" />
+                        <p:menuitem value="Supplier" outcome="/jsfpages/supplier/List.xhtml" />
+                        <p:menuitem value="SupplierProducts" outcome="/jsfpages/supplierProducts/List.xhtml" />
+                        <p:menuitem value="Purchases" outcome="/jsfpages/purchases/List.xhtml" />
+                        <p:menuitem value="PurchasesDtl" outcome="/jsfpages/purchasesDtl/List.xhtml" />
+                        <p:menuitem value="Recept" outcome="/jsfpages/recept/List.xhtml" />
+                        <p:menuitem value="ReceptDtl" outcome="/jsfpages/receptDtl/List.xhtml" /> 
+                        <p:menuitem value="Stock" outcome="/jsfpages/stkPrd/List.xhtml" />
+                        <p:menuitem value="Users" outcome="/jsfpages/usersAchat/List.xhtml" />
+                        <p:menuitem value="Groups" outcome="/jsfpages/groupsAchat/List.xhtml" />
+                        <p:submenu label="Account"    >
                             <p:menuitem value="Change Password" action="#{mngsession.changePass()}" />
-                                
-                           
+                            <p:menuitem value="Sign out"  action="#{mngsession.logout()}"   />
+
+                        </p:submenu>
+
+
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>

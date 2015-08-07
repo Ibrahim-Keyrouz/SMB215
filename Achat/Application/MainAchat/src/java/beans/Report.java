@@ -132,10 +132,13 @@ public class Report extends HttpServlet {
             }
 
             JasperPrintManager.printReport(jasperPrint, false);
-        } else {
+        } else if (docType.contains("3")) {
             
             this.send(reportFile, reportName,request.getUserPrincipal().toString());
 
+        }
+        else{
+            
         }
     }
     
