@@ -29,7 +29,9 @@ public class Splash extends Activity{
 				}catch(InterruptedException e){
 					e.printStackTrace();
 				}finally {
-					Intent startMain = new Intent("com.example.scanqr.MAINACTIVITY");
+					
+					
+					Intent startMain = new Intent(Splash.this,SplashActivity.class);
 					startActivity(startMain);
 				}
 			}
