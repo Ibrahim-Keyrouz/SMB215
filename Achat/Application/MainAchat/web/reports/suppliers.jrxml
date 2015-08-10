@@ -13,24 +13,23 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT
      SUPPLIER."SUPPLIERID" AS SUPPLIER_SUPPLIERID,
      SUPPLIER."DESCRIPTION" AS SUPPLIER_DESCRIPTION,
      SUPPLIER."TEL" AS SUPPLIER_TEL,
      SUPPLIER."EMAIL" AS SUPPLIER_EMAIL,
      SUPPLIER."STATUS" AS SUPPLIER_STATUS,
-     SUPPLIER."ADDRESS" AS SUPPLIER_ADDRESS,
-     SUPPLIER."USERID" AS SUPPLIER_USERID
+     SUPPLIER."ADDRESS" AS SUPPLIER_ADDRESS
 FROM
      "HR"."SUPPLIER" SUPPLIER]]>
 	</queryString>
 	<field name="SUPPLIER_SUPPLIERID" class="java.math.BigDecimal"/>
 	<field name="SUPPLIER_DESCRIPTION" class="java.lang.String"/>
-	<field name="SUPPLIER_ADDRESS" class="java.lang.String"/>
-	<field name="SUPPLIER_EMAIL" class="java.lang.String"/>
 	<field name="SUPPLIER_TEL" class="java.lang.String"/>
+	<field name="SUPPLIER_EMAIL" class="java.lang.String"/>
 	<field name="SUPPLIER_STATUS" class="java.lang.String"/>
+	<field name="SUPPLIER_ADDRESS" class="java.lang.String"/>
 	<group name="SUPPLIER_SUPPLIERID">
 		<groupExpression><![CDATA[$F{SUPPLIER_SUPPLIERID}]]></groupExpression>
 		<groupHeader>

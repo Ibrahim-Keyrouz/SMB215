@@ -19,9 +19,16 @@ public class Bean_Page {
      int esm;
       @PersistenceContext(unitName = "MainAchatPU")
           EntityManager em = null;
+      EntityManagerFactory emf;
 
     public int getEsm() {
+        
         esm = count_Users();
+        em.getEntityManagerFactory().getCache().evictAll();
+        em.clear();
+        em.close();
+        
+        emf.close();
         return esm;
     }
 
@@ -33,13 +40,14 @@ public class Bean_Page {
        public int count_Users() {
          //  @PersistenceContext(unitName = "MainAchatPU")
           
-           EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+            emf = Persistence.createEntityManagerFactory("MainAchatPU");
            em = emf.createEntityManager();
-     //   getEntityManager().getEntityManagerFactory().getCache().evictAll();
+           
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<UsersAchat> rt = cq.from(UsersAchat.class);
         cq.select(em.getCriteriaBuilder().count(rt));
         javax.persistence.Query q = em.createQuery(cq);
+        
         return ((Long) q.getSingleResult()).intValue();
     }
 

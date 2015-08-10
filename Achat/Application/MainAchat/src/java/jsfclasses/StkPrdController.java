@@ -28,6 +28,7 @@ public class StkPrdController implements Serializable {
     private sessions.StkPrdFacade ejbFacade;
     private List<StkPrd> items = null;
     private StkPrd selected;
+      private List<StkPrd> itemsnoti = null;
 
     public StkPrdController() {
     }
@@ -88,6 +89,15 @@ public class StkPrdController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<StkPrd> WhereItems_noti(String a) {
+        
+        if (itemsnoti == null) {
+            itemsnoti = getFacade().find_notifications(a);
+        }
+        //  em.getEntityManagerFactory().getCache().evictAll();
+        return itemsnoti;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

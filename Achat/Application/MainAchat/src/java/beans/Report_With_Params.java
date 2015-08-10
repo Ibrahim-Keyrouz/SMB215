@@ -75,6 +75,7 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 @WebServlet(name = "Report_With_Params", urlPatterns = {"/Report_Params"})
 public class Report_With_Params extends HttpServlet {
+    private EntityManagerFactory emf;
     private EntityManager em;
 private Connection conn = null;
     /**
@@ -92,6 +93,8 @@ private Connection conn = null;
     String vtheId_param = request.getParameter("docid");
     String docType = request.getParameter("doctype");
     
+    
+    
     File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reports/"+reportName+".jasper"));
     ServletOutputStream servletOutputStream = response.getOutputStream();
     byte[] bytes = null;
@@ -99,8 +102,19 @@ private Connection conn = null;
     if (reportName.contains("purchases")){
     parameter.put("cond", " and purchases.docid='"+vtheId_param+"'");
     }
-    else{
+    else if (reportName.contains("recept")){
         parameter.put("cond", " and recept.docid='"+vtheId_param+"'");
+    }
+    else{
+        if (!vtheId_param.contentEquals("null")){
+            
+       // parameter.put("cond", " and stk_prd.siteid='"+vtheId_param+"'");
+        parameter.put("cond", " and stk_prd.siteid='"+vtheId_param+"'");
+        }
+        else{
+            System.out.println(2);
+            parameter.put("cond", " and 1=1 ");
+        }
     }
        String HOST = "jdbc:oracle:thin:@localhost:1521:XE";
         String USERNAME = "hr";
@@ -154,10 +168,20 @@ private Connection conn = null;
     }else if (docType.contains("3")) {
         
             this.send(reportFile, reportName,parameter,find_user_session(request.getUserPrincipal().toString()).get(0).getEmail());
+            em.getEntityManagerFactory().getCache().evictAll();
+        em.clear();
+        em.close();
+        
+        emf.close();
 
         }
     else{
         this.send(reportFile, reportName,parameter,find_supplier(vtheId_param).get(0).getSupplierid().getEmail());
+        em.getEntityManagerFactory().getCache().evictAll();
+        em.clear();
+        em.close();
+        
+        emf.close();
     }
 }
    
@@ -270,7 +294,7 @@ private Connection conn = null;
    
    
    public List<UsersAchat> find_user_session(String name){
-         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+         emf = Persistence.createEntityManagerFactory("MainAchatPU");
            em = emf.createEntityManager();
          
          
@@ -288,13 +312,13 @@ private Connection conn = null;
       
       
       //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
-      
+       
         return em.createQuery(cq).getResultList();
     }
    
    
    public List<Purchases> find_supplier(String purchaseid){
-         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+          emf = Persistence.createEntityManagerFactory("MainAchatPU");
            em = emf.createEntityManager();
          
          
@@ -312,7 +336,7 @@ private Connection conn = null;
       
       
       //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
-      
+       
         return em.createQuery(cq).getResultList();
     }
 

@@ -9,6 +9,7 @@ import beans.Session;
 import entities.PurchasesDtl;
 import entities.ReceptDtl;
 import entities.Sites;
+import entities.StkPrd;
 import entities.UsersAchat;
 import java.util.List;
 import javax.faces.bean.ManagedProperty;
@@ -178,6 +179,33 @@ public abstract class AbstractFacade<T> {
       
         return getEntityManager().createQuery(cq).getResultList();
     }
+     
+     public List<StkPrd> find_notifications(String site){
+         
+       //  EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+        //   em = emf.createEntityManager();
+         
+         
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        
+        CriteriaQuery<StkPrd> cq = cb.createQuery(StkPrd.class);
+        Metamodel m = getEntityManager().getMetamodel();
+        EntityType<StkPrd> pd = m.entity(StkPrd.class);
+        Root<StkPrd> rpd = cq.from(StkPrd.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        
+       cq.where(cb.and((cb.equal(rpd.get("sites").<String>get("siteid"),site)),(cb.ge(rpd.<Number>get("qtyNotification"), rpd.<Number>get("qty"))))) ;
+       
+      
+       
+      
+      
+      //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
+         
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
     
     
 }

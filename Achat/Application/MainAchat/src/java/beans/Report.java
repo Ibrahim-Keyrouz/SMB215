@@ -65,7 +65,7 @@ import sessions.UsersAchatFacade;
 public class Report extends HttpServlet {
     
     private EntityManager em;
-   
+     private EntityManagerFactory emf;
 
     private Connection conn = null;
 
@@ -223,6 +223,12 @@ public class Report extends HttpServlet {
         message.setSubject("CNAM " + b);
         
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(find_user_session(c).get(0).getEmail()));
+        em.getEntityManagerFactory().getCache().evictAll();
+        em.clear();
+        em.close();
+        
+        emf.close();
+        
         transport.connect();
         transport.send(message);
         transport.close();
@@ -250,7 +256,7 @@ public class Report extends HttpServlet {
     
     
      public List<UsersAchat> find_user_session(String name){
-         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MainAchatPU");
+          emf = Persistence.createEntityManagerFactory("MainAchatPU");
            em = emf.createEntityManager();
          
          
@@ -269,6 +275,7 @@ public class Report extends HttpServlet {
       
       //  cq.where(cb.like(rpd.get("recept").<String>get("docid"),id+"%"));
       
+     
         return em.createQuery(cq).getResultList();
     }
 

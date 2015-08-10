@@ -32,6 +32,7 @@
  
       
       int mmbrexist = bob.getEsm();
+        //    int mmbrexist = 8;
  
             if (mmbrexist > 0 ) { 
                  String redirectURL ="/MainAchat/faces/jsfpages/sites/List.xhtml";   
