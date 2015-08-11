@@ -22,10 +22,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -98,6 +103,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		site = getPrefs.getString("Siteid", "09");
+		
+		
+		//This is where the Alarm Notification Service is initialized
+		
+		AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		Intent notiIntent = new Intent();
+		notiIntent.setClass(getBaseContext(), MyNotificationService.class);
+		PendingIntent pi = PendingIntent.getService(getBaseContext(), 0, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	//	startService(new Intent(getBaseContext(),MyNotificationService.class));
+	//	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, pi);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000,1000, pi);
 
 	}
 
