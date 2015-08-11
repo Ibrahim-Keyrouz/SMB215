@@ -10,8 +10,14 @@ import entities.StkPrdPK;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -145,4 +151,26 @@ public class StkPrdFacadeREST extends AbstractFacade<StkPrd> {
        }
         
     }
+    
+    
+    @GET
+    @Path("notifications/{site}")
+    @Produces( "application/json")
+    
+    public List<StkPrd> find_notifications(@PathParam("site") String site){
+         em.getEntityManagerFactory().getCache().evictAll();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<StkPrd> cq = cb.createQuery(StkPrd.class);
+        Metamodel m = em.getMetamodel();
+        EntityType<StkPrd> pd = m.entity(StkPrd.class);
+        Root<StkPrd> rpd = cq.from(StkPrd.class); 
+        FacesContext context = FacesContext.getCurrentInstance();
+
+       cq.where(cb.and((cb.equal(rpd.get("sites").<String>get("siteid"),site)),(cb.ge(rpd.<Number>get("qtyNotification"), rpd.<Number>get("qty"))))) ;
+ 
+        return em.createQuery(cq).getResultList();
+    }
+    
 }
