@@ -23,6 +23,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class MyNotificationService extends Service{
 	
 	
 	HttpClient client;
-	final static String URL = "http://192.168.0.101:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	final static String URL = "http://192.168.10.110:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
@@ -64,6 +65,10 @@ public class MyNotificationService extends Service{
 		boolean flag;
 		JSONObject row;
 		String value;
+		
+		if (json != null){
+			return true;
+		}
 		/*SQLCars o = new SQLCars(this);
 		o.open();
 		List<String> data = o.getData();
@@ -87,7 +92,7 @@ public class MyNotificationService extends Service{
 			
 		}*/
 		
-		return true;
+		return false;
 	}
 
 	@Override
@@ -133,19 +138,17 @@ class LongRunningGetIO extends  AsyncTask <Void, Void, String>{
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		
-		
 
 
 		try {
 			if (SQLWSequal()) {
-				
-		
+
 			
 			NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 			
 			Intent notiIntent = new Intent(getBaseContext(),MainActivity.class);
 			PendingIntent pi = PendingIntent.getActivity(getBaseContext(), 0, notiIntent, 0);
+
 			int icon = R.drawable.ic_app;
 			long when = System.currentTimeMillis();
 			String body = "Check your Stock ";

@@ -73,6 +73,12 @@
             
         </activity>
         
+         <activity
+            android:name=".Stock_Alert"
+            android:label="@string/title_activity_main">
+            
+        </activity>
+        
         <service android:name="com.example.scanqr.MyNotificationService"/>
     </application>
 

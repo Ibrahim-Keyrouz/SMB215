@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://192.168.0.100:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.10.110:8080/STK_PRD_WS/webresources/";
 	String site;
 
 	@Override
@@ -113,7 +113,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		PendingIntent pi = PendingIntent.getService(getBaseContext(), 0, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	//	startService(new Intent(getBaseContext(),MyNotificationService.class));
 	//	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, pi);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000,1000, pi);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000,3000, pi);
 
 	}
 
