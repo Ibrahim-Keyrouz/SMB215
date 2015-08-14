@@ -36,7 +36,7 @@ public class MyNotificationService extends Service{
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
-	String site;
+	//String site;
 	
 
 	@Override
@@ -54,7 +54,7 @@ public class MyNotificationService extends Service{
 		super.onStart(intent, startId);
 		//Toast.makeText(getBaseContext(), "On start Service", Toast.LENGTH_SHORT).show();
 		getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		site = getPrefs.getString("Siteid", "09");
+		//site = getPrefs.getString("Siteid", "09");
 		client = new DefaultHttpClient();
 		new LongRunningGetIO().execute(); 
 		
@@ -62,35 +62,12 @@ public class MyNotificationService extends Service{
 
 	private boolean SQLWSequal() throws JSONException {
 		// TODO Auto-generated method stub
-		boolean flag;
-		JSONObject row;
-		String value;
 		
-		if (json != null){
+		
+		if (json.length()!=0){
 			return true;
 		}
-		/*SQLCars o = new SQLCars(this);
-		o.open();
-		List<String> data = o.getData();
-		o.close();
 		
-		
-		for (int i = 0 ; i < json.length();i++){
-		flag = false;
-		row=	json.getJSONObject(i);
-		value = row.getString("brand");
-		for (int j = 0 ; j < data.size();j++){
-			
-			if (data.get(j).equals(value) ){
-				
-				flag = true;
-			}
-		}
-			if (flag == false){
-				return flag;
-			}
-			
-		}*/
 		
 		return false;
 	}
@@ -110,7 +87,7 @@ public class MyNotificationService extends Service{
 	
 public JSONArray lastNotifications() throws ClientProtocolException,IOException,JSONException{
 		
-		StringBuilder url = new StringBuilder(URL+site);
+		StringBuilder url = new StringBuilder(URL+getPrefs.getString("Siteid", "09"));
 		
 		
 		HttpGet get = new HttpGet(url.toString());
@@ -146,7 +123,7 @@ class LongRunningGetIO extends  AsyncTask <Void, Void, String>{
 			
 			NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 			
-			Intent notiIntent = new Intent(getBaseContext(),MainActivity.class);
+			Intent notiIntent = new Intent(getBaseContext(),Stock_Alert.class);
 			PendingIntent pi = PendingIntent.getActivity(getBaseContext(), 0, notiIntent, 0);
 
 			int icon = R.drawable.ic_app;

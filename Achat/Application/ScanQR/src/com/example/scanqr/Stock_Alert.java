@@ -13,20 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.scanqr.MyNotificationService.LongRunningGetIO;
-
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +27,7 @@ public class Stock_Alert extends Activity {
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
-	String site;
+	//String site;
 	TextView info;
 	TextView qty;
 	TextView qtynot;
@@ -48,7 +39,7 @@ public class Stock_Alert extends Activity {
 		qty = (TextView) findViewById(R.id.tvqty);
 		qtynot = (TextView) findViewById(R.id.tvqtynot);
 		getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		site = getPrefs.getString("Siteid", "09");
+		//site = getPrefs.getString("Siteid", "09");
 		client = new DefaultHttpClient();
 		new LongRunningGetIO().execute();
 		
@@ -58,7 +49,7 @@ public class Stock_Alert extends Activity {
 	
 public JSONArray lastNotifications() throws ClientProtocolException,IOException,JSONException{
 		
-		StringBuilder url = new StringBuilder(URL+site);
+		StringBuilder url = new StringBuilder(URL+getPrefs.getString("Siteid", "09"));
 		
 		
 		HttpGet get = new HttpGet(url.toString());

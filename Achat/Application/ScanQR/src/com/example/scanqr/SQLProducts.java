@@ -1,14 +1,10 @@
 package com.example.scanqr;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLProducts {
@@ -87,48 +83,29 @@ public class SQLProducts {
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
 	}
 
-	/*public List<String> getData() {
-		
+
+	
+	
+	public String[] getData() {
+		// TODO Auto-generated method stub
+		String[] results = null;
 		int i = 0 ;
-		// TODO Auto-generated method stub
-		String[] columns = new String[] {KEY_BARCODE};
-		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
-		
-		//String[] result = new String[12];
-		
-		List<String> result = new ArrayList<String>();
-		
-		int iRow = c.getColumnIndex(KEY_BARCODE);
-		//int iName = c.getColumnIndex(KEY_PRODUCT);
-		
-		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-			
-			//result[i] =c.getString(iRow) ;
-			
-			//result.set(i, c.getString(iRow));
-			result.add(c.getString(iRow));
-			i++;
-			
-		}
-		
-		return result;
-	}*/
-	
-	
-	public String getData() {
-		// TODO Auto-generated method stub
 		String[] columns = new String[] {KEY_BARCODE,KEY_SITE,KEY_QTY,KEY_QTY_NOTIFICATION};
 		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
-		String result = "";
+		
 		int iRow = c.getColumnIndex(KEY_BARCODE);
 		int iName = c.getColumnIndex(KEY_QTY);
 		
 		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-			result = result +" "+ c.getString(iRow) +"          "+c.getString(iName)+"\n";
+			results[i] = c.getString(iRow);
+			i++;
+			results[i] = c.getString(iName);
+			i++;
 			
 		}
 		
-		return result;
+		
+		return results;
 	}
 	
 	

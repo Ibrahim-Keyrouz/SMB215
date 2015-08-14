@@ -1,5 +1,7 @@
 package com.example.scanqr;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -9,8 +11,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.google.android.gms.auth.GoogleAuthUtil;
 
 /**
  * @author manish

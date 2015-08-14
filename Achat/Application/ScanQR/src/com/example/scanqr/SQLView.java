@@ -6,9 +6,11 @@ import android.widget.TextView;
 
 public class SQLView extends Activity{
 	TextView sqlinfo ;
+	TextView sqlqty;
 	
 	public void init() {
 		sqlinfo = (TextView)findViewById(R.id.tvSQLinfo);
+		sqlqty = (TextView)findViewById(R.id.tvsqlQty);
 	}
 
 	@Override
@@ -19,9 +21,16 @@ public class SQLView extends Activity{
 		init();
 		SQLProducts o = new SQLProducts(this);
 		o.open();
-		String data = o.getData();
+		String[] data = o.getData();
 		o.close();
-		sqlinfo.setText(data);
+		for (int i = 0 ; i< data.length;i+=2){
+			sqlinfo.setText(data[i]);
+			sqlqty.setText(data[i+1]);
+			
+		}
+		
+		
+		
 	}
 	
 	
