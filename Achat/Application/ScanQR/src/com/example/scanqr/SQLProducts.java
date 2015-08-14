@@ -1,11 +1,15 @@
 package com.example.scanqr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class SQLProducts {
 
@@ -86,21 +90,23 @@ public class SQLProducts {
 
 	
 	
-	public String[] getData() {
+	public List<String> getData() {
 		// TODO Auto-generated method stub
-		String[] results = null;
+		List<String> results = new ArrayList<String>();
+		
 		int i = 0 ;
 		String[] columns = new String[] {KEY_BARCODE,KEY_SITE,KEY_QTY,KEY_QTY_NOTIFICATION};
 		Cursor c = ourDatabase.query( DATABASE_TABLE, columns, null, null, null, null, null, null);
 		
 		int iRow = c.getColumnIndex(KEY_BARCODE);
 		int iName = c.getColumnIndex(KEY_QTY);
+	//	Toast.makeText(ourContext, text, duration)
+		
 		
 		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-			results[i] = c.getString(iRow);
-			i++;
-			results[i] = c.getString(iName);
-			i++;
+			results.add(c.getString(iRow));
+			results.add(c.getString(iName));
+		
 			
 		}
 		

@@ -1,5 +1,8 @@
 package com.example.scanqr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -21,11 +24,12 @@ public class SQLView extends Activity{
 		init();
 		SQLProducts o = new SQLProducts(this);
 		o.open();
-		String[] data = o.getData();
+		List<String> data = o.getData();
+		
 		o.close();
-		for (int i = 0 ; i< data.length;i+=2){
-			sqlinfo.setText(data[i]);
-			sqlqty.setText(data[i+1]);
+		 for (int i = 0 ; i< data.size();i+=2){
+			sqlinfo.setText(data.get(i));
+			sqlqty.setText(data.get(i+1));
 			
 		}
 		

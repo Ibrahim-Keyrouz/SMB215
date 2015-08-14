@@ -64,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://192.168.10.110:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
 	String site;
 
 	@Override
