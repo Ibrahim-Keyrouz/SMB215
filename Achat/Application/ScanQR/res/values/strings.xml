@@ -4,5 +4,7 @@
     <string name="app_name">Simple Achat</string>
     <string name="title_activity_main">Simple Achat</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_redirect_class">RedirectClass</string>
+    <string name="title_activity_error">ErrorActivity</string>
 
 </resources>

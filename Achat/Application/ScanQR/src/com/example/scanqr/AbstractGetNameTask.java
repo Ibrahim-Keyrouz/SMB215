@@ -98,7 +98,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void> {
 			GOOGLE_USER_DATA = readResponse(is);
 			is.close();
 			
-			Intent intent=new Intent(mActivity,MainActivity.class);
+			Intent intent=new Intent(mActivity,RedirectClass.class);
 			intent.putExtra("email_id", mEmail);
 			mActivity.startActivity(intent);
 			mActivity.finish();

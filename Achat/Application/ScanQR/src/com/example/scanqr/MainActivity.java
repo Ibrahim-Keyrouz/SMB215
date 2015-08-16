@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -65,7 +67,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	List<String[]> rowList;
 	List<String[]> rowList1;
 	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
-	String site;
+	String site,textEmail,textName;
+	TextView textViewName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +102,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		site = getPrefs.getString("Siteid", "09");
-		
+		textViewName = (TextView)findViewById(R.id.tvName);
 		
 		//This is where the Alarm Notification Service is initialized
 		
@@ -110,6 +113,28 @@ public class MainActivity extends Activity implements OnClickListener {
 	//	startService(new Intent(getBaseContext(),MyNotificationService.class));
 	//	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, pi);
 		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000,3000, pi);
+		
+		
+	
+		
+		
+		try {
+		
+			JSONObject profileData = new JSONObject(
+					AbstractGetNameTask.GOOGLE_USER_DATA);
+
+		
+			if (profileData.has("name")) {
+				textName = profileData.getString("name");
+				textViewName.setText("Welcome "+textName);
+			}
+			
+		
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
