@@ -32,7 +32,7 @@ public class MyNotificationService extends Service{
 	
 	
 	HttpClient client;
-	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	final static String URL = "http://192.168.10.110:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
@@ -63,13 +63,18 @@ public class MyNotificationService extends Service{
 	private boolean SQLWSequal() throws JSONException {
 		// TODO Auto-generated method stub
 		
-		
+		try{
 		if (json.length()!=0){
 			return true;
 		}
-		
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 		return false;
+
+
 	}
 
 	@Override
@@ -91,6 +96,7 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 		
 		
 		HttpGet get = new HttpGet(url.toString());
+		try {
 		HttpResponse r = client.execute(get);
 		int status = r.getStatusLine().getStatusCode();
 		if (status == 200) {
@@ -101,6 +107,9 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 			return timeline;
 		}
 		Toast.makeText(MyNotificationService.this, "error", Toast.LENGTH_SHORT).show();
+}catch(IOException e){
+	
+}
 		return null;
 	}
 
@@ -125,15 +134,18 @@ class LongRunningGetIO extends  AsyncTask <Void, Void, String>{
 			
 			Intent notiIntent = new Intent(getBaseContext(),Stock_Alert.class);
 			PendingIntent pi = PendingIntent.getActivity(getBaseContext(), 0, notiIntent, 0);
-
+			
 			int icon = R.drawable.ic_app;
 			long when = System.currentTimeMillis();
 			String body = "Check your Stock ";
 			
 			Notification n = new Notification(icon,body,when);
 			n.defaults=Notification.DEFAULT_ALL;
+			n.flags =  Notification.FLAG_AUTO_CANCEL;
 			n.setLatestEventInfo(getBaseContext(), "Check your Stock ", "You must recheck your stock", pi);
+			nm.cancelAll();
 			nm.notify(123, n);
+			
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

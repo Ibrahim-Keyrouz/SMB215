@@ -14,12 +14,10 @@ public class Splash extends Activity{
 		super.onCreate(savedInstanceState);
 		
 		this.setContentView(R.layout.splash);
-		//SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		//boolean music = getPrefs.getBoolean("checkbox", true);
-		//if (music == true) {
+		
 		ourSound = MediaPlayer.create(Splash.this,R.raw.beep);
 		ourSound.start();
-	//	}
+	
 		Thread timer = new Thread() {
 			public void run() {
 				try{

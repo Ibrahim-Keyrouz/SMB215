@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class Stock_Alert extends Activity {
 	HttpClient client;
-	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	final static String URL = "http://192.168.10.110:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
@@ -45,6 +45,14 @@ public class Stock_Alert extends Activity {
 		
 	}
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		finish();
+	}
+
+	
 	
 	
 public JSONArray lastNotifications() throws ClientProtocolException,IOException,JSONException{
@@ -53,6 +61,7 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 		
 		
 		HttpGet get = new HttpGet(url.toString());
+		try {
 		HttpResponse r = client.execute(get);
 		int status = r.getStatusLine().getStatusCode();
 		if (status == 200) {
@@ -63,6 +72,9 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 			return timeline;
 		}
 		Toast.makeText(Stock_Alert.this, "error", Toast.LENGTH_SHORT).show();
+}catch(IOException e){
+	
+}
 		return null;
 	}
 	
@@ -75,6 +87,9 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
+			try {
+			if (json.length() != 0 ) {
+			
 			for (int i = 0 ;i<json.length();i++){
 				try {
 					JSONObject current = json.getJSONObject(i);
@@ -93,7 +108,12 @@ public JSONArray lastNotifications() throws ClientProtocolException,IOException,
 				
 			}
 
+			}
 			
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 		}
 
 		@Override

@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.10.110:8080/STK_PRD_WS/webresources/";
 	String site,textEmail,textName;
 	TextView textViewName;
 
@@ -112,7 +112,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		PendingIntent pi = PendingIntent.getService(getBaseContext(), 0, notiIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	//	startService(new Intent(getBaseContext(),MyNotificationService.class));
 	//	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, pi);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000,3000, pi);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+3000,3000, pi);
+		
 		
 		
 	
@@ -242,11 +243,7 @@ public class MainActivity extends Activity implements OnClickListener {
 								b = entry.createEntry(contents, site, 1, 4);
 
 								entry.close();
-							
-							
-							
-							
-							
+
 							} catch (Exception e) {
 								Dialog d = new Dialog(this);
 								d.setTitle("We have it");
@@ -326,7 +323,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (!etpurchaseid.getText().toString().equals("")) {
 
 				new LongRunningGetIO_Submit().execute();
-				System.out.println(d);
+				
 
 				/*
 				 * JSONObject last = json.getJSONObject(0);
@@ -448,8 +445,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				request.setHeader("Cache-Control", "no-cache");
 				request.setHeader("Cache-Control", "no-store");
 				request.setEntity(params1);
-
+				try {
 				response = httpClient.execute(request);
+				}catch(IOException e){
+					Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+					return null;
+				}
 
 			} catch (Exception ex) {
 				// handle exception here
@@ -525,8 +526,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				request.setHeader("Cache-Control", "no-cache");
 				request.setHeader("Cache-Control", "no-store");
 				request.setEntity(params1);
-
+				
+				try {
 				response = httpClient.execute(request);
+				}catch(IOException e){
+					Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+					return null;
+				}
 
 				httpClient = new DefaultHttpClient();
 				request = new HttpPost(wsUrl + "entities.receptdtl/insrt_receptdtl");
@@ -541,9 +547,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				request.setHeader("Cache-Control", "no-cache");
 				request.setHeader("Cache-Control", "no-store");
 				request.setEntity(params1);
-
+				
+				try {
 				response = httpClient.execute(request);
-
+				}catch(IOException e){
+					Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+					return null;
+				}
 				// handle response here...
 			} catch (Exception ex) {
 				// handle exception here
@@ -571,7 +581,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if (d == 1) {
-				System.out.println("chou");
+				
 				bscan.setEnabled(true);
 				btransfer.setEnabled(true);
 				bsubmit.setEnabled(false);
@@ -590,17 +600,18 @@ public class MainActivity extends Activity implements OnClickListener {
 				json = new JSONArray();
 				json1 = new JSONArray();
 
-				rowList = new ArrayList<String[]>();
+				rowList  = new ArrayList<String[]>();
+				
 				rowList1 = new ArrayList<String[]>();
 
 				json = receptDtl_Id();
-
-				if (json != null) {
+				try{
+				if (json.length() != 0 ) {
 
 					// Here we call the Rest method find_recept_details
 					json1 = receptDtl_Qties();
-
-					if (json1 != null) {
+					try {
+					if (json1.length() != 0 ){
 						for (int i = 0; i < json1.length(); i++) {
 
 							JSONObject row = json1.getJSONObject(i);
@@ -633,8 +644,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					 * bscan.setEnabled(true); btransfer.setEnabled(true);
 					 * bsubmit.setEnabled(false);
 					 */
-
+				} catch (NullPointerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
 				}
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
@@ -658,6 +676,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					wsUrl + "entities.receptdtl/details/" + etpurchaseid.getText().toString());
 
 			HttpGet get = new HttpGet(url.toString());
+			try {
 			HttpResponse r = client.execute(get);
 			int status = r.getStatusLine().getStatusCode();
 			if (status == 200) {
@@ -667,6 +686,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				return timeline;
 
 			}
+		}catch(IOException e){
+			Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+		}
 			return null;
 
 		}
@@ -679,6 +701,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			HttpClient client = new DefaultHttpClient();
 			StringBuilder url = new StringBuilder(wsUrl + "entities.purchases/" + etpurchaseid.getText().toString());
 			HttpGet get = new HttpGet(url.toString());
+			try {
 			HttpResponse r = client.execute(get);
 			if (r == null) {
 				flag = 1;
@@ -690,19 +713,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				HttpEntity entity = r.getEntity();
 
 				String data = EntityUtils.toString(entity);
-				// System.out.println(2);
+				
 				JSONObject last = new JSONObject(data);
-				// JSONArray timeline = new JSONArray(data); // return all the
-				// result into a JSON Array
-				// System.out.println(3);
-				// JSONObject last = timeline.getJSONObject(0); // return the
-				// first
-				// record of the JSON Array
-				System.out.println(4);
+			
+				
 				vDone = last.getString("done");
-				// Toast.makeText(MainActivity.this, "This Purchase ID is "+
-				// vDone,
-				// Toast.LENGTH_SHORT).show();
+			
 
 			} else {
 				flag = 1;
@@ -711,8 +727,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			if (vDone.equals("N")) {
 
-				System.out.println(5);
-
 				client = new DefaultHttpClient();
 				// StringBuilder url = new
 				// StringBuilder("http://192.168.10.111:8080/STK_PRD_WS/webresources/entities.receptdtl/"+etpurchaseid.getText().toString());
@@ -720,7 +734,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				// StringBuilder url = new
 				// StringBuilder("http://192.168.10.111:8080/CarsWS/webresources/entities.cars/");
 				get = new HttpGet(url.toString());
-
+				
+				try {
 				r = client.execute(get);
 
 				status = r.getStatusLine().getStatusCode();
@@ -736,6 +751,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 					return timeline;
 				}
+				}catch(IOException e){
+					Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+				}
 
 			}
 
@@ -745,8 +763,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				// System.out.println(1);
 
 			}
+			
 			// Toast.makeText(MainActivity.this, "error",
 			// Toast.LENGTH_SHORT).show();
+			}catch(IOException e){
+				Toast.makeText(MainActivity.this, "No CNX", Toast.LENGTH_SHORT).show();
+			}
+			
 			return null;
 		}
 	}
