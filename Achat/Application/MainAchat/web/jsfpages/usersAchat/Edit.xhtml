@@ -32,7 +32,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usersAchatController.update}" value="#{bundle.Save}" update="display,:UsersAchatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsersAchatEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsersAchatEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsersAchatEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>

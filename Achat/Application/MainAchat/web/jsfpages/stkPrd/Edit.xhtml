@@ -35,7 +35,7 @@
                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stkPrdController.update}" value="#{bundle.Save}" update="display,:StkPrdListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StkPrdEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="StkPrdEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StkPrdEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>

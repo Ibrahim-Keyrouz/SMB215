@@ -18,7 +18,7 @@
                         <p:inputText id="description" value="#{categoryController.selected.description}" title="#{bundle.EditCategoryTitle_description}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{categoryController.update}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CategoryEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CategoryEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CategoryEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>

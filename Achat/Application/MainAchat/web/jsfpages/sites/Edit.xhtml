@@ -18,7 +18,7 @@
                         <p:inputText id="description" value="#{sitesController.selected.description}" title="#{bundle.EditSitesTitle_description}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{sitesController.update}" value="#{bundle.Save}" update="display,:SitesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SitesEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SitesEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SitesEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>
