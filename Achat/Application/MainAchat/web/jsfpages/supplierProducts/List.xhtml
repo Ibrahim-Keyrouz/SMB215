@@ -32,13 +32,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSupplierProductsTitle_supplier}"/>
                             </f:facet>
-                            <h:outputText value="#{item.supplier}"/>
+                            <h:outputText value="#{item.supplier.description}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSupplierProductsTitle_product}"/>
                             </f:facet>
-                            <h:outputText value="#{item.product}"/>
+                            <h:outputText value="#{item.product.description}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

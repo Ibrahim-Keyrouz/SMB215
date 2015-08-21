@@ -26,7 +26,7 @@ FROM
      "HR"."SITES" SITES INNER JOIN "HR"."STK_PRD" STK_PRD ON SITES."SITEID" = STK_PRD."SITEID"
      INNER JOIN "HR"."PRODUCT" PRODUCT ON STK_PRD."BARCODE" = PRODUCT."BARCODE"
 where
-     1=1 $P!{cond}]]>
+     1=1 and STK_PRD."QTY" <= STK_PRD."QTY_NOTIFICATION" $P!{cond}]]>
 	</queryString>
 	<field name="STK_PRD_QTY" class="java.math.BigDecimal"/>
 	<field name="STK_PRD_QTY_NOTIFICATION" class="java.math.BigDecimal"/>

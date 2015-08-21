@@ -14,9 +14,9 @@
                     <p:panelGrid columns="2" rendered="#{supplierProductsController.selected != null}">
 
                         <h:outputText value="#{bundle.ViewSupplierProductsLabel_supplier}"/>
-                        <h:outputText value="#{supplierProductsController.selected.supplier}" title="#{bundle.ViewSupplierProductsTitle_supplier}"/>
+                        <h:outputText value="#{supplierProductsController.selected.supplier.description}" title="#{bundle.ViewSupplierProductsTitle_supplier}"/>
                         <h:outputText value="#{bundle.ViewSupplierProductsLabel_product}"/>
-                        <h:outputText value="#{supplierProductsController.selected.product}" title="#{bundle.ViewSupplierProductsTitle_product}"/>
+                        <h:outputText value="#{supplierProductsController.selected.product.description}" title="#{bundle.ViewSupplierProductsTitle_product}"/>
                         <h:outputText value="Userid:"/>
                         <h:outputText value="#{supplierProductsController.selected.usersAchat}" title="#{bundle.ViewSupplierProductsTitle_usersAchat}"/>
                     </p:panelGrid>
