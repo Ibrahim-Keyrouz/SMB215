@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class RedirectClass extends Activity {
 	HttpClient client;
 	String findEmail;
-	final static String URL = "http://192.168.10.110:8080/STK_PRD_WS/webresources/entities.usersachat/email_exist/";
+	final static String URL = "http://bk:8080/STK_PRD_WS/webresources/entities.usersachat/email_exist/";
 	
 	JSONArray json;
 	@Override

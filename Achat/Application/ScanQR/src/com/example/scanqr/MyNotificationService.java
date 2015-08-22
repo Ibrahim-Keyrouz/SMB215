@@ -32,7 +32,7 @@ public class MyNotificationService extends Service{
 	
 	
 	HttpClient client;
-	final static String URL = "http://192.168.10.110:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
