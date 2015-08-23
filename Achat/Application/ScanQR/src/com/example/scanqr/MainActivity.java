@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://bk:8080/STK_PRD_WS/webresources/";
+	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
 	String site,textEmail,textName;
 	TextView textViewName;
 
@@ -224,8 +224,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						for (String[] row1 : rowList1) {
 							  
 							if (row1[0].equals(contents)) {
-								vQty1 = Integer.parseInt(row1[1]);
-								break;
+								vQty1 = vQty1+Integer.parseInt(row1[1]);
+								
 							}
 							
 						}
@@ -254,7 +254,7 @@ public class MainActivity extends Activity implements OnClickListener {
 							} finally {
 								if (b > 0) {
 									Dialog d = new Dialog(this);
-									d.setTitle("Heck Yea");
+									d.setTitle("New Product");
 									TextView tv = new TextView(this);
 									tv.setText("New Product Created");
 									d.setContentView(tv);
