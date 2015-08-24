@@ -13,14 +13,19 @@ Name-----------------Null-------Type
 CATEGORY------------NOT NULL---VARCHAR2(4)   (PK)
 DESCRIPTION--------------------VARCHAR2(20)	
 
+**GROUPS_ACHAT**
+Name----------------Null---------Type
+---------------    ----         ------
+DESCRIPTION--------NOT NULL------VARCHAR2(20)
+GROUPID-----------------------NUMBER(3,0)
 
-**USERS**
+**USERS_ACHAT**
 Name-----------------Null--------Type         
 ------------------ -------- ------------ 
 USERID--------------NOT NULL---VARCHAR2(4)   (PK)
 DESCRIPTION--------------------VARCHAR2(20)    
 EMAIL--------------------------VARCHAR2(50)  
-PASSWORD-------------------VARCHAR(60)    
+PASSWORD-------------------VARCHAR(64)    
 STATUS--------------NOT NULL---VARCHAR2(1)    --Pour dire si ce user est activé ou arreté
 
 
@@ -39,7 +44,7 @@ USERID--------------------------VARCHAR2(4)     (FK)
 **Supplier**
 Name-----------Null-------Type           
 ------------ -------- -------------- 
-SUPPLIERID----NOT NULL---VARCHAR2(5)    (PK)
+SUPPLIERID----NOT NULL---NUMBER(5,0)    (PK)
 DESCRIPTION---NOT NULL---VARCHAR2(20)
 TEL----------------------VARCHAR2(20)   
 E_MAIL-------------------VARCHAR2(50)   
@@ -51,21 +56,27 @@ USERID-------------------VARCHAR2(4)    (FK)
 *Supplier_products*                            --On suppose qu'on peut acheter le meme produit de plusieurs supplier
 Name----------------Null------Type         
 ----------------- -------- ------------ 
-BARCODE-------------NOT NULL---VARCHAR2(8)  (FK) (PK)
-SUPPLIERID--------NOT NULL---VARCHAR2(5)  (FK) (PK)
+BARCODE-------------NOT NULL---VARCHAR2(16)  (FK) (PK)
+SUPPLIERID--------NOT NULL---NUMBER(5,0)  (FK) (PK)
 USERID-----------------------VARCHAR2(4)  (FK) (PK)
 
 
 **Purchases**                               -- Pour la Demande des produits
 Name------------------Null-------Type         
 ------------------- -------- ------------ 
-DOCID---------------NOT NULL----VARCHAR2(14) (PK)
+DOCID---------------NOT NULL----NUMBER(5,0) (PK)
 SITEID--------------NOT NULL----VARCHAR2(2)  (FK)
 TRSDATE-------------NOT NULL----DATE         
-BARCODE---------------NOT NULL----VARCHAR2(8)  (FK)
-SUPPLIERID----------------------VARCHAR2(5)  (FK)
-QTY-----------------NOT NULL----NUMBER(8)    
+SUPPLIERID----------------------NUMBER(5,0)  (FK)
+DONE-----------------NOT NULL----VARCHAR2(1)    
 USERID--------------NOT NULL----VARCHAR2(4)  (FK)
+
+**PURCHASES_DTL**
+Name-----------------Null-----------Type
+------------------- ---------    --------
+DOCID---------------Not NULL-------NUMBER(5,0) (PK)(FK)
+BARCODE-------------NOT NULL-----VARCHAR2(16)  (PK)(FK)
+QTY------------------------------NUMBER(8,0)
 
 **Recept**
 Name---------------Null-------Type         
@@ -73,14 +84,14 @@ Name---------------Null-------Type
 DOCID------------NOT NULL---VARCHAR2(14) (PK)
 SITEID----------------------VARCHAR2(2)  (FK)
 TRSDATE---------------------DATE         
-RELATED_DOCID---------------VARCHAR2(14)  (FK)
+RELATED_DOCID---------------NUMBER(5,0)  (FK)
 INVOICE_DISCOUNT------------NUMBER(4,2)   
 
 **Recept_dtl**
 Name---------------Null------Type         
 ---------------- -------- ------------ 
 DOCID------------NOT NULL----VARCHAR2(14)  (FK)
-BARCODE------------------------VARCHAR2(8)   (FK)
+BARCODE------------------------VARCHAR2(16)   (FK)
 QTY--------------------------NUMBER(11,2)  
 PURCHASE_PRICE---------------NUMBER(10,3) 
 ITEM_DISCOUNT----------------NUMBER(4,2)  
@@ -89,9 +100,9 @@ ITEM_DISCOUNT----------------NUMBER(4,2)
 Name------------------Null-------Type         
 ------------ 		-------- ------------ 
 SITEID--------------NOT NULL----VARCHAR2(2)  (FK)
-BARCODE---------------NOT NULL----VARCHAR2(8)  (FK)
-QTY-----------------NOT NULL----INT(5)
-QTY_NOTIFICATION----NOT NULL----INT(5)
+BARCODE---------------NOT NULL----VARCHAR2(16)  (FK)
+QTY-----------------NOT NULL----NUMBER(5,0)
+QTY_NOTIFICATION----NOT NULL----NUMBER(5,0)
 
 **STK_TRS**      -- chaque transaction faite dans la base de donnee est sauvgardée
 Name-------------Null------Type         
@@ -101,7 +112,7 @@ DOCID----------NOT NULL-----VARCHAR2(14)
 TRSDATE--------NOT NULL-----DATE         
 DOCTYPE--------NOT NULL-----VARCHAR2(1)  
 BARCODE----------NOT NULL-----VARCHAR2(8)  
-QTY------------NOT NULL-----INT(5)
+QTY------------NOT NULL-----NUMBER(5,0)
 RELATED_DOCID---------------VARCHAR2(14) 
 TVA-------------------------NUMBER(10,3) 
 TVA_TYPE--------------------VARCHAR2(1)  
