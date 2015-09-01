@@ -20,6 +20,7 @@ II- La Base de Données (Oracle XE)
 
 III- Les Configurations du projet.
 L’environnement technique pour ce projet :
+
  	MainAchat : 
  		Java EE Version : Java EE 7 Web
 		Server : Glassfish Server
