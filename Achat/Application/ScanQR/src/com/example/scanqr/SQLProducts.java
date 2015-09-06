@@ -100,7 +100,7 @@ public class SQLProducts {
 		
 		int iRow = c.getColumnIndex(KEY_BARCODE);
 		int iName = c.getColumnIndex(KEY_QTY);
-	//	Toast.makeText(ourContext, text, duration)
+	
 		
 		
 		for (c.moveToFirst();!c.isAfterLast();c.moveToNext()){

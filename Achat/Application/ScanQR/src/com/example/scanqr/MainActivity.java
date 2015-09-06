@@ -272,7 +272,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						}
 					}
 				}
-				// entry.close();
+				
 
 			}
 
@@ -336,15 +336,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			break;
 
-		/*case R.id.bTest:
-			SQLProducts entry = new SQLProducts(MainActivity.this);
-			entry.open();
-
-			long b = entry.createEntry(contents, site, 1, 4);
-
-			entry.close();
-
-			break;*/
+		
 
 		}
 

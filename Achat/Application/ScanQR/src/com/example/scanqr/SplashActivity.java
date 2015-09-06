@@ -56,9 +56,8 @@ public class SplashActivity extends Activity {
 			String[] accountarrs = getAccountNames();
 			if (accountarrs.length > 0) {
 				//you can set here account for login
-				Toast.makeText(SplashActivity.this, "FET",
-						Toast.LENGTH_SHORT).show();
-				System.out.println("bob");
+				
+				
 				getTask(SplashActivity.this, accountarrs[0], SCOPE).execute();
 			} else {
 				Toast.makeText(SplashActivity.this, "No Google Account!",
