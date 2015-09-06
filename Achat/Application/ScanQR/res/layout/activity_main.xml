@@ -89,15 +89,6 @@
         android:text="Enter Barcode :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/bTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bSubmit"
-        android:layout_marginTop="18dp"
-        android:text="Button" />
-
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"

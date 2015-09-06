@@ -467,14 +467,13 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020022;
     }
     public static final class id {
-        public static final int aboutUs=0x7f0b002c;
+        public static final int aboutUs=0x7f0b002b;
         public static final int adjust_height=0x7f0b0000;
         public static final int adjust_width=0x7f0b0001;
         public static final int bDelete=0x7f0b001c;
         public static final int bNew=0x7f0b001f;
         public static final int bScan=0x7f0b0020;
         public static final int bSubmit=0x7f0b0019;
-        public static final int bTest=0x7f0b0022;
         public static final int bTransfer=0x7f0b001d;
         public static final int bView=0x7f0b001a;
         public static final int book_now=0x7f0b0010;
@@ -485,7 +484,7 @@ containing a value of this type.
         public static final int donate_with_google=0x7f0b0013;
         public static final int etBarcode=0x7f0b001e;
         public static final int etPurchaseId=0x7f0b001b;
-        public static final int exit=0x7f0b002e;
+        public static final int exit=0x7f0b002d;
         public static final int grayscale=0x7f0b0015;
         public static final int holo_dark=0x7f0b0007;
         public static final int holo_light=0x7f0b0008;
@@ -494,9 +493,9 @@ containing a value of this type.
         public static final int monochrome=0x7f0b0016;
         public static final int none=0x7f0b0002;
         public static final int normal=0x7f0b0004;
-        public static final int preferences=0x7f0b002d;
+        public static final int preferences=0x7f0b002c;
         public static final int production=0x7f0b0009;
-        public static final int progressBar1=0x7f0b0024;
+        public static final int progressBar1=0x7f0b0023;
         public static final int sandbox=0x7f0b000a;
         public static final int satellite=0x7f0b0005;
         public static final int selectionDetails=0x7f0b000d;
@@ -505,14 +504,14 @@ containing a value of this type.
         public static final int terrain=0x7f0b0006;
         public static final int textView1=0x7f0b0018;
         public static final int textView2=0x7f0b0021;
-        public static final int textView3=0x7f0b0025;
-        public static final int tlDB=0x7f0b0029;
-        public static final int tvName=0x7f0b0023;
-        public static final int tvSQLinfo=0x7f0b002a;
-        public static final int tvbarcode=0x7f0b0026;
-        public static final int tvqty=0x7f0b0027;
-        public static final int tvqtynot=0x7f0b0028;
-        public static final int tvsqlQty=0x7f0b002b;
+        public static final int textView3=0x7f0b0024;
+        public static final int tlDB=0x7f0b0028;
+        public static final int tvName=0x7f0b0022;
+        public static final int tvSQLinfo=0x7f0b0029;
+        public static final int tvbarcode=0x7f0b0025;
+        public static final int tvqty=0x7f0b0026;
+        public static final int tvqtynot=0x7f0b0027;
+        public static final int tvsqlQty=0x7f0b002a;
         public static final int wrap_content=0x7f0b000f;
     }
     public static final class integer {

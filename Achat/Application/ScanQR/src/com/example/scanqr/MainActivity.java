@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		bview = (Button) findViewById(R.id.bView);
 		bview.setOnClickListener(this);
 
-		btest = (Button) findViewById(R.id.bTest);
+		
 		btest.setOnClickListener(this);
 		bdelete = (Button) findViewById(R.id.bDelete);
 		bdelete.setOnClickListener(this);
@@ -336,7 +336,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			break;
 
-		case R.id.bTest:
+		/*case R.id.bTest:
 			SQLProducts entry = new SQLProducts(MainActivity.this);
 			entry.open();
 
@@ -344,7 +344,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			entry.close();
 
-			break;
+			break;*/
 
 		}
 
