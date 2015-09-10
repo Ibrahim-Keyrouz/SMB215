@@ -22,13 +22,17 @@ import android.widget.Toast;
 public class RedirectClass extends Activity {
 	HttpClient client;
 	String findEmail;
-	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.usersachat/email_exist/";
+	String ip ;
+	 String URL ;
 	
 	JSONArray json;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_redirect_class);
+		
+		 ip = getResources().getString(R.string.ip);
+		 URL = "http://"+ip+":8080/STK_PRD_WS/webresources/entities.usersachat/email_exist/";
 		
 		client = new DefaultHttpClient();
 		Intent a = this.getIntent();
@@ -41,7 +45,7 @@ public class RedirectClass extends Activity {
 	
 	
 public JSONArray lastNotifications() throws ClientProtocolException,IOException,JSONException{
-	
+	findEmail = "bob.keyrouz@gmail.com";
 		StringBuilder url = new StringBuilder(URL+findEmail);
 		
 		

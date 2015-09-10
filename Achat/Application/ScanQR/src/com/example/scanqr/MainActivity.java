@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 	Button bscan;
 	Button bnew;
-	Button btest;
+	
 	Button bdelete;
 	Button bsubmit;
 	Button btransfer;
@@ -63,10 +63,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	int counter = 0;
 	JSONArray json;
 	JSONArray json1;
+	String ip ;
+	 
 
 	List<String[]> rowList;
 	List<String[]> rowList1;
-	String wsUrl = "http://192.168.0.103:8080/STK_PRD_WS/webresources/";
+	String wsUrl ;
+	//String wsUrl  = "http://"+"192.168.10.109"+":8080/STK_PRD_WS/webresources/";
 	String site,textEmail,textName;
 	TextView textViewName;
 
@@ -74,6 +77,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ip = getResources().getString(R.string.ip);
+		wsUrl = "http://"+ip+":8080/STK_PRD_WS/webresources/";
 		init();
 	}
 
@@ -88,8 +93,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		bview = (Button) findViewById(R.id.bView);
 		bview.setOnClickListener(this);
 
-		
-		btest.setOnClickListener(this);
+	
 		bdelete = (Button) findViewById(R.id.bDelete);
 		bdelete.setOnClickListener(this);
 		bnew = (Button) findViewById(R.id.bNew);

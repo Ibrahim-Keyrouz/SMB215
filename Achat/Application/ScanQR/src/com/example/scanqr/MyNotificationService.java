@@ -32,7 +32,8 @@ public class MyNotificationService extends Service{
 	
 	
 	HttpClient client;
-	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	String ip ;
+	 String URL;
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
@@ -43,6 +44,8 @@ public class MyNotificationService extends Service{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+		 ip = this.getString(R.string.ip);
+		  URL = "http://"+ip+":8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 	//	Toast.makeText(getBaseContext(), "On create Service", Toast.LENGTH_SHORT).show();
 		
 	}

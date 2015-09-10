@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 public class Stock_Alert extends Activity {
 	HttpClient client;
-	final static String URL = "http://192.168.0.103:8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
+	String ip ; 
+	 String URL ;
 	
 	JSONArray json;
 	SharedPreferences getPrefs ;
@@ -35,6 +36,8 @@ public class Stock_Alert extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stock_alert);
+		 ip = this.getString(R.string.ip); 
+		  URL = "http://"+ip+":8080/STK_PRD_WS/webresources/entities.stkprd/notifications/";
 		info = (TextView) findViewById(R.id.tvbarcode);
 		qty = (TextView) findViewById(R.id.tvqty);
 		qtynot = (TextView) findViewById(R.id.tvqtynot);
