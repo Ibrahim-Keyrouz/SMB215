@@ -457,17 +457,18 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f020018;
         public static final int common_signin_btn_text_pressed_dark=0x7f020019;
         public static final int common_signin_btn_text_pressed_light=0x7f02001a;
-        public static final int ic_app=0x7f02001b;
-        public static final int ic_launcher=0x7f02001c;
-        public static final int ic_plusone_medium_off_client=0x7f02001d;
-        public static final int ic_plusone_small_off_client=0x7f02001e;
-        public static final int ic_plusone_standard_off_client=0x7f02001f;
-        public static final int ic_plusone_tall_off_client=0x7f020020;
-        public static final int powered_by_google_dark=0x7f020021;
-        public static final int powered_by_google_light=0x7f020022;
+        public static final int gplus_signin=0x7f02001b;
+        public static final int ic_app=0x7f02001c;
+        public static final int ic_launcher=0x7f02001d;
+        public static final int ic_plusone_medium_off_client=0x7f02001e;
+        public static final int ic_plusone_small_off_client=0x7f02001f;
+        public static final int ic_plusone_standard_off_client=0x7f020020;
+        public static final int ic_plusone_tall_off_client=0x7f020021;
+        public static final int powered_by_google_dark=0x7f020022;
+        public static final int powered_by_google_light=0x7f020023;
     }
     public static final class id {
-        public static final int aboutUs=0x7f0b002b;
+        public static final int aboutUs=0x7f0b002c;
         public static final int adjust_height=0x7f0b0000;
         public static final int adjust_width=0x7f0b0001;
         public static final int bDelete=0x7f0b001c;
@@ -484,16 +485,17 @@ containing a value of this type.
         public static final int donate_with_google=0x7f0b0013;
         public static final int etBarcode=0x7f0b001e;
         public static final int etPurchaseId=0x7f0b001b;
-        public static final int exit=0x7f0b002d;
+        public static final int exit=0x7f0b002e;
         public static final int grayscale=0x7f0b0015;
         public static final int holo_dark=0x7f0b0007;
         public static final int holo_light=0x7f0b0008;
         public static final int hybrid=0x7f0b0003;
+        public static final int imageView1=0x7f0b0024;
         public static final int match_parent=0x7f0b000e;
         public static final int monochrome=0x7f0b0016;
         public static final int none=0x7f0b0002;
         public static final int normal=0x7f0b0004;
-        public static final int preferences=0x7f0b002c;
+        public static final int preferences=0x7f0b002d;
         public static final int production=0x7f0b0009;
         public static final int progressBar1=0x7f0b0023;
         public static final int sandbox=0x7f0b000a;
@@ -504,14 +506,14 @@ containing a value of this type.
         public static final int terrain=0x7f0b0006;
         public static final int textView1=0x7f0b0018;
         public static final int textView2=0x7f0b0021;
-        public static final int textView3=0x7f0b0024;
-        public static final int tlDB=0x7f0b0028;
+        public static final int textView3=0x7f0b0025;
+        public static final int tlDB=0x7f0b0029;
         public static final int tvName=0x7f0b0022;
-        public static final int tvSQLinfo=0x7f0b0029;
-        public static final int tvbarcode=0x7f0b0025;
-        public static final int tvqty=0x7f0b0026;
-        public static final int tvqtynot=0x7f0b0027;
-        public static final int tvsqlQty=0x7f0b002a;
+        public static final int tvSQLinfo=0x7f0b002a;
+        public static final int tvbarcode=0x7f0b0026;
+        public static final int tvqty=0x7f0b0027;
+        public static final int tvqtynot=0x7f0b0028;
+        public static final int tvsqlQty=0x7f0b002b;
         public static final int wrap_content=0x7f0b000f;
     }
     public static final class integer {

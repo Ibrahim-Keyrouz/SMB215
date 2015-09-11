@@ -21,4 +21,13 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_marginBottom="34dp"
+        android:src="@drawable/gplus_signin" />
+
 </RelativeLayout>
