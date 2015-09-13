@@ -7,7 +7,7 @@ Ce projet comprend trois grandes parties :
 
      I- Les Applications.
     II- La Base de Données.
-   III- Les Configurations du projet.
+    III- Les Configurations du projet.
 
 I- Les Applications.
 Ce projet comprend trois applications :
@@ -19,6 +19,22 @@ b- STK_PRD_WS est une application web contenant des Restful Web Services permett
 c- SCANQR est une application Android qui permet de balayer les codes-barres des produits demandés dans un PurchaseID spécifié dans cette application , de faire un contrôle sur les quantités demandées, de créer une réception de ce PurchaseID avec les détails , de gérer le stock et de donner des notifications lors d'une diminution d'une quantité d'un produit dans un site spécifié dans les préférences de l'application. 
 
 II- La Base de Données (Oracle XE)
+Cette BD possède les tables suivantes :
+CATEGORY: représente les catégories des produits. Exemple : fourniture
+GROUPS_ACHAT : représente les rôles des utilisateurs. Exemple : Admin
+PRODUCT : représente les produits du CNAM. 
+PURCHASES : représente la demande d'achat.
+PURCHASES_DTL : représente le détails de la demande d'achat (Produits à demander)
+RECEPT : représente la réception.
+RECEPT_DTL : représente le détails de la réception.
+SITES : représente les sites (branches) du CNAM.
+STK_PRD : représente le stock des produits. 
+STK_TRS : représente chaque transaction faite dans le système. 
+SUPPLIER : représente les fournisseurs.
+SUPPLIER_PRODUCTS : représente les produits de chaque fournisseur.
+USERS_ACHAT : représente les utilisateurs du système. 
+
+
 
 III- Les Configurations du projet.
 L’environnement technique pour ce projet :
