@@ -14,6 +14,8 @@ public class SQLView extends Activity{
 	public void init() {
 		sqlinfo = (TextView)findViewById(R.id.tvSQLinfo);
 		sqlqty = (TextView)findViewById(R.id.tvsqlQty);
+		sqlinfo.setSingleLine(false);
+		sqlqty.setSingleLine(false);
 	}
 
 	@Override
@@ -28,8 +30,8 @@ public class SQLView extends Activity{
 		
 		o.close();
 		 for (int i = 0 ; i< data.size();i+=2){
-			sqlinfo.setText(data.get(i));
-			sqlqty.setText(data.get(i+1));
+			sqlinfo.setText(sqlinfo.getText()+" \n"+ data.get(i));
+			sqlqty.setText(sqlqty.getText()+" \n"+data.get(i+1));
 			
 		}
 		

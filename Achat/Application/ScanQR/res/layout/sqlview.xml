@@ -43,6 +43,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tlDB"
         android:layout_toRightOf="@+id/tvSQLinfo"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+         />
 
 </RelativeLayout>

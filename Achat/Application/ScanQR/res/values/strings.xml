@@ -6,6 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_redirect_class">RedirectClass</string>
     <string name="title_activity_error">ErrorActivity</string>
-    <string name ="ip">192.168.10.109</string>
+    <string name ="ip">192.168.0.103</string>
 
 </resources>
